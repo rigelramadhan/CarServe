@@ -1,7 +1,7 @@
 package one.reevdev.carserve.core.data.datasource.model
 
 data class ServiceAnalysisResult(
-    val id: Int,
+    val id: Int = 0,
     val vehicleId: Int,
     val recommendedAction: String,
     val findings: List<Finding>

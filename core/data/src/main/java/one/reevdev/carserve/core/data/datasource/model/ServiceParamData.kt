@@ -1,9 +1,9 @@
 package one.reevdev.carserve.core.data.datasource.model
 
-import java.io.File
+import android.graphics.Bitmap
 
 data class ServiceParamData(
     val symptoms: String,
     val generalProblem: String,
-    val photo: File? = null
+    val photo: Bitmap? = null
 )
