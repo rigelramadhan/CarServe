@@ -21,5 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "CarServe"
 include(":app")
-include(":core")
-include(":domain")
+include(":core:domain")
+include(":core:data")
