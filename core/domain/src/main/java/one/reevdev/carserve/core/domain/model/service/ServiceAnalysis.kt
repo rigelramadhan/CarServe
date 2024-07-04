@@ -4,10 +4,10 @@ data class ServiceAnalysis(
     val id: Int,
     val vehicleId: Int,
     val recommendedAction: String,
-    val findings: List<Finding>
+    val serviceFindings: List<ServiceFinding>
 )
 
-data class Finding(
+data class ServiceFinding(
     val problem: String,
     val solution: String,
     val estimatedPrice: Double,

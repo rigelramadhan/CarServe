@@ -1,8 +1,7 @@
 package one.reevdev.carserve.core.common.data
 
-sealed class Result<T>(data: T? = null, errorMessage: String? = null) {
-    data class Loading<T>(val data: T? = null) : Result<T>(data)
-    data class Success<T>(val data: T? = null) : Result<T>(data)
-    data class Error<T>(val error: Exception, val errorMessage: String? = null) :
-        Result<T>(errorMessage = errorMessage ?: error.localizedMessage)
+sealed class Result<out T> {
+    data class Loading<out T>(val data: T? = null) : Result<T>()
+    data class Success<out T>(val data: T) : Result<T>()
+    data class Error<out T>(val error: Exception, val errorMessage: String? = null) : Result<T>()
 }
