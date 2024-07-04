@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "one.reevdev.carserve.core.domain"
+    namespace = "one.reevdev.carserve.core.common"
     compileSdk = 34
 
     defaultConfig {
@@ -33,7 +33,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

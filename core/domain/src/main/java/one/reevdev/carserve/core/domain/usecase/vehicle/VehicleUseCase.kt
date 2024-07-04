@@ -1,7 +1,7 @@
 package one.reevdev.carserve.core.domain.usecase.vehicle
 
 import kotlinx.coroutines.flow.Flow
-import one.reevdev.carserve.core.domain.model.Result
+import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.domain.model.vehicle.Vehicle
 
 interface VehicleUseCase {

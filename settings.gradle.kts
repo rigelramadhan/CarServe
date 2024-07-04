@@ -23,3 +23,4 @@ rootProject.name = "CarServe"
 include(":app")
 include(":core:domain")
 include(":core:data")
+include(":core:common")

@@ -1,7 +1,7 @@
 package one.reevdev.carserve.core.domain.usecase.service
 
 import kotlinx.coroutines.flow.Flow
-import one.reevdev.carserve.core.domain.model.Result
+import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.domain.model.service.ServiceAnalysis
 import one.reevdev.carserve.core.domain.model.service.ServiceParam
 

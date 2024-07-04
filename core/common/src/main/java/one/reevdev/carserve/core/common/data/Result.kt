@@ -1,4 +1,4 @@
-package one.reevdev.carserve.core.domain.model
+package one.reevdev.carserve.core.common.data
 
 sealed class Result<T>(data: T? = null, errorMessage: String? = null) {
     data class Loading<T>(val data: T? = null) : Result<T>(data)
