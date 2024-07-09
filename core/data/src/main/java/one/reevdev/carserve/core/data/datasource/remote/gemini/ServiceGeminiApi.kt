@@ -23,6 +23,14 @@ class ServiceGeminiApi @Inject constructor() {
 
     private val chatHistory: MutableList<Content> = mutableListOf()
 
+    init {
+        chatHistory.add(
+            content {
+                text(InstructionPrompt.initializeServiceAnalysisResponse())
+            }
+        )
+    }
+
     suspend fun analyzeService(param: ServiceParamData): ServiceAnalysisResult {
         val chat = generativeModel.startChat(chatHistory)
         val instruction = InstructionPrompt.analyzeCar(param.symptoms, param.generalProblem)

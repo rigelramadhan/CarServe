@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -50,7 +51,7 @@ fun CameraScreen(
     val imageCapture = remember { ImageCapture.Builder().build() }
 
     LaunchedEffect(lensFacing) {
-        setupCamera(context, lifecycleOwner, cameraSelector, preview, previewView)
+        setupCamera(context, lifecycleOwner, cameraSelector, preview, previewView, imageCapture)
     }
 
     Box(modifier = modifier.fillMaxSize()) {
@@ -87,11 +88,12 @@ private suspend fun setupCamera(
     lifecycleOwner: LifecycleOwner,
     cameraSelector: CameraSelector,
     preview: Preview,
-    previewView: PreviewView
+    previewView: PreviewView,
+    imageCapture: ImageCapture,
 ) {
     val cameraProvider = context.getCameraProvider()
     cameraProvider.unbindAll()
-    cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview)
+    cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageCapture)
     preview.setSurfaceProvider(previewView.surfaceProvider)
 }
 
@@ -121,6 +123,7 @@ private fun captureImage(imageCapture: ImageCapture, context: Context, onSuccess
 
             override fun onError(exception: ImageCaptureException) {
                 // TODO: Log error
+                Log.e("TEST", exception.localizedMessage.orEmpty())
             }
         }
     )
