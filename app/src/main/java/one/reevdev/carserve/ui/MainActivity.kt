@@ -1,4 +1,4 @@
-package one.reevdev.carserve
+package one.reevdev.carserve.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-
+                    CarServeApp()
                 }
             }
         }
