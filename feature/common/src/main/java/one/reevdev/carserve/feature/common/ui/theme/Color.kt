@@ -1,4 +1,4 @@
-package one.reevdev.carserve.ui.theme
+package one.reevdev.carserve.feature.common.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
