@@ -1,6 +1,5 @@
 package one.reevdev.carserve.feature.service.screen.analysis
 
-import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -24,9 +23,11 @@ fun ServiceAnalysisRouter(
         viewModel.analyzeVehicle(param)
     }
 
-    Scaffold { innerPadding ->
+    Scaffold(
+        modifier = modifier
+    ) { innerPadding ->
         ServiceAnalysisScreen(
-            modifier = modifier
+            modifier = Modifier
                 .padding(innerPadding),
             findings = uiState.serviceAnalysis.serviceFindings,
             recommendedAction = uiState.serviceAnalysis.recommendedAction,

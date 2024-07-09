@@ -5,4 +5,7 @@
     <string name="label_analysis">Analysis</string>
     <string name="label_recommendations">Recommendations</string>
     <string name="format_analysis_found">(%1$s Result)</string>
+    <string name="label_symptoms">Symptoms</string>
+    <string name="label_other_complaints">Other Complaints</string>
+    <string name="label_proceed">Proceed</string>
 </resources>
