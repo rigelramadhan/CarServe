@@ -30,3 +30,23 @@ fun <Original, Mapped> Flow<Result<Original>>.mapFlowData(
         }
     }
 }
+
+fun <T, UiState> Result<T>.handleResource(
+    onSuccess: (T) -> UiState,
+    onFailure: (Throwable, String?) -> UiState,
+    onLoading: (T?) -> UiState
+): UiState {
+    return when (this) {
+        is Result.Success -> {
+            onSuccess(this.data)
+        }
+
+        is Result.Error -> {
+            onFailure(this.error, this.errorMessage)
+        }
+
+        is Result.Loading -> {
+            onLoading(this.data)
+        }
+    }
+}

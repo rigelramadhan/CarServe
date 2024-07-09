@@ -4,4 +4,5 @@
     <string name="content_description_analyzed_vehicle_image">Analyzed vehicle image</string>
     <string name="label_analysis">Analysis</string>
     <string name="label_recommendations">Recommendations</string>
+    <string name="format_analysis_found">(%1$s Result)</string>
 </resources>

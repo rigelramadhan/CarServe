@@ -11,7 +11,8 @@ fun ServiceAnalysisResult.toDomain() = ServiceAnalysis(
     id = id,
     vehicleId = vehicleId,
     recommendedAction = recommendedAction,
-    serviceFindings = findings.map { it.toDomain() }
+    serviceFindings = findings.map { it.toDomain() },
+    totalEstimatedPrice = findings.sumOf { it.estimatedPrice }
 )
 
 fun Finding.toDomain() = ServiceFinding(
