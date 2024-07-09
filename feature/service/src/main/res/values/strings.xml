@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="content_description_capture_image">Capture image</string>
+    <string name="content_description_analyzed_vehicle_image">Analyzed vehicle image</string>
+    <string name="label_analysis">Analysis</string>
+    <string name="label_recommendations">Recommendations</string>
 </resources>
