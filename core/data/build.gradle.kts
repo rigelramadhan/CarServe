@@ -52,6 +52,9 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.retrofit)
     implementation(libs.gson)
+    implementation(libs.google.api.client)
+    implementation(libs.google.oauth.client.jetty)
+    implementation(libs.google.api.services.sheets)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.room.ktx)

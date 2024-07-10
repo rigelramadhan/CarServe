@@ -8,6 +8,7 @@ import one.reevdev.carserve.core.data.BuildConfig
 import one.reevdev.carserve.core.data.datasource.model.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.datasource.model.ServiceParamData
 import one.reevdev.carserve.core.data.datasource.remote.gemini.prompt.InstructionPrompt
+import one.reevdev.carserve.core.data.datasource.remote.sheet.AvailableService
 import one.reevdev.carserve.core.data.utils.toContent
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -31,9 +32,13 @@ class ServiceGeminiApi @Inject constructor() {
         )
     }
 
-    suspend fun analyzeService(param: ServiceParamData): ServiceAnalysisResult {
+    suspend fun analyzeService(
+        param: ServiceParamData,
+        availableServices: List<AvailableService>
+    ): ServiceAnalysisResult {
         val chat = generativeModel.startChat(chatHistory)
-        val instruction = InstructionPrompt.analyzeCar(param.symptoms, param.generalProblem)
+        val instruction =
+            InstructionPrompt.analyzeCar(param.symptoms, param.generalProblem, availableServices)
 
         val content = content {
             text(instruction)
