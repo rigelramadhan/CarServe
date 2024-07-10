@@ -1,7 +1,7 @@
 package one.reevdev.carserve.core.data.di
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import one.reevdev.carserve.core.data.utils.resourceprovider.AndroidResourceProvider
@@ -11,6 +11,6 @@ import one.reevdev.carserve.core.data.utils.resourceprovider.ResourceProvider
 @InstallIn(SingletonComponent::class)
 interface ResourceModule {
 
-    @Provides
+    @Binds
     fun provideResourceProvider(resourceProvider: AndroidResourceProvider): ResourceProvider
 }

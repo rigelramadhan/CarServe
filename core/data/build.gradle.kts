@@ -52,9 +52,11 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.retrofit)
     implementation(libs.gson)
-    implementation(libs.google.api.client)
+    implementation(libs.google.api.client.android)
+    implementation(libs.google.api.client.gson)
     implementation(libs.google.oauth.client.jetty)
     implementation(libs.google.api.services.sheets)
+    implementation("com.google.android.gms:play-services-auth:19.0.0")
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.room.ktx)

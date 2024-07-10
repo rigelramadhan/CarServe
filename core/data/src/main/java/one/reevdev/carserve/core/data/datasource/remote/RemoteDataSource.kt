@@ -16,15 +16,19 @@ class RemoteDataSource @Inject constructor(
     private val geminiApi: ServiceGeminiApi,
     private val sheetsManager: SheetsManager
 ) {
-    private fun getServicesList(): List<AvailableService> = sheetsManager.getAvailableService()
+    private suspend fun getServicesList(): Flow<List<AvailableService>?> = sheetsManager.getAvailableService()
 
     fun analyzeService(param: ServiceParamData): Flow<Result<ServiceAnalysisResult>> = flow {
         emit(Result.Loading())
-        try {
-            val data = geminiApi.analyzeService(param, getServicesList())
-            emit(Result.Success(data))
-        } catch (e: Exception) {
-            emit(Result.Error(e))
+        getServicesList().collect {
+            it?.let {
+                try {
+                    val data = geminiApi.analyzeService(param, it)
+                    emit(Result.Success(data))
+                } catch (e: Exception) {
+                    emit(Result.Error(e))
+                }
+            }
         }
     }
 }

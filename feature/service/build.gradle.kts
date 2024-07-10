@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.coil.compose)
     implementation(libs.androidx.exifinterface)
+    implementation("com.google.guava:guava:33.2.1-android")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
