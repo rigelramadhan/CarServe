@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -97,14 +99,16 @@ fun ServiceAnalysisScreen(
             }
         }
 
-        item {
-            Text(
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .padding(top = 24.dp),
-                text = estimatedPrice.toRupiahCurrency(),
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Light)
-            )
+        if (estimatedPrice > 0.0) {
+            item {
+                Text(
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
+                        .padding(top = 24.dp),
+                    text = estimatedPrice.toRupiahCurrency(),
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Light)
+                )
+            }
         }
     }
 }
@@ -124,17 +128,31 @@ fun FindingComponent(
         Text(
             modifier = Modifier,
             text = problem,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyLarge
+        )
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = stringResource(R.string.label_solution),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
         )
         Text(
             modifier = Modifier,
             text = potentialSolve,
             style = MaterialTheme.typography.bodyMedium
         )
+        Spacer(modifier = Modifier.height(12.dp))
+        val finalPrice =
+            if (estimatedPrice <= 0.0) "No cost"
+            else stringResource(
+                R.string.format_estimated_price,
+                estimatedPrice.toRupiahCurrency()
+            )
         Text(
             modifier = Modifier,
-            text = estimatedPrice.toRupiahCurrency(),
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+            text = finalPrice,
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Light)
         )
     }
 }
@@ -146,7 +164,7 @@ private fun ServiceAnalysisPreview() {
         ServiceAnalysisScreen(
             findings = listOf(
                 ServiceFinding("Problem 1", "Solution 1", 24500.0),
-                ServiceFinding("Problem 2", "Solution 2", 124500.0),
+                ServiceFinding("Problem 2", "Solution 2", 0.0),
                 ServiceFinding("Problem 3", "Solution 3", 624500.0),
             ),
             recommendedAction = "This is the recommended action of the problem",

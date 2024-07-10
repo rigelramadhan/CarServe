@@ -8,4 +8,6 @@
     <string name="label_symptoms">Symptoms</string>
     <string name="label_other_complaints">Other Complaints</string>
     <string name="label_proceed">Proceed</string>
+    <string name="format_estimated_price">Estimated Price: %1$s</string>
+    <string name="label_solution">Solution</string>
 </resources>

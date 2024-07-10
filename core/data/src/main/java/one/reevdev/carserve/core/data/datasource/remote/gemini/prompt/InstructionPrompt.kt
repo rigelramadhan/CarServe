@@ -15,7 +15,7 @@ object InstructionPrompt {
         1. The findings (can be more than 1, each consists of the problem, solution, and estimated price)
         2. The recommended action generally
         
-        Based on this data:
+        Prioritize picking the solution from this list:
         ${SampleData.servicesList}
         
         If the image is not a car, tell the user that it's not a car but still give findings and recommendation
