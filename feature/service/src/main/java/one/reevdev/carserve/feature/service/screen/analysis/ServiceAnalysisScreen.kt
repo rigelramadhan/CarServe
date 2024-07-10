@@ -104,7 +104,7 @@ fun ServiceAnalysisScreen(
                 Text(
                     modifier = Modifier
                         .padding(horizontal = 24.dp)
-                        .padding(top = 24.dp),
+                        .padding(vertical = 24.dp),
                     text = estimatedPrice.toRupiahCurrency(),
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Light)
                 )
@@ -130,7 +130,10 @@ fun FindingComponent(
             text = problem,
             style = MaterialTheme.typography.bodyLarge
         )
-        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = 8.dp),
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
+        )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = stringResource(R.string.label_solution),

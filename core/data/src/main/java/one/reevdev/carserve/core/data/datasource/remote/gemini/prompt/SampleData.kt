@@ -7,7 +7,7 @@ object SampleData {
 
     val serviceResult = ServiceAnalysisResult(
         vehicleId = 25,
-        recommendedAction = "Take to nearest service",
+        recommendedAction = "Recommended action 1",
         findings = listOf(
             Finding(
                 problem = "The problem",
