@@ -1,9 +1,8 @@
 package one.reevdev.carserve.feature.service.screen.analysis
 
-import android.net.Uri
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -35,22 +34,24 @@ fun ServiceAnalysisScreen(
     findings: List<ServiceFinding> = emptyList(),
     recommendedAction: String,
     estimatedPrice: Double,
-    image: Uri? = null,
+    image: Bitmap? = null,
 ) {
     LazyColumn(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
     ) {
-        item {
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-                    .background(Color(0xFFCDEDED)),
-                painter = rememberAsyncImagePainter(model = image),
-                contentDescription = stringResource(R.string.content_description_analyzed_vehicle_image),
-                contentScale = ContentScale.Crop,
-            )
+        image?.let { image ->
+            item {
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f)
+                        .background(Color(0xFFCDEDED)),
+                    painter = rememberAsyncImagePainter(model = image),
+                    contentDescription = stringResource(R.string.content_description_analyzed_vehicle_image),
+                    contentScale = ContentScale.Crop,
+                )
+            }
         }
 
         item {

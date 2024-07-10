@@ -9,13 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import one.reevdev.carserve.feature.service.component.CameraScreen
-import one.reevdev.carserve.feature.service.screen.AnalysisSharedViewModel
+import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.utils.toBitmap
 
 @Composable
 fun AnalysisCameraRouter(
     modifier: Modifier = Modifier,
-    viewModel: AnalysisSharedViewModel = hiltViewModel(),
+    viewModel: ServiceAnalysisViewModel = hiltViewModel(),
     context: Context = LocalContext.current,
     proceedToForm: (Uri?) -> Unit,
 ) {

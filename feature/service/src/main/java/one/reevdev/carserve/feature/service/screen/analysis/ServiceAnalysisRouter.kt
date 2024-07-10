@@ -8,19 +8,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import one.reevdev.carserve.core.domain.model.service.ServiceParam
 import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
 
 @Composable
 fun ServiceAnalysisRouter(
     modifier: Modifier = Modifier,
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
-    param: ServiceParam,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(true) {
-        viewModel.analyzeVehicle(param)
+        viewModel.analyzeVehicle(uiState.param)
     }
 
     Scaffold(
@@ -31,7 +29,8 @@ fun ServiceAnalysisRouter(
                 .padding(innerPadding),
             findings = uiState.serviceAnalysis.serviceFindings,
             recommendedAction = uiState.serviceAnalysis.recommendedAction,
-            estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice
+            estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
+            image = uiState.param.photo
         )
     }
 

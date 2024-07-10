@@ -1,5 +1,6 @@
 package one.reevdev.carserve.feature.service.screen.analysis
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -58,10 +59,29 @@ class ServiceAnalysisViewModel @Inject constructor(
                 }
         }
     }
+
+    fun setSymptoms(symptoms: String) {
+        _uiState.update {
+            it.copy(param = it.param.copy(symptoms = symptoms))
+        }
+    }
+
+    fun setGeneralProblem(generalProblem: String) {
+        _uiState.update {
+            it.copy(param = it.param.copy(generalProblem = generalProblem))
+        }
+    }
+
+    fun setPhoto(photo: Bitmap?) {
+        _uiState.update {
+            it.copy(param = it.param.copy(photo = photo))
+        }
+    }
 }
 
 data class AnalysisUiState(
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
     val serviceAnalysis: ServiceAnalysis = ServiceAnalysis(),
+    val param: ServiceParam = ServiceParam()
 )

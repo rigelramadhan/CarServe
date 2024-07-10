@@ -18,9 +18,9 @@ class ServiceRepositoryImpl @Inject constructor(
         emit(Result.Loading())
         try {
             val data = geminiApi.analyzeService(param)
-            Result.Success(data)
+            emit(Result.Success(data))
         } catch (e: Exception) {
-            Result.Error(e)
+            emit(Result.Error(e))
         }
     }
 

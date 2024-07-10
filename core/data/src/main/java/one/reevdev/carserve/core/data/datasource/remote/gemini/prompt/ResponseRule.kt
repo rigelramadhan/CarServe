@@ -4,8 +4,8 @@ import one.reevdev.carserve.core.common.data.toJson
 
 object ResponseRule {
     private const val JSON_GENERAL_RULE= """
-        Please return a raw JSON response with the following structure without any formatting because 
-        it will be deserialized by GSON:
+        Please ALWAYS return a RAW JSON response without any formatting. Return success with the 
+        following STRUCTURE (ignore the values) because it will be deserialized by GSON:
     """
 
     val SERVICE_JSON = """

@@ -4,10 +4,9 @@ import android.net.Uri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import one.reevdev.carserve.core.domain.model.service.ServiceParam
 import one.reevdev.carserve.feature.service.screen.AnalysisRouter
-import one.reevdev.carserve.feature.service.screen.AnalysisSharedViewModel
 import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisRouter
+import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.screen.camera.AnalysisCameraRouter
 import one.reevdev.carserve.feature.service.screen.symptom.SymptomFormRouter
 
@@ -16,7 +15,7 @@ fun NavController.navigateToCamera() {
 }
 
 fun NavGraphBuilder.cameraScreen(
-    viewModel: AnalysisSharedViewModel,
+    viewModel: ServiceAnalysisViewModel,
     proceedToForm: (Uri?) -> Unit,
 ) {
     composable(route = AnalysisRoutes.Camera.route) {
@@ -32,7 +31,7 @@ fun NavController.navigateToForm() {
 }
 
 fun NavGraphBuilder.formScreen(
-    viewModel: AnalysisSharedViewModel,
+    viewModel: ServiceAnalysisViewModel,
     proceedToAnalysis: () -> Unit,
 ) {
     composable(route = AnalysisRoutes.Form.route) {
@@ -48,10 +47,10 @@ fun NavController.navigateToAnalysis() {
 }
 
 fun NavGraphBuilder.analysisScreen(
-    param: ServiceParam,
+    viewModel: ServiceAnalysisViewModel
 ) {
     composable(route = AnalysisRoutes.Analysis.route) {
-        ServiceAnalysisRouter(param = param)
+        ServiceAnalysisRouter(viewModel = viewModel)
     }
 }
 

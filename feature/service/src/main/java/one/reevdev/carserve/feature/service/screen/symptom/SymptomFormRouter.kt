@@ -3,12 +3,12 @@ package one.reevdev.carserve.feature.service.screen.symptom
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import one.reevdev.carserve.feature.service.screen.AnalysisSharedViewModel
+import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisViewModel
 
 @Composable
 fun SymptomFormRouter(
     modifier: Modifier = Modifier,
-    viewModel: AnalysisSharedViewModel = hiltViewModel(),
+    viewModel: ServiceAnalysisViewModel = hiltViewModel(),
     proceedToAnalysis: () -> Unit,
 ) {
     SymptomFormScreen(

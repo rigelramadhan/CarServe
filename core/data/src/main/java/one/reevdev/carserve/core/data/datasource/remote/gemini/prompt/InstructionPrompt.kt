@@ -18,6 +18,9 @@ object InstructionPrompt {
         Based on this data:
         ${SampleData.servicesList}
         
+        If the image is not a car, tell the user that it's not a car but still give findings and recommendation
+        based on the given symptoms and general problem.
+        
         Here are the symptoms and problems I found.
         Symptoms: $symptoms
         General problem: $problem
