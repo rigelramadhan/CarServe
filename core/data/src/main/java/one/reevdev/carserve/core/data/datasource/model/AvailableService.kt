@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class AvailableService(
     @SerializedName("service")
     val service: String,
-    @SerializedName("price")
+    @SerializedName("estimated_price")
     val price: Double
 )

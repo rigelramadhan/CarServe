@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.retrofit)
+    implementation (libs.converter.gson)
     implementation(libs.gson)
     implementation(libs.retrosheet)
 

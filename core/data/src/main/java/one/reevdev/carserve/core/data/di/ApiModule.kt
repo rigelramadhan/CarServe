@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import one.reevdev.carserve.core.data.datasource.remote.sheet.SheetApi
+import one.reevdev.carserve.core.data.datasource.remote.sheet.SheetsApi
 import retrofit2.Retrofit
 
 @Module
@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 object ApiModule {
 
     @Provides
-    fun provideApi(retrofit: Retrofit): SheetApi {
-        return retrofit.create(SheetApi::class.java)
+    fun provideApi(retrofit: Retrofit): SheetsApi {
+        return retrofit.create(SheetsApi::class.java)
     }
 }
