@@ -2,8 +2,6 @@ package one.reevdev.carserve.feature.service.screen.camera
 
 import android.content.Context
 import android.net.Uri
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,19 +17,14 @@ fun AnalysisCameraRouter(
     context: Context = LocalContext.current,
     proceedToForm: (Uri?) -> Unit,
 ) {
-    Scaffold(
-        modifier = modifier
-    ) { innerPadding ->
-        CameraScreen(
-            modifier = Modifier
-                .padding(innerPadding),
-            onCapturePressed = {
-                viewModel.setLoading(true)
-            },
-            onSuccessCapture = {
-                viewModel.setPhoto(it?.toBitmap(context))
-                proceedToForm(it)
-            }
-        )
-    }
+    CameraScreen(
+        modifier = modifier,
+        onCapturePressed = {
+            viewModel.setLoading(true)
+        },
+        onSuccessCapture = {
+            viewModel.setPhoto(it?.toBitmap(context))
+            proceedToForm(it)
+        }
+    )
 }
