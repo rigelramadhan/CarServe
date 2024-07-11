@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import one.reevdev.carserve.feature.service.component.CameraScreen
-import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisViewModel
+import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.utils.toBitmap
 
 @Composable
@@ -25,6 +25,9 @@ fun AnalysisCameraRouter(
         CameraScreen(
             modifier = Modifier
                 .padding(innerPadding),
+            onCapturePressed = {
+                viewModel.setLoading(true)
+            },
             onSuccessCapture = {
                 viewModel.setPhoto(it?.toBitmap(context))
                 proceedToForm(it)

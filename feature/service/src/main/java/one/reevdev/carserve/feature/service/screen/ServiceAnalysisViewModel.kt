@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.service.screen.analysis
+package one.reevdev.carserve.feature.service.screen
 
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
@@ -75,6 +75,12 @@ class ServiceAnalysisViewModel @Inject constructor(
     fun setPhoto(photo: Bitmap?) {
         _uiState.update {
             it.copy(param = it.param.copy(photo = photo))
+        }
+    }
+
+    fun setLoading(isLoading: Boolean) {
+        _uiState.update {
+            it.copy(isLoading = isLoading)
         }
     }
 }

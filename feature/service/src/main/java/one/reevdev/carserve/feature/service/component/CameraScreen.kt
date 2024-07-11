@@ -14,6 +14,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material3.FloatingActionButton
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
@@ -39,6 +41,7 @@ fun CameraScreen(
     context: Context = LocalContext.current,
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     lensFacing: Int = CameraSelector.LENS_FACING_BACK,
+    onCapturePressed: (() -> Unit)? = null,
     onSuccessCapture: (Uri?) -> Unit,
 ) {
     val preview = remember { Preview.Builder().build() }
@@ -57,9 +60,12 @@ fun CameraScreen(
     Box(modifier = modifier.fillMaxSize()) {
         AndroidView(modifier = Modifier.fillMaxSize(), factory = { previewView })
         CaptureButton(
-            modifier = Modifier.align(Alignment.BottomCenter),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 32.dp),
             imageCapture = imageCapture,
             context = context,
+            onButtonClick = onCapturePressed,
             onSuccessCapture = onSuccessCapture
         )
     }
@@ -70,11 +76,15 @@ fun CaptureButton(
     modifier: Modifier = Modifier,
     imageCapture: ImageCapture,
     context: Context,
+    onButtonClick: (() -> Unit)? = null,
     onSuccessCapture: (Uri?) -> Unit
 ) {
     FloatingActionButton(
         modifier = modifier,
-        onClick = { captureImage(imageCapture, context, onSuccessCapture) }
+        onClick = {
+            onButtonClick?.invoke()
+            captureImage(imageCapture, context, onSuccessCapture)
+        }
     ) {
         Icon(
             imageVector = Icons.Filled.Camera,

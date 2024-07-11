@@ -8,7 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
+import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 
 @Composable
 fun ServiceAnalysisRouter(
@@ -32,9 +32,5 @@ fun ServiceAnalysisRouter(
             estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
             image = uiState.param.photo
         )
-    }
-
-    if (uiState.isLoading) {
-        LoadingDialog()
     }
 }

@@ -85,17 +85,19 @@ fun ServiceAnalysisScreen(
         }
 
         item {
-            CardColumn(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 16.dp),
-                label = stringResource(R.string.label_recommendations),
-            ) {
-                Text(
-                    modifier = Modifier,
-                    text = recommendedAction,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+            if (recommendedAction.isNotBlank()) {
+                CardColumn(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 16.dp),
+                    label = stringResource(R.string.label_recommendations),
+                ) {
+                    Text(
+                        modifier = Modifier,
+                        text = recommendedAction,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
 

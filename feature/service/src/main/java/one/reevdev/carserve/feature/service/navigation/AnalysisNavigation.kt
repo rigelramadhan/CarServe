@@ -5,8 +5,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import one.reevdev.carserve.feature.service.screen.AnalysisRouter
+import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisRouter
-import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.screen.camera.AnalysisCameraRouter
 import one.reevdev.carserve.feature.service.screen.symptom.SymptomFormRouter
 
