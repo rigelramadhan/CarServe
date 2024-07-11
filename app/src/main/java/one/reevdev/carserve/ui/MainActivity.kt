@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 
@@ -18,6 +19,7 @@ import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         checkCameraPermission()
         setContent {
             CarServeTheme {
