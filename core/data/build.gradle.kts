@@ -51,7 +51,9 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.retrofit)
+    implementation (libs.converter.gson)
     implementation(libs.gson)
+    implementation(libs.retrosheet)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.room.ktx)
