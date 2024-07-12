@@ -5,6 +5,7 @@ coilCompose = "2.6.0"
 converterGson = "2.9.0"
 hiltNavigationCompose = "1.2.0"
 kotlin = "1.9.0"
+ksp = "1.8.10-1.0.9"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -73,6 +74,7 @@ androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterfa
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 google-android-libraries-mapsplatform-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

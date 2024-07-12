@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
-import one.reevdev.carserve.core.domain.model.service.ServiceAnalysis
-import one.reevdev.carserve.core.domain.model.service.ServiceParam
-import one.reevdev.carserve.core.domain.model.vehicle.VehicleParam
-import one.reevdev.carserve.core.domain.usecase.service.ServiceUseCase
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
+import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceUseCase
+import one.reevdev.carserve.core.domain.feature.vehicle.model.VehicleParam
 import javax.inject.Inject
 
 @HiltViewModel
