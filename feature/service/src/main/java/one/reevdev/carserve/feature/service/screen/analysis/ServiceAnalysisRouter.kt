@@ -1,7 +1,5 @@
 package one.reevdev.carserve.feature.service.screen.analysis
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -21,16 +19,11 @@ fun ServiceAnalysisRouter(
         viewModel.analyzeVehicle(uiState.param)
     }
 
-    Scaffold(
-        modifier = modifier
-    ) { innerPadding ->
-        ServiceAnalysisScreen(
-            modifier = Modifier
-                .padding(innerPadding),
-            findings = uiState.serviceAnalysis.serviceFindings,
-            recommendedAction = uiState.serviceAnalysis.recommendedAction,
-            estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
-            image = uiState.param.photo
-        )
-    }
+    ServiceAnalysisScreen(
+        modifier = modifier,
+        findings = uiState.serviceAnalysis.serviceFindings,
+        recommendedAction = uiState.serviceAnalysis.recommendedAction,
+        estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
+        image = uiState.param.photo
+    )
 }

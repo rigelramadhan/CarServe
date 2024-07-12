@@ -54,6 +54,10 @@ fun NavGraphBuilder.analysisScreen(
     }
 }
 
+fun NavController.navigateToService() {
+    navigate(ServiceRoutes.Service.route)
+}
+
 fun NavGraphBuilder.serviceScreen() {
     composable(route = ServiceRoutes.Service.route) {
         AnalysisRouter()

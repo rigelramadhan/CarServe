@@ -1,13 +1,21 @@
 package one.reevdev.carserve.feature.service.screen
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.launch
 import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
 import one.reevdev.carserve.feature.service.navigation.AnalysisRoutes
 import one.reevdev.carserve.feature.service.navigation.analysisScreen
@@ -24,19 +32,37 @@ fun AnalysisRouter(
     navController: NavHostController = rememberNavController(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
-    NavHost(
+    LaunchedEffect(key1 = uiState.errorMessage) {
+        uiState.errorMessage?.let {
+            scope.launch {
+                snackbarHostState.showSnackbar(it)
+            }
+        }
+    }
+
+    Scaffold(
         modifier = modifier,
-        navController = navController,
-        startDestination = startDestination
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        }
     ) {
-        cameraScreen(viewModel) {
-            navController.navigateToForm()
+        NavHost(
+            modifier = Modifier
+                .padding(it),
+            navController = navController,
+            startDestination = startDestination
+        ) {
+            cameraScreen(viewModel) {
+                navController.navigateToForm()
+            }
+            formScreen(viewModel) {
+                navController.navigateToAnalysis()
+            }
+            analysisScreen(viewModel)
         }
-        formScreen(viewModel) {
-            navController.navigateToAnalysis()
-        }
-        analysisScreen(viewModel)
     }
 
     if (uiState.isLoading) {
