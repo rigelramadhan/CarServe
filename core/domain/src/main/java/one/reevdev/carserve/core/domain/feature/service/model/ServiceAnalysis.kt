@@ -1,7 +1,7 @@
-package one.reevdev.carserve.core.domain.model.service
+package one.reevdev.carserve.core.domain.feature.service.model
 
 import one.reevdev.carserve.core.common.data.emptyString
-import one.reevdev.carserve.core.domain.model.vehicle.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 
 data class ServiceAnalysis(
     val vehicle: Vehicle? = null,

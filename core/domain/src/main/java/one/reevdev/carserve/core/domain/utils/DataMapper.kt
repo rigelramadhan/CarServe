@@ -5,11 +5,11 @@ import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisRe
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
 import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleData
 import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleParamData
-import one.reevdev.carserve.core.domain.model.service.ServiceAnalysis
-import one.reevdev.carserve.core.domain.model.service.ServiceFinding
-import one.reevdev.carserve.core.domain.model.service.ServiceParam
-import one.reevdev.carserve.core.domain.model.vehicle.Vehicle
-import one.reevdev.carserve.core.domain.model.vehicle.VehicleParam
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.VehicleParam
 
 fun ServiceAnalysisResult.toDomain() = ServiceAnalysis(
     vehicle = vehicle.toDomain(),

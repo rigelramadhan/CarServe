@@ -28,8 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import one.reevdev.carserve.core.common.data.toRupiahCurrency
-import one.reevdev.carserve.core.domain.model.service.ServiceFinding
-import one.reevdev.carserve.core.domain.model.vehicle.Vehicle
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.LabelText
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
