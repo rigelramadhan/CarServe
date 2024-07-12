@@ -1,4 +1,4 @@
-package one.reevdev.carserve.core.data.datasource.model
+package one.reevdev.carserve.core.data.datasource.model.service
 
 import com.google.gson.annotations.SerializedName
 

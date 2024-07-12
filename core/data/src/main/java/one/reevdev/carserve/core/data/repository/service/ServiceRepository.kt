@@ -2,8 +2,8 @@ package one.reevdev.carserve.core.data.repository.service
 
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
-import one.reevdev.carserve.core.data.datasource.model.ServiceAnalysisResult
-import one.reevdev.carserve.core.data.datasource.model.ServiceParamData
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
 
 interface ServiceRepository {
 

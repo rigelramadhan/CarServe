@@ -1,12 +1,13 @@
 package one.reevdev.carserve.core.data.datasource.remote.gemini.prompt
 
-import one.reevdev.carserve.core.data.datasource.model.Finding
-import one.reevdev.carserve.core.data.datasource.model.ServiceAnalysisResult
+import one.reevdev.carserve.core.data.datasource.model.service.Finding
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
+import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleData
 
 object SampleData {
 
     val serviceResult = ServiceAnalysisResult(
-        vehicleId = 25,
+        vehicle = VehicleData("Car Name 1", "Color 1", "Transmission"),
         recommendedAction = "Recommended action 1",
         findings = listOf(
             Finding(

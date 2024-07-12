@@ -9,6 +9,7 @@ import one.reevdev.carserve.feature.service.navigation.navigateToService
 import one.reevdev.carserve.feature.service.navigation.serviceScreen
 import one.reevdev.carserve.ui.navigation.MainRoutes
 import one.reevdev.carserve.ui.navigation.homeScreen
+import one.reevdev.carserve.ui.navigation.navigateToHome
 
 @Composable
 fun CarServeApp(
@@ -22,6 +23,6 @@ fun CarServeApp(
         startDestination = startDestination
     ) {
         homeScreen { navController.navigateToService() }
-        serviceScreen()
+        serviceScreen { navController.navigateToHome(clearBackStack = true) }
     }
 }

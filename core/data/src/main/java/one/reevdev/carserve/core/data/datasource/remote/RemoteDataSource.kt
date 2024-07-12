@@ -3,8 +3,8 @@ package one.reevdev.carserve.core.data.datasource.remote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import one.reevdev.carserve.core.common.data.Result
-import one.reevdev.carserve.core.data.datasource.model.ServiceAnalysisResult
-import one.reevdev.carserve.core.data.datasource.model.ServiceParamData
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
 import one.reevdev.carserve.core.data.datasource.remote.gemini.ServiceGeminiApi
 import one.reevdev.carserve.core.data.datasource.remote.sheet.SheetsApi
 import javax.inject.Inject

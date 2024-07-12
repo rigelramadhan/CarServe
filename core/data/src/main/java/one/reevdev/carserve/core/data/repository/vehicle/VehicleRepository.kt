@@ -1,7 +1,7 @@
 package one.reevdev.carserve.core.data.repository.vehicle
 
 import kotlinx.coroutines.flow.Flow
-import one.reevdev.carserve.core.data.datasource.model.VehicleData
+import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleData
 
 interface VehicleRepository {
 
