@@ -23,6 +23,8 @@ import one.reevdev.carserve.feature.service.navigation.cameraScreen
 import one.reevdev.carserve.feature.service.navigation.formScreen
 import one.reevdev.carserve.feature.service.navigation.navigateToAnalysis
 import one.reevdev.carserve.feature.service.navigation.navigateToForm
+import one.reevdev.carserve.vehicle.navigation.addVehicleScreen
+import one.reevdev.carserve.vehicle.navigation.navigateToAddToCar
 
 @Composable
 fun AnalysisRouter(
@@ -56,6 +58,11 @@ fun AnalysisRouter(
             startDestination = startDestination
         ) {
             cameraScreen(viewModel) {
+                navController.navigateToAddToCar()
+                viewModel.setLoading(false)
+            }
+            addVehicleScreen { vehicle ->
+                viewModel.setVehicle(vehicle)
                 navController.navigateToForm()
             }
             formScreen(viewModel) {

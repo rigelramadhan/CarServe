@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
 import one.reevdev.carserve.core.domain.model.service.ServiceAnalysis
 import one.reevdev.carserve.core.domain.model.service.ServiceParam
+import one.reevdev.carserve.core.domain.model.vehicle.VehicleParam
 import one.reevdev.carserve.core.domain.usecase.service.ServiceUseCase
 import javax.inject.Inject
 
@@ -81,6 +82,12 @@ class ServiceAnalysisViewModel @Inject constructor(
     fun setLoading(isLoading: Boolean) {
         _uiState.update {
             it.copy(isLoading = isLoading)
+        }
+    }
+
+    fun setVehicle(vehicle: VehicleParam) {
+        _uiState.update {
+            it.copy(param = it.param.copy(vehicle = vehicle))
         }
     }
 }
