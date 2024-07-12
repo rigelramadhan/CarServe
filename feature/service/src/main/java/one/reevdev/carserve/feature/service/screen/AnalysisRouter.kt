@@ -17,12 +17,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
-import one.reevdev.carserve.feature.service.navigation.AnalysisRoutes
 import one.reevdev.carserve.feature.service.navigation.analysisScreen
 import one.reevdev.carserve.feature.service.navigation.cameraScreen
 import one.reevdev.carserve.feature.service.navigation.formScreen
 import one.reevdev.carserve.feature.service.navigation.navigateToAnalysis
 import one.reevdev.carserve.feature.service.navigation.navigateToForm
+import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
+import one.reevdev.carserve.vehicle.navigation.addVehicleScreen
+import one.reevdev.carserve.vehicle.navigation.navigateToAddToCar
 
 @Composable
 fun AnalysisRouter(
@@ -30,6 +32,7 @@ fun AnalysisRouter(
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
     startDestination: String = AnalysisRoutes.Camera.route,
     navController: NavHostController = rememberNavController(),
+    navigateToHome: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
@@ -56,12 +59,19 @@ fun AnalysisRouter(
             startDestination = startDestination
         ) {
             cameraScreen(viewModel) {
+                navController.navigateToAddToCar()
+                viewModel.setLoading(false)
+            }
+            addVehicleScreen { vehicle ->
+                viewModel.setVehicle(vehicle)
                 navController.navigateToForm()
             }
             formScreen(viewModel) {
                 navController.navigateToAnalysis()
             }
-            analysisScreen(viewModel)
+            analysisScreen(viewModel) {
+                navigateToHome()
+            }
         }
     }
 

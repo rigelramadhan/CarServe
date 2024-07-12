@@ -1,5 +1,8 @@
 import java.net.URI
 
+include(":feature:vehicle")
+
+
 pluginManagement {
     repositories {
         google {

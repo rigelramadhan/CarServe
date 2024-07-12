@@ -5,9 +5,9 @@ import com.google.ai.client.generativeai.type.Content
 import com.google.ai.client.generativeai.type.content
 import one.reevdev.carserve.core.common.data.jsonToObject
 import one.reevdev.carserve.core.data.BuildConfig
-import one.reevdev.carserve.core.data.datasource.model.AvailableService
-import one.reevdev.carserve.core.data.datasource.model.ServiceAnalysisResult
-import one.reevdev.carserve.core.data.datasource.model.ServiceParamData
+import one.reevdev.carserve.core.data.datasource.model.service.AvailableService
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
 import one.reevdev.carserve.core.data.datasource.remote.gemini.prompt.InstructionPrompt
 import one.reevdev.carserve.core.data.utils.toContent
 import javax.inject.Inject
@@ -37,7 +37,12 @@ class ServiceGeminiApi @Inject constructor() {
         availableServices: List<AvailableService>
     ): ServiceAnalysisResult {
         val chat = generativeModel.startChat(chatHistory)
-        val instruction = InstructionPrompt.analyzeCar(param.symptoms, param.generalProblem, availableServices)
+        val instruction = InstructionPrompt.analyzeCar(
+            symptoms = param.symptoms,
+            problem = param.generalProblem,
+            vehicle = param.vehicle,
+            availableService = availableServices
+        )
 
         val content = content {
             text(instruction)

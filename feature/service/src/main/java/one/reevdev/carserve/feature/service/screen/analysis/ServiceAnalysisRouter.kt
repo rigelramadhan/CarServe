@@ -12,6 +12,7 @@ import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 fun ServiceAnalysisRouter(
     modifier: Modifier = Modifier,
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
+    onProceed: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -21,9 +22,11 @@ fun ServiceAnalysisRouter(
 
     ServiceAnalysisScreen(
         modifier = modifier,
+        vehicle = uiState.serviceAnalysis.vehicle,
         findings = uiState.serviceAnalysis.serviceFindings,
         recommendedAction = uiState.serviceAnalysis.recommendedAction,
         estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
-        image = uiState.param.photo
+        image = uiState.param.photo,
+        onProceed = onProceed
     )
 }
