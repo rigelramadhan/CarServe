@@ -26,5 +26,5 @@ object InstructionPrompt {
         General problem: $problem
         
         ${ResponseRule.SERVICE_JSON}
-    """.trimIndent() // TODO: Make the prompts
+    """.trimIndent()
 }
