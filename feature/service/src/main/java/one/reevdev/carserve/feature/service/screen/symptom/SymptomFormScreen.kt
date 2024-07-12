@@ -3,8 +3,6 @@ package one.reevdev.carserve.feature.service.screen.symptom
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.core.common.data.emptyString
+import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
@@ -47,13 +46,13 @@ fun SymptomFormScreen(
             onValueChange = { generalProblem = it },
             label = stringResource(R.string.label_other_complaints),
         )
-        Button(
+        CarseButton(
             modifier = Modifier
                 .fillMaxWidth(),
+            text = stringResource(R.string.label_proceed),
+            enableIf = { symptoms.isNotBlank() && generalProblem.isNotBlank() },
             onClick = { onProceedForm(symptoms, generalProblem) }
-        ) {
-            Text(text = stringResource(R.string.label_proceed))
-        }
+        )
     }
 }
 

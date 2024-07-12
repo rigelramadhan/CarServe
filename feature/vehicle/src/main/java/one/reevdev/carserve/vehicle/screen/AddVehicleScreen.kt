@@ -3,8 +3,6 @@ package one.reevdev.carserve.vehicle.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.core.common.data.emptyString
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Transmission
 import one.reevdev.carserve.core.domain.feature.vehicle.model.VehicleParam
+import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.vehicle.R
@@ -60,14 +59,16 @@ fun AddVehicleScreen(
         ) {
             onSelected(it)
         }
-        Button(
+        CarseButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 48.dp),
+            text = stringResource(R.string.label_proceed),
+            enableIf = {
+                carName.isNotBlank() && color.isNotBlank() && selected.isNotBlank()
+            },
             onClick = { onProceedForm(VehicleParam(carName, color, selected)) }
-        ) {
-            Text(text = stringResource(R.string.label_proceed))
-        }
+        )
     }
 }
 
