@@ -42,6 +42,7 @@ android {
 
 dependencies {
     implementation(project(":feature:common"))
+    implementation(project(":feature:vehicle"))
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
 

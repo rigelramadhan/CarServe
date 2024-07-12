@@ -1,7 +1,5 @@
 package one.reevdev.carserve.feature.service.screen.analysis
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,6 +12,7 @@ import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 fun ServiceAnalysisRouter(
     modifier: Modifier = Modifier,
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
+    onProceed: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -21,16 +20,13 @@ fun ServiceAnalysisRouter(
         viewModel.analyzeVehicle(uiState.param)
     }
 
-    Scaffold(
-        modifier = modifier
-    ) { innerPadding ->
-        ServiceAnalysisScreen(
-            modifier = Modifier
-                .padding(innerPadding),
-            findings = uiState.serviceAnalysis.serviceFindings,
-            recommendedAction = uiState.serviceAnalysis.recommendedAction,
-            estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
-            image = uiState.param.photo
-        )
-    }
+    ServiceAnalysisScreen(
+        modifier = modifier,
+        vehicle = uiState.serviceAnalysis.vehicle,
+        findings = uiState.serviceAnalysis.serviceFindings,
+        recommendedAction = uiState.serviceAnalysis.recommendedAction,
+        estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
+        image = uiState.param.photo,
+        onProceed = onProceed
+    )
 }

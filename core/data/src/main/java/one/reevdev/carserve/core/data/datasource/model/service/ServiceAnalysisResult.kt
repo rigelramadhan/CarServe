@@ -1,8 +1,9 @@
-package one.reevdev.carserve.core.data.datasource.model
+package one.reevdev.carserve.core.data.datasource.model.service
+
+import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleData
 
 data class ServiceAnalysisResult(
-    val id: Int = 0,
-    val vehicleId: Int,
+    val vehicle: VehicleData,
     val recommendedAction: String,
     val findings: List<Finding>
 )

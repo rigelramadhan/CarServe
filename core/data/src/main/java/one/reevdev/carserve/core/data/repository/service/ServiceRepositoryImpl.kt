@@ -3,8 +3,8 @@ package one.reevdev.carserve.core.data.repository.service
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import one.reevdev.carserve.core.common.data.Result
-import one.reevdev.carserve.core.data.datasource.model.ServiceAnalysisResult
-import one.reevdev.carserve.core.data.datasource.model.ServiceParamData
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
+import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
 import one.reevdev.carserve.core.data.datasource.remote.RemoteDataSource
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -3,6 +3,7 @@ package one.reevdev.carserve.feature.service.screen.analysis
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -12,12 +13,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import one.reevdev.carserve.core.common.data.toRupiahCurrency
 import one.reevdev.carserve.core.domain.model.service.ServiceFinding
+import one.reevdev.carserve.core.domain.model.vehicle.Vehicle
+import one.reevdev.carserve.feature.common.ui.component.LabelText
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
 import one.reevdev.carserve.feature.service.component.CardColumn
@@ -34,9 +39,11 @@ import one.reevdev.carserve.feature.service.component.CardColumn
 fun ServiceAnalysisScreen(
     modifier: Modifier = Modifier,
     findings: List<ServiceFinding> = emptyList(),
+    vehicle: Vehicle? = null, // Pair of car name and transmission
     recommendedAction: String,
     estimatedPrice: Double,
     image: Bitmap? = null,
+    onProceed: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier
@@ -48,7 +55,7 @@ fun ServiceAnalysisScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(1f)
-                        .background(Color(0xFFCDEDED)),
+                        .clip(RoundedCornerShape(16.dp)),
                     painter = rememberAsyncImagePainter(model = image),
                     contentDescription = stringResource(R.string.content_description_analyzed_vehicle_image),
                     contentScale = ContentScale.Crop,
@@ -56,17 +63,38 @@ fun ServiceAnalysisScreen(
             }
         }
 
+        vehicle?.run {
+            item {
+                CardColumn(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 24.dp),
+                    label = stringResource(R.string.label_vehicle_information)
+                ) {
+                    Row {
+                        Text(
+                            modifier = Modifier
+                                .weight(1f),
+                            text = carName,
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+                        )
+                        Text(
+                            modifier = Modifier,
+                            text = transmission,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+            }
+        }
+
         item {
             Row(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .padding(top = 16.dp)
+                    .padding(top = 24.dp)
             ) {
-                Text(
-                    text = stringResource(id = R.string.label_analysis),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
-                )
+                LabelText(label = stringResource(id = R.string.label_analysis))
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = stringResource(R.string.format_analysis_found, findings.size),
@@ -89,7 +117,7 @@ fun ServiceAnalysisScreen(
                 CardColumn(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
-                        .padding(top = 16.dp),
+                        .padding(top = 24.dp),
                     label = stringResource(R.string.label_recommendations),
                 ) {
                     Text(
@@ -103,13 +131,34 @@ fun ServiceAnalysisScreen(
 
         if (estimatedPrice > 0.0) {
             item {
-                Text(
+                Column(
                     modifier = Modifier
-                        .padding(horizontal = 24.dp)
-                        .padding(vertical = 24.dp),
-                    text = estimatedPrice.toRupiahCurrency(),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Light)
-                )
+                        .padding(horizontal = 16.dp, vertical = 24.dp),
+                ) {
+                    HorizontalDivider()
+                    LabelText(
+                        modifier = Modifier.padding(top = 24.dp),
+                        label = "Total Estimated Price"
+                    )
+                    Text(
+                        modifier = Modifier,
+                        text = estimatedPrice.toRupiahCurrency(),
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+        }
+
+        item {
+            OutlinedButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 24.dp),
+                onClick = onProceed
+            ) {
+                Text(text = stringResource(id = R.string.label_proceed))
             }
         }
     }
@@ -140,7 +189,7 @@ fun FindingComponent(
         Text(
             text = stringResource(R.string.label_solution),
             style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
         )
         Text(
             modifier = Modifier,
@@ -172,8 +221,11 @@ private fun ServiceAnalysisPreview() {
                 ServiceFinding("Problem 2", "Solution 2", 0.0),
                 ServiceFinding("Problem 3", "Solution 3", 624500.0),
             ),
+            vehicle = Vehicle("Xenia", "Blue", "MT"),
             recommendedAction = "This is the recommended action of the problem",
-            estimatedPrice = 244.000,
-        )
+            estimatedPrice = 244000.0,
+        ) {
+
+        }
     }
 }
