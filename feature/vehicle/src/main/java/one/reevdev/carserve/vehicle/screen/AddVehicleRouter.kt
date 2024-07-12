@@ -1,26 +1,32 @@
-package one.reevdev.carserve.ui.screen.home
+package one.reevdev.carserve.vehicle.screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import one.reevdev.carserve.core.domain.model.vehicle.VehicleParam
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
+import one.reevdev.carserve.vehicle.R
 
 @Composable
-fun HomeRouter(
+fun AddVehicleRouter(
     modifier: Modifier = Modifier,
-    onServeVisionClick: () -> Unit
+    onProceedForm: (param: VehicleParam) -> Unit,
 ) {
+
     Scaffold(
         modifier = modifier,
         topBar = {
-            AppHeader()
+            AppHeader(
+                title = stringResource(R.string.title_add_vehicle)
+            )
         }
     ) { innerPadding ->
-        HomeScreen(
+        AddVehicleScreen(
             modifier = Modifier
                 .padding(innerPadding),
-            onServeVisionClick = onServeVisionClick
+            onProceedForm = onProceedForm
         )
     }
 }

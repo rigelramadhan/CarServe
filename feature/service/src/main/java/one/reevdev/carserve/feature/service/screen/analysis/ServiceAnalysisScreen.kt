@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import one.reevdev.carserve.core.common.data.toRupiahCurrency
 import one.reevdev.carserve.core.domain.model.service.ServiceFinding
+import one.reevdev.carserve.feature.common.ui.component.LabelText
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
 import one.reevdev.carserve.feature.service.component.CardColumn
@@ -62,11 +63,7 @@ fun ServiceAnalysisScreen(
                     .padding(horizontal = 16.dp)
                     .padding(top = 16.dp)
             ) {
-                Text(
-                    text = stringResource(id = R.string.label_analysis),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
-                )
+                LabelText(label = stringResource(id = R.string.label_analysis))
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = stringResource(R.string.format_analysis_found, findings.size),
