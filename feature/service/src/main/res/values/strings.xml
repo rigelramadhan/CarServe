@@ -11,4 +11,6 @@
     <string name="format_estimated_price">Estimated Price: %1$s</string>
     <string name="label_solution">Solution</string>
     <string name="label_vehicle_information">Vehicle Information</string>
+    <string name="text_no_analysis_found">No analysis found</string>
+    <string name="label_total_estimated_price">Total Estimated Price</string>
 </resources>

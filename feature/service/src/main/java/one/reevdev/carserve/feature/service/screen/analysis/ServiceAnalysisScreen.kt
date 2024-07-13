@@ -30,6 +30,7 @@ import coil.compose.rememberAsyncImagePainter
 import one.reevdev.carserve.core.common.data.toRupiahCurrency
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
 import one.reevdev.carserve.feature.common.ui.component.LabelText
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
@@ -38,7 +39,7 @@ import one.reevdev.carserve.feature.service.component.CardColumn
 @Composable
 fun ServiceAnalysisScreen(
     modifier: Modifier = Modifier,
-    findings: List<ServiceFinding> = emptyList(),
+    findings: List<ServiceFinding>? = null,
     vehicle: Vehicle? = null, // Pair of car name and transmission
     recommendedAction: String,
     estimatedPrice: Double,
@@ -88,28 +89,41 @@ fun ServiceAnalysisScreen(
             }
         }
 
-        item {
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 24.dp)
-            ) {
-                LabelText(label = stringResource(id = R.string.label_analysis))
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = stringResource(R.string.format_analysis_found, findings.size),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
-        }
+        findings?.let {
+            if (findings.isNotEmpty()) {
+                item {
+                    Row(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 24.dp)
+                    ) {
+                        LabelText(label = stringResource(id = R.string.label_analysis))
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = stringResource(R.string.format_analysis_found, findings.size),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
 
-        items(findings) { finding ->
-            FindingComponent(
-                problem = finding.problem,
-                potentialSolve = finding.solution,
-                estimatedPrice = finding.estimatedPrice,
-            )
+                items(findings) { finding ->
+                    FindingComponent(
+                        problem = finding.problem,
+                        potentialSolve = finding.solution,
+                        estimatedPrice = finding.estimatedPrice,
+                    )
+                }
+            } else {
+                item {
+                    EmptyComponent(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 24.dp),
+                        text = stringResource(R.string.text_no_analysis_found)
+                    )
+                }
+            }
         }
 
         item {
@@ -133,12 +147,13 @@ fun ServiceAnalysisScreen(
             item {
                 Column(
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 24.dp),
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 24.dp),
                 ) {
                     HorizontalDivider()
                     LabelText(
                         modifier = Modifier.padding(top = 24.dp),
-                        label = "Total Estimated Price"
+                        label = stringResource(R.string.label_total_estimated_price)
                     )
                     Text(
                         modifier = Modifier,
@@ -154,8 +169,7 @@ fun ServiceAnalysisScreen(
             OutlinedButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 24.dp),
+                    .padding(horizontal = 16.dp, vertical = 24.dp),
                 onClick = onProceed
             ) {
                 Text(text = stringResource(id = R.string.label_proceed))
