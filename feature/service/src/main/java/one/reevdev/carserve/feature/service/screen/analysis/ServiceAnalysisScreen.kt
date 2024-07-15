@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -30,7 +32,9 @@ import coil.compose.rememberAsyncImagePainter
 import one.reevdev.carserve.core.common.data.toRupiahCurrency
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
 import one.reevdev.carserve.feature.common.ui.component.LabelText
+import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
 import one.reevdev.carserve.feature.service.component.CardColumn
@@ -38,7 +42,8 @@ import one.reevdev.carserve.feature.service.component.CardColumn
 @Composable
 fun ServiceAnalysisScreen(
     modifier: Modifier = Modifier,
-    findings: List<ServiceFinding> = emptyList(),
+    loadingState: LoadingState,
+    findings: List<ServiceFinding>? = null,
     vehicle: Vehicle? = null, // Pair of car name and transmission
     recommendedAction: String,
     estimatedPrice: Double,
@@ -88,28 +93,38 @@ fun ServiceAnalysisScreen(
             }
         }
 
-        item {
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 24.dp)
-            ) {
-                LabelText(label = stringResource(id = R.string.label_analysis))
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = stringResource(R.string.format_analysis_found, findings.size),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+        findings?.let {
+            when (loadingState) {
+                is LoadingState.NotLoading -> {
+                    findingResult(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 24.dp),
+                        findings = it,
+                        scope = this
+                    )
+                }
+                is LoadingState.CustomLoading -> {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                                .padding(top = 24.dp),
+                        ) {
+                            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                            loadingState.messageRes?.let { message ->
+                                Text(
+                                    modifier = Modifier.padding(top = 8.dp),
+                                    text = stringResource(message)
+                                )
+                            }
+                        }
+                    }
+                }
+                else -> {}
             }
-        }
-
-        items(findings) { finding ->
-            FindingComponent(
-                problem = finding.problem,
-                potentialSolve = finding.solution,
-                estimatedPrice = finding.estimatedPrice,
-            )
         }
 
         item {
@@ -133,12 +148,13 @@ fun ServiceAnalysisScreen(
             item {
                 Column(
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 24.dp),
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 24.dp),
                 ) {
                     HorizontalDivider()
                     LabelText(
                         modifier = Modifier.padding(top = 24.dp),
-                        label = "Total Estimated Price"
+                        label = stringResource(R.string.label_total_estimated_price)
                     )
                     Text(
                         modifier = Modifier,
@@ -154,11 +170,49 @@ fun ServiceAnalysisScreen(
             OutlinedButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 24.dp),
+                    .padding(horizontal = 16.dp, vertical = 24.dp),
                 onClick = onProceed
             ) {
                 Text(text = stringResource(id = R.string.label_proceed))
+            }
+        }
+    }
+}
+
+fun findingResult(
+    modifier: Modifier = Modifier,
+    findings: List<ServiceFinding>,
+    scope: LazyListScope,
+) {
+    scope.run {
+        if (findings.isNotEmpty()) {
+            item {
+                Row(
+                    modifier = modifier
+                ) {
+                    LabelText(label = stringResource(id = R.string.label_analysis))
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = stringResource(R.string.format_analysis_found, findings.size),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+
+            items(findings) { finding ->
+                FindingComponent(
+                    problem = finding.problem,
+                    potentialSolve = finding.solution,
+                    estimatedPrice = finding.estimatedPrice,
+                )
+            }
+        } else {
+            item {
+                EmptyComponent(
+                    modifier = modifier,
+                    text = stringResource(R.string.text_no_analysis_found)
+                )
             }
         }
     }
@@ -216,6 +270,7 @@ fun FindingComponent(
 private fun ServiceAnalysisPreview() {
     CarServeTheme {
         ServiceAnalysisScreen(
+            loadingState = LoadingState.CustomLoading(message = "Analyzing Car"),
             findings = listOf(
                 ServiceFinding("Problem 1", "Solution 1", 24500.0),
                 ServiceFinding("Problem 2", "Solution 2", 0.0),
