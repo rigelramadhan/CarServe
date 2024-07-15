@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import one.reevdev.carserve.core.domain.usecase.service.ServiceInteractor
-import one.reevdev.carserve.core.domain.usecase.service.ServiceUseCase
+import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceInteractor
+import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceUseCase
 
 @Module
 @InstallIn(SingletonComponent::class)

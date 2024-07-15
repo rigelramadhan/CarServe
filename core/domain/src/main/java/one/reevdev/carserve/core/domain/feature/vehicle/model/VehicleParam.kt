@@ -1,4 +1,4 @@
-package one.reevdev.carserve.core.domain.model.vehicle
+package one.reevdev.carserve.core.domain.feature.vehicle.model
 
 import one.reevdev.carserve.core.common.data.emptyString
 

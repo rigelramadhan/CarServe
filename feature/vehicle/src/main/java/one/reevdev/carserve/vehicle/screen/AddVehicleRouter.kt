@@ -5,7 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import one.reevdev.carserve.core.domain.model.vehicle.VehicleParam
+import one.reevdev.carserve.core.domain.feature.vehicle.model.VehicleParam
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
 import one.reevdev.carserve.vehicle.R
 

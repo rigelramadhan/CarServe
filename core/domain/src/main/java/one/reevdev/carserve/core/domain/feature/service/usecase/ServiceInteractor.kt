@@ -1,11 +1,11 @@
-package one.reevdev.carserve.core.domain.usecase.service
+package one.reevdev.carserve.core.domain.feature.service.usecase
 
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.common.data.mapFlowData
 import one.reevdev.carserve.core.data.repository.service.ServiceRepository
-import one.reevdev.carserve.core.domain.model.service.ServiceAnalysis
-import one.reevdev.carserve.core.domain.model.service.ServiceParam
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
 import one.reevdev.carserve.core.domain.utils.toDomain
 import one.reevdev.carserve.core.domain.utils.toRequest
 import javax.inject.Inject
