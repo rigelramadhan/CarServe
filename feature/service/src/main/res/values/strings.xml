@@ -13,4 +13,5 @@
     <string name="label_vehicle_information">Vehicle Information</string>
     <string name="text_no_analysis_found">No analysis found</string>
     <string name="label_total_estimated_price">Total Estimated Price</string>
+    <string name="message_analyzing_your_vehicle">Analyzing your vehicle</string>
 </resources>

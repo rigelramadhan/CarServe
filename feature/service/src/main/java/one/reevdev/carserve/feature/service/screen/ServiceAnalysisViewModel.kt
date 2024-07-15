@@ -14,6 +14,8 @@ import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
 import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceUseCase
 import one.reevdev.carserve.core.domain.feature.vehicle.model.VehicleParam
+import one.reevdev.carserve.feature.common.ui.state.LoadingState
+import one.reevdev.carserve.feature.service.utils.MessageConstants
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,7 +32,7 @@ class ServiceAnalysisViewModel @Inject constructor(
                 .catch { error ->
                     _uiState.update {
                         it.copy(
-                            isLoading = false,
+                            loadingState = LoadingState.NotLoading,
                             errorMessage = error.localizedMessage
                         )
                     }
@@ -40,18 +42,18 @@ class ServiceAnalysisViewModel @Inject constructor(
                         result.handleResource(
                             onLoading = {
                                 state.copy(
-                                    isLoading = true
+                                    loadingState = LoadingState.CustomLoading(MessageConstants.ANALYZING_VEHICLE)
                                 )
                             },
                             onFailure = { _, errorMessage ->
                                 state.copy(
-                                    isLoading = false,
+                                    loadingState = LoadingState.NotLoading,
                                     errorMessage = errorMessage
                                 )
                             },
                             onSuccess = {
                                 state.copy(
-                                    isLoading = false,
+                                    loadingState = LoadingState.NotLoading,
                                     serviceAnalysis = it
                                 )
                             }
@@ -79,9 +81,9 @@ class ServiceAnalysisViewModel @Inject constructor(
         }
     }
 
-    fun setLoading(isLoading: Boolean) {
+    fun setLoading(isLoading: LoadingState) {
         _uiState.update {
-            it.copy(isLoading = isLoading)
+            it.copy(loadingState = isLoading)
         }
     }
 
@@ -93,7 +95,7 @@ class ServiceAnalysisViewModel @Inject constructor(
 }
 
 data class AnalysisUiState(
-    val isLoading: Boolean = false,
+    val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
     val serviceAnalysis: ServiceAnalysis = ServiceAnalysis(),
     val param: ServiceParam = ServiceParam()

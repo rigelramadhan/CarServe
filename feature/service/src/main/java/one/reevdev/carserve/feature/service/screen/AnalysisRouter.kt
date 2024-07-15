@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
+import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import one.reevdev.carserve.feature.service.navigation.analysisScreen
 import one.reevdev.carserve.feature.service.navigation.cameraScreen
 import one.reevdev.carserve.feature.service.navigation.formScreen
@@ -60,7 +61,7 @@ fun AnalysisRouter(
         ) {
             cameraScreen(viewModel) {
                 navController.navigateToAddToCar()
-                viewModel.setLoading(false)
+                viewModel.setLoading(LoadingState.NotLoading)
             }
             addVehicleScreen { vehicle ->
                 viewModel.setVehicle(vehicle)
@@ -75,7 +76,7 @@ fun AnalysisRouter(
         }
     }
 
-    if (uiState.isLoading) {
+    if (uiState.loadingState == LoadingState.DefaultLoading) {
         LoadingDialog()
     }
 }

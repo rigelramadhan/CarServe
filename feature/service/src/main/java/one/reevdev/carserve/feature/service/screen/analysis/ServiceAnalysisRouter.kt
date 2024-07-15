@@ -23,6 +23,7 @@ fun ServiceAnalysisRouter(
     ServiceAnalysisScreen(
         modifier = modifier,
         vehicle = uiState.serviceAnalysis.vehicle,
+        loadingState = uiState.loadingState,
         findings = uiState.serviceAnalysis.serviceFindings,
         recommendedAction = uiState.serviceAnalysis.recommendedAction,
         estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
