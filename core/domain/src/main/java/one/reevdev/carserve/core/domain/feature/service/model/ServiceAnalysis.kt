@@ -8,6 +8,7 @@ data class ServiceAnalysis(
     val recommendedAction: String = emptyString(),
     val serviceFindings: List<ServiceFinding> = emptyList(),
     val totalEstimatedPrice: Double = 0.0,
+    val analysisHtml: String = emptyString(),
 )
 
 data class ServiceFinding(

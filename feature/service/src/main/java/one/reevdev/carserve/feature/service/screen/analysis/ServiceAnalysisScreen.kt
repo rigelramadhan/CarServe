@@ -49,6 +49,7 @@ fun ServiceAnalysisScreen(
     estimatedPrice: Double,
     image: Bitmap? = null,
     onProceed: () -> Unit,
+    onExportPdf: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier
@@ -167,13 +168,26 @@ fun ServiceAnalysisScreen(
         }
 
         item {
-            OutlinedButton(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 24.dp),
-                onClick = onProceed
+                    .padding(horizontal = 16.dp, vertical = 24.dp)
+
             ) {
-                Text(text = stringResource(id = R.string.label_proceed))
+                OutlinedButton(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
+                    onClick = onProceed
+                ) {
+                    Text(text = stringResource(id = R.string.label_proceed))
+                }
+                OutlinedButton(
+                    modifier = Modifier,
+                    onClick = onExportPdf
+                ) {
+                    Text(text = stringResource(R.string.action_export_pdf))
+                }
             }
         }
     }
@@ -279,6 +293,7 @@ private fun ServiceAnalysisPreview() {
             vehicle = Vehicle("Xenia", "Blue", "MT"),
             recommendedAction = "This is the recommended action of the problem",
             estimatedPrice = 244000.0,
+            onProceed = {}
         ) {
 
         }
