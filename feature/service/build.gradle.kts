@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.coil.compose)
     implementation(libs.androidx.exifinterface)
+    implementation(libs.pdfcreatorandroid)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
