@@ -5,4 +5,7 @@ object RouteConstants {
     const val FORM = "form"
     const val ANALYSIS = "analysis"
     const val SERVICE = "service"
+    const val PDF_VIEWER = "pdf_viewer"
+
+    const val ARGUMENT_PDF_PATH = "pdfPath"
 }

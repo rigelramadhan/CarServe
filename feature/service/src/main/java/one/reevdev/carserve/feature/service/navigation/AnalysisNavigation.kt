@@ -3,14 +3,20 @@ package one.reevdev.carserve.feature.service.navigation
 import android.net.Uri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
 import one.reevdev.carserve.feature.service.navigation.routes.ServiceRoutes
 import one.reevdev.carserve.feature.service.screen.AnalysisRouter
 import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisRouter
 import one.reevdev.carserve.feature.service.screen.camera.AnalysisCameraRouter
+import one.reevdev.carserve.feature.service.screen.pdfviewer.PdfViewerScreen
 import one.reevdev.carserve.feature.service.screen.symptom.SymptomFormRouter
+import java.net.URLDecoder
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 fun NavController.navigateToCamera() {
     navigate(AnalysisRoutes.Camera.route)
@@ -51,9 +57,14 @@ fun NavController.navigateToAnalysis() {
 fun NavGraphBuilder.analysisScreen(
     viewModel: ServiceAnalysisViewModel,
     onProceed: () -> Unit,
+    navigateToPdfViewer: (String) -> Unit,
 ) {
     composable(route = AnalysisRoutes.Analysis.route) {
-        ServiceAnalysisRouter(viewModel = viewModel, onProceed = onProceed)
+        ServiceAnalysisRouter(
+            viewModel = viewModel,
+            onProceed = onProceed,
+            navigateToPdfViewer = navigateToPdfViewer
+        )
     }
 }
 
@@ -64,5 +75,23 @@ fun NavController.navigateToService() {
 fun NavGraphBuilder.serviceScreen(navigateToHome: () -> Unit) {
     composable(route = ServiceRoutes.Service.route) {
         AnalysisRouter(navigateToHome = navigateToHome)
+    }
+}
+
+fun NavController.navigateToPdfViewer(path: String) {
+    val encodedPath = URLEncoder.encode(path, StandardCharsets.UTF_8.toString())
+    navigate(AnalysisRoutes.PdfViewer.getRoute(encodedPath))
+}
+
+fun NavGraphBuilder.pdfViewerScreen() {
+    composable(
+        route = AnalysisRoutes.PdfViewer.route,
+        arguments = listOf(navArgument(RouteConstants.ARGUMENT_PDF_PATH) {
+            type = NavType.StringType
+        })
+    ) {
+        val pdfFilePath = it.arguments?.getString(RouteConstants.ARGUMENT_PDF_PATH).orEmpty()
+        val decodedPath = URLDecoder.decode(pdfFilePath, StandardCharsets.UTF_8.toString())
+        PdfViewerScreen(pdfFilePath = decodedPath)
     }
 }

@@ -13,7 +13,7 @@ object SampleData {
             Finding(
                 problem = "The problem",
                 solution = "The solution",
-                estimatedPrice = 0.0
+                estimatedPrice = 0.0,
             ),
             Finding(
                 problem = "The problem",
@@ -25,7 +25,12 @@ object SampleData {
                 solution = "The solution",
                 estimatedPrice = 0.0
             ),
-        )
+        ),
+        analysisHtml = """
+            <html>
+            test
+            </html>
+        """.trimIndent()
     )
 
     val servicesList = """

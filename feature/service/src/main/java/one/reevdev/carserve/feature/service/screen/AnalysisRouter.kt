@@ -23,6 +23,8 @@ import one.reevdev.carserve.feature.service.navigation.cameraScreen
 import one.reevdev.carserve.feature.service.navigation.formScreen
 import one.reevdev.carserve.feature.service.navigation.navigateToAnalysis
 import one.reevdev.carserve.feature.service.navigation.navigateToForm
+import one.reevdev.carserve.feature.service.navigation.navigateToPdfViewer
+import one.reevdev.carserve.feature.service.navigation.pdfViewerScreen
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
 import one.reevdev.carserve.vehicle.navigation.addVehicleScreen
 import one.reevdev.carserve.vehicle.navigation.navigateToAddToCar
@@ -70,9 +72,12 @@ fun AnalysisRouter(
             formScreen(viewModel) {
                 navController.navigateToAnalysis()
             }
-            analysisScreen(viewModel) {
-                navigateToHome()
-            }
+            analysisScreen(
+                viewModel = viewModel,
+                onProceed = { navigateToHome() },
+                navigateToPdfViewer = { path -> navController.navigateToPdfViewer(path) }
+            )
+            pdfViewerScreen()
         }
     }
 

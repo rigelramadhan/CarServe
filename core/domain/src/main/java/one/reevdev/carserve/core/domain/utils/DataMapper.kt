@@ -15,10 +15,24 @@ fun ServiceAnalysisResult.toDomain() = ServiceAnalysis(
     vehicle = vehicle.toDomain(),
     recommendedAction = recommendedAction,
     serviceFindings = findings.map { it.toDomain() },
-    totalEstimatedPrice = findings.sumOf { it.estimatedPrice }
+    totalEstimatedPrice = findings.sumOf { it.estimatedPrice },
+    analysisHtml = analysisHtml
+)
+
+fun ServiceAnalysis.toRequest() = ServiceAnalysisResult(
+    vehicle = vehicle?.toRequest() ?: Vehicle().toRequest(),
+    recommendedAction = recommendedAction,
+    findings = serviceFindings.map { it.toRequest() },
+    analysisHtml = analysisHtml
 )
 
 fun Finding.toDomain() = ServiceFinding(
+    problem = problem,
+    solution = solution,
+    estimatedPrice = estimatedPrice
+)
+
+fun ServiceFinding.toRequest() = Finding(
     problem = problem,
     solution = solution,
     estimatedPrice = estimatedPrice
@@ -38,6 +52,12 @@ fun VehicleParam.toRequest() = VehicleParamData(
 )
 
 fun VehicleData.toDomain() = Vehicle(
+    carName = carName,
+    color = color,
+    transmission = transmission
+)
+
+fun Vehicle.toRequest() = VehicleData(
     carName = carName,
     color = color,
     transmission = transmission

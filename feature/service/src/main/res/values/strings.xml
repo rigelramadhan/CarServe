@@ -14,4 +14,6 @@
     <string name="text_no_analysis_found">No analysis found</string>
     <string name="label_total_estimated_price">Total Estimated Price</string>
     <string name="message_analyzing_your_vehicle">Analyzing your vehicle</string>
+    <string name="action_export_pdf">Export PDF</string>
+    <string name="message_no_pdf_viewer">No PDF viewer found</string>
 </resources>

@@ -34,8 +34,11 @@ object InstructionPrompt {
         
         Here are the symptoms and problems I found.
         Symptoms: $symptoms
-        General problem: $problem
+        Other complaints: $problem
         
         ${ResponseRule.SERVICE_JSON}
+        
+        Create a thorough and easy to read comprehensive analysis in the html format to fill the 
+        analysisHtml data with beautiful but professional formatting.
     """.trimIndent()
 }
