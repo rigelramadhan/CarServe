@@ -14,7 +14,6 @@ fun AddVehicleRouter(
     modifier: Modifier = Modifier,
     onProceedForm: (param: VehicleParam) -> Unit,
 ) {
-
     Scaffold(
         modifier = modifier,
         topBar = {

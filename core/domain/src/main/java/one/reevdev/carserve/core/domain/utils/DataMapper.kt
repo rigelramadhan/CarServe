@@ -52,12 +52,14 @@ fun VehicleParam.toRequest() = VehicleParamData(
 )
 
 fun VehicleEntity.toDomain() = Vehicle(
+    id = id,
     carName = carName,
     color = color,
     transmission = transmission
 )
 
 fun Vehicle.toRequest() = VehicleEntity(
+    id = id,
     carName = carName,
     color = color,
     transmission = transmission
