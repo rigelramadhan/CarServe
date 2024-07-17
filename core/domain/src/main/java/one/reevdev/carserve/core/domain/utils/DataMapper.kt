@@ -3,7 +3,7 @@ package one.reevdev.carserve.core.domain.utils
 import one.reevdev.carserve.core.data.datasource.model.service.Finding
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
-import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleData
+import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleEntity
 import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleParamData
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
@@ -51,13 +51,13 @@ fun VehicleParam.toRequest() = VehicleParamData(
     transmission = transmission
 )
 
-fun VehicleData.toDomain() = Vehicle(
+fun VehicleEntity.toDomain() = Vehicle(
     carName = carName,
     color = color,
     transmission = transmission
 )
 
-fun Vehicle.toRequest() = VehicleData(
+fun Vehicle.toRequest() = VehicleEntity(
     carName = carName,
     color = color,
     transmission = transmission
