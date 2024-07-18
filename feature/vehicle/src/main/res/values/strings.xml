@@ -5,4 +5,6 @@
     <string name="label_transmission">Transmission</string>
     <string name="label_proceed">Proceed</string>
     <string name="title_add_vehicle">Add Vehicle</string>
+    <string name="title_choose_your_vehicle">Choose your vehicle</string>
+    <string name="message_no_vehicle_found">No vehicle found.</string>
 </resources>

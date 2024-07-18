@@ -7,7 +7,7 @@ import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleEntity
 object SampleData {
 
     val serviceResult = ServiceAnalysisResult(
-        vehicle = VehicleEntity("Car Name 1", "Color 1", "Transmission"),
+        vehicle = VehicleEntity(1, "Car Name 1", "Color 1", "Transmission"),
         recommendedAction = "Recommended action 1",
         findings = listOf(
             Finding(

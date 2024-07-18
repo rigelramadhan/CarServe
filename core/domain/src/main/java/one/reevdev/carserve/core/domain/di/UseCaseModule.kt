@@ -17,5 +17,5 @@ interface UseCaseModule {
     fun provideServiceUseCase(interactor: ServiceInteractor): ServiceUseCase
 
     @Binds
-    fun provideServiceUseCase(interactor: VehicleInteractor): VehicleUseCase
+    fun provideVehicleUseCase(interactor: VehicleInteractor): VehicleUseCase
 }

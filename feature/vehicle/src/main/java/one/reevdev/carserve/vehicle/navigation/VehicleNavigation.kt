@@ -11,7 +11,7 @@ fun NavController.navigateToAddToCar() {
 }
 
 fun NavGraphBuilder.addVehicleScreen(
-    onProceedForm: (param: Vehicle) -> Unit
+    onProceedForm: (vehicle: Vehicle) -> Unit
 ) {
     composable(route = VehicleRoutes.AddVehicle.route) {
         AddVehicleRouter(

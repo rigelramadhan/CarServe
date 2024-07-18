@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,12 +25,23 @@ import one.reevdev.carserve.vehicle.component.SelectableList
 @Composable
 fun AddVehicleScreen(
     modifier: Modifier = Modifier,
-    onProceedForm: (param: Vehicle) -> Unit,
+    vehicle: Vehicle? = null,
+    onProceedForm: (vehicle: Vehicle) -> Unit,
 ) {
     val transmissionOptions by remember { mutableStateOf(Transmission.entries.map { it.value }) }
     val (selected, onSelected) = remember { mutableStateOf(transmissionOptions[0]) }
-    var carName by rememberSaveable { mutableStateOf(emptyString()) }
-    var color by rememberSaveable { mutableStateOf(emptyString()) }
+    var carName by remember { mutableStateOf(emptyString()) }
+    var color by remember { mutableStateOf(emptyString()) }
+    var isFieldsDisabled by remember { mutableStateOf(false) }
+    
+    LaunchedEffect(vehicle) {
+        vehicle?.let { car ->
+            carName = car.carName
+            color = car.color
+            onSelected(transmissionOptions.find { car.transmission == it }.orEmpty())
+        }
+        isFieldsDisabled = (vehicle != null)
+    }
 
     Column(
         modifier = modifier
@@ -40,6 +51,7 @@ fun AddVehicleScreen(
             modifier = Modifier.fillMaxWidth(),
             value = carName,
             onValueChange = { carName = it },
+            enabledIf = { !isFieldsDisabled },
             label = stringResource(R.string.label_car_model),
         )
         CarseTextField(
@@ -48,6 +60,7 @@ fun AddVehicleScreen(
                 .padding(top = 12.dp),
             value = color,
             onValueChange = { color = it },
+            enabledIf = { !isFieldsDisabled },
             label = stringResource(R.string.label_car_color),
         )
         SelectableList(
@@ -55,7 +68,8 @@ fun AddVehicleScreen(
                 .padding(top = 48.dp),
             label = stringResource(id = R.string.label_transmission),
             options = transmissionOptions,
-            selected = selected
+            selected = selected,
+            enableIf = { !isFieldsDisabled }
         ) {
             onSelected(it)
         }
