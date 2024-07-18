@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.screen
+package one.reevdev.carserve.vehicle.screen.add
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

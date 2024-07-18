@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
-import one.reevdev.carserve.vehicle.screen.AddVehicleRouter
+import one.reevdev.carserve.vehicle.screen.add.AddVehicleRouter
 
 fun NavController.navigateToAddToCar() {
     navigate(VehicleRoutes.AddVehicle.route)

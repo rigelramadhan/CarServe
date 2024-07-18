@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.screen
+package one.reevdev.carserve.vehicle.screen.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,47 +15,16 @@ import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import javax.inject.Inject
 
 @HiltViewModel
-class AddVehicleViewModel @Inject constructor(
-    private val vehicleUseCase: VehicleUseCase
+class VehicleListViewModel @Inject constructor(
+    private val useCase: VehicleUseCase,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(AddVehicleUiState())
-    val uiState: StateFlow<AddVehicleUiState> by lazy { _uiState }
-
-    fun saveVehicle(vehicle: Vehicle) {
-        viewModelScope.launch {
-            vehicleUseCase.saveVehicle(vehicle)
-                .catch {  }
-                .collect {
-                    _uiState.update { state ->
-                        it.handleResource(
-                            onLoading = {
-                                state.copy(
-                                    loadingState = LoadingState.DefaultLoading,
-                                )
-                            },
-                            onSuccess = {
-                                state.copy(
-                                    loadingState = LoadingState.NotLoading,
-                                    vehicleSaved = true,
-                                    errorMessage = null
-                                )
-                            },
-                            onFailure = { _, message ->
-                                state.copy(
-                                    loadingState = LoadingState.NotLoading,
-                                    errorMessage = message
-                                )
-                            },
-                        )
-                    }
-                }
-        }
-    }
+    private val _uiState = MutableStateFlow(VehicleListUiState())
+    val uiState: StateFlow<VehicleListUiState> by lazy { _uiState }
 
     fun getAllVehicle() {
         viewModelScope.launch {
-            vehicleUseCase.getAllVehicles()
+            useCase.getAllVehicles()
                 .catch {  }
                 .collect { result ->
                     _uiState.update { state ->
@@ -83,11 +52,40 @@ class AddVehicleViewModel @Inject constructor(
                 }
         }
     }
+
+    fun deleteVehicle(id: Int) {
+        viewModelScope.launch {
+            useCase.deleteVehicle(id)
+                .catch { }
+                .collect {
+                    _uiState.update { state ->
+                        it.handleResource(
+                            onLoading = {
+                                state.copy(
+                                    loadingState = LoadingState.DefaultLoading,
+                                )
+                            },
+                            onSuccess = {
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = null,
+                                )
+                            },
+                            onFailure = { _, message ->
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = message
+                                )
+                            }
+                        )
+                    }
+                }
+        }
+    }
 }
 
-data class AddVehicleUiState(
+data class VehicleListUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
-    val vehicleSaved: Boolean = false,
     val vehicles: List<Vehicle> = emptyList(),
 )
