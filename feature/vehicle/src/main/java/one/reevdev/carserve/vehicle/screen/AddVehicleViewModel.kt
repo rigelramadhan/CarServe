@@ -52,10 +52,42 @@ class AddVehicleViewModel @Inject constructor(
                 }
         }
     }
+
+    fun getAllVehicle() {
+        viewModelScope.launch {
+            vehicleUseCase.getAllVehicles()
+                .catch {  }
+                .collect { result ->
+                    _uiState.update { state ->
+                        result.handleResource(
+                            onLoading = {
+                                state.copy(
+                                    loadingState = LoadingState.DefaultLoading,
+                                )
+                            },
+                            onSuccess = {
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = null,
+                                    vehicles = it
+                                )
+                            },
+                            onFailure = { _, message ->
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = message
+                                )
+                            }
+                        )
+                    }
+                }
+        }
+    }
 }
 
 data class AddVehicleUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
     val vehicleSaved: Boolean = false,
+    val vehicles: List<Vehicle> = emptyList(),
 )

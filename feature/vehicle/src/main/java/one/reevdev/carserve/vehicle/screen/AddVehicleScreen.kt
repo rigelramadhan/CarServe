@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.core.common.data.emptyString
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Transmission
-import one.reevdev.carserve.core.domain.feature.vehicle.model.VehicleParam
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
@@ -25,7 +25,7 @@ import one.reevdev.carserve.vehicle.component.SelectableList
 @Composable
 fun AddVehicleScreen(
     modifier: Modifier = Modifier,
-    onProceedForm: (param: VehicleParam) -> Unit,
+    onProceedForm: (param: Vehicle) -> Unit,
 ) {
     val transmissionOptions by remember { mutableStateOf(Transmission.entries.map { it.value }) }
     val (selected, onSelected) = remember { mutableStateOf(transmissionOptions[0]) }
@@ -67,7 +67,15 @@ fun AddVehicleScreen(
             enableIf = {
                 carName.isNotBlank() && color.isNotBlank() && selected.isNotBlank()
             },
-            onClick = { onProceedForm(VehicleParam(carName, color, selected)) }
+            onClick = {
+                onProceedForm(
+                    Vehicle(
+                        carName = carName,
+                        color = color,
+                        transmission = selected
+                    )
+                )
+            }
         )
     }
 }
