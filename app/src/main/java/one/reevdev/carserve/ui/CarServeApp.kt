@@ -10,6 +10,8 @@ import one.reevdev.carserve.feature.service.navigation.serviceScreen
 import one.reevdev.carserve.ui.navigation.MainRoutes
 import one.reevdev.carserve.ui.navigation.homeScreen
 import one.reevdev.carserve.ui.navigation.navigateToHome
+import one.reevdev.carserve.vehicle.navigation.navigateToVehicleList
+import one.reevdev.carserve.vehicle.navigation.vehicleListScreen
 
 @Composable
 fun CarServeApp(
@@ -22,7 +24,13 @@ fun CarServeApp(
         navController = navController,
         startDestination = startDestination
     ) {
-        homeScreen { navController.navigateToService() }
+        homeScreen(
+            onServeVisionClick = { navController.navigateToService() },
+            onMyVehicleClick = { navController.navigateToVehicleList() }
+        )
         serviceScreen { navController.navigateToHome(clearBackStack = true) }
+        vehicleListScreen {
+
+        }
     }
 }

@@ -26,6 +26,7 @@ fun VehicleListScreen(
         vehicleList = vehicles,
         onChooseOption = { vehicle ->
             vehicle?.let {
+                showConfirmationDialog = it
             }
         }
     )
