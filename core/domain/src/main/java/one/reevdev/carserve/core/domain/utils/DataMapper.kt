@@ -3,13 +3,11 @@ package one.reevdev.carserve.core.domain.utils
 import one.reevdev.carserve.core.data.datasource.model.service.Finding
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
-import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleData
-import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleParamData
+import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleEntity
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
-import one.reevdev.carserve.core.domain.feature.vehicle.model.VehicleParam
 
 fun ServiceAnalysisResult.toDomain() = ServiceAnalysis(
     vehicle = vehicle.toDomain(),
@@ -45,19 +43,15 @@ fun ServiceParam.toRequest() = ServiceParamData(
     photo = photo
 )
 
-fun VehicleParam.toRequest() = VehicleParamData(
+fun VehicleEntity.toDomain() = Vehicle(
+    id = id,
     carName = carName,
     color = color,
     transmission = transmission
 )
 
-fun VehicleData.toDomain() = Vehicle(
-    carName = carName,
-    color = color,
-    transmission = transmission
-)
-
-fun Vehicle.toRequest() = VehicleData(
+fun Vehicle.toRequest() = VehicleEntity(
+    id = id,
     carName = carName,
     color = color,
     transmission = transmission

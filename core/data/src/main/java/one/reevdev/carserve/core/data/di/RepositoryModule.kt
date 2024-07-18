@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import one.reevdev.carserve.core.data.repository.service.ServiceRepository
 import one.reevdev.carserve.core.data.repository.service.ServiceRepositoryImpl
+import one.reevdev.carserve.core.data.repository.vehicle.VehicleRepository
+import one.reevdev.carserve.core.data.repository.vehicle.VehicleRepositoryImpl
 import javax.inject.Singleton
 
 @Module
@@ -15,4 +17,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun provideServiceRepository(repositoryImpl: ServiceRepositoryImpl): ServiceRepository
+
+    @Singleton
+    @Binds
+    fun provideVehicleRepository(repositoryImpl: VehicleRepositoryImpl): VehicleRepository
 }

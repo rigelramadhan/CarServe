@@ -1,7 +1,7 @@
 package one.reevdev.carserve.core.data.datasource.remote.gemini.prompt
 
 import one.reevdev.carserve.core.data.datasource.model.service.AvailableService
-import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleParamData
+import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleEntity
 
 object InstructionPrompt {
 
@@ -14,7 +14,7 @@ object InstructionPrompt {
     fun analyzeCar(
         symptoms: String,
         problem: String,
-        vehicle: VehicleParamData,
+        vehicle: VehicleEntity,
         availableService: List<AvailableService>
     ) = """
         I have this image and symptoms taken and I want you to analyze it with these points:
