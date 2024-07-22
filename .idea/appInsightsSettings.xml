@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="one.reevdev.carserve" />
+                  <option name="mobileSdkAppId" value="1:941612156962:android:c541f0478d6ac51e48227b" />
+                  <option name="projectId" value="project-gem-78884" />
+                  <option name="projectNumber" value="941612156962" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
