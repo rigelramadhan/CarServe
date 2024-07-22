@@ -34,7 +34,7 @@ import one.reevdev.carserve.feature.vehicle.navigation.navigateToAddToCar
 fun AnalysisRouter(
     modifier: Modifier = Modifier,
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
-    startDestination: String = AnalysisRoutes.Camera.route,
+    startDestination: Any = AnalysisRoutes.Camera,
     initVehicle: Vehicle? = null,
     navController: NavHostController = rememberNavController(),
     navigateToHome: () -> Unit,
