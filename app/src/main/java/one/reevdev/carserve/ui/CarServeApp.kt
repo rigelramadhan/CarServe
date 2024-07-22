@@ -16,7 +16,7 @@ import one.reevdev.carserve.ui.navigation.navigateToHome
 @Composable
 fun CarServeApp(
     modifier: Modifier = Modifier,
-    startDestination: String = MainRoutes.Home.route,
+    startDestination: Any = MainRoutes.Home,
     navController: NavHostController = rememberNavController(),
 ) {
     NavHost(

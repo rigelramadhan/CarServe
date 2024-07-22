@@ -13,11 +13,11 @@ fun NavController.navigateToHome(clearBackStack: Boolean = false) {
             .setLaunchSingleTop(true)
             .build()
     } else null
-    navigate(route = MainRoutes.Home.route, navOptions = navOptions)
+    navigate(MainRoutes.Home, navOptions = navOptions)
 }
 
 fun NavGraphBuilder.homeScreen(onServeVisionClick: () -> Unit, onMyVehicleClick: () -> Unit) {
-    composable(route = MainRoutes.Home.route) {
+    composable<MainRoutes.Home> {
         HomeRouter(onServeVisionClick = onServeVisionClick, onMyVehicleClick = onMyVehicleClick)
     }
 }
