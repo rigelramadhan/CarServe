@@ -25,17 +25,18 @@ import one.reevdev.carserve.vehicle.R
 @Composable
 fun AddVehicleRouter(
     modifier: Modifier = Modifier,
-    onProceedForm: (vehicle: Vehicle) -> Unit,
+    shouldShowCarOptions: Boolean = true,
+    onSubmitVehicle: (vehicle: Vehicle) -> Unit,
     viewModel: AddVehicleViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var vehicle by remember { mutableStateOf<Vehicle?>(null) }
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
-    var showBottomSheet by remember { mutableStateOf(true) }
+    var showBottomSheet by remember { mutableStateOf(shouldShowCarOptions) }
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.getAllVehicle()
+        if (shouldShowCarOptions) viewModel.getAllVehicle()
     }
 
     Scaffold(
@@ -51,7 +52,7 @@ fun AddVehicleRouter(
                 .padding(innerPadding),
             onProceedForm = {
                 viewModel.saveVehicle(vehicle ?: it)
-                onProceedForm(it)
+                onSubmitVehicle(it)
             },
             vehicle = vehicle,
         )
