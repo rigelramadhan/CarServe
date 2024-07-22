@@ -29,8 +29,10 @@ fun CarServeApp(
             onMyVehicleClick = { navController.navigateToVehicleList() }
         )
         serviceScreen { navController.navigateToHome(clearBackStack = true) }
-        vehicleListScreen { vehicle ->
-            navController.navigateToService(vehicle)
-        }
+        vehicleListScreen(
+            onAnalyzeVehicle = { vehicle ->
+                navController.navigateToService(vehicle)
+            }
+        )
     }
 }

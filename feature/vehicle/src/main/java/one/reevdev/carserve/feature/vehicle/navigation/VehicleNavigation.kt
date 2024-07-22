@@ -26,9 +26,10 @@ fun NavController.navigateToVehicleList() {
 }
 
 fun NavGraphBuilder.vehicleListScreen(
+    onAddVehicle: () -> Unit = {}, // TODO: To be implemented later
     onAnalyzeVehicle: (vehicle: Vehicle) -> Unit
 ) {
     composable(route = VehicleRoutes.VehicleList.route) {
-        VehicleListRouter(onAnalyzeVehicle = onAnalyzeVehicle)
+        VehicleListRouter(onAddVehicle = onAddVehicle, onAnalyzeVehicle = onAnalyzeVehicle)
     }
 }

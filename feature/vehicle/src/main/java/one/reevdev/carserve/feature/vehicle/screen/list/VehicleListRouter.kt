@@ -17,6 +17,7 @@ import one.reevdev.carserve.vehicle.R
 fun VehicleListRouter(
     modifier: Modifier = Modifier,
     viewModel: VehicleListViewModel = hiltViewModel(),
+    onAddVehicle: () -> Unit,
     onAnalyzeVehicle: (Vehicle) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -33,6 +34,7 @@ fun VehicleListRouter(
             Modifier
                 .padding(innerPadding),
             vehicles = uiState.vehicles,
+            onAddVehicle = onAddVehicle,
             onVehicleDelete = {
                 viewModel.deleteVehicle(it)
             },
