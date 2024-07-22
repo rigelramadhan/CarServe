@@ -7,4 +7,9 @@
     <string name="title_add_vehicle">Add Vehicle</string>
     <string name="title_choose_your_vehicle">Choose your vehicle</string>
     <string name="message_no_vehicle_found">No vehicle found.</string>
+    <string name="message_vehicle_confirmation_dialog">(%1$s, %2$s, %3$s transmission)</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_analyze">Analyze</string>
+    <string name="title_my_vehicles">My Vehicles</string>
+    <string name="content_description_add_vehicle_icon">Add vehicle icon</string>
 </resources>

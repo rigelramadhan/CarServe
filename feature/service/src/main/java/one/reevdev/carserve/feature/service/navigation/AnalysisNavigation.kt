@@ -6,6 +6,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.google.gson.Gson
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
 import one.reevdev.carserve.feature.service.navigation.routes.ServiceRoutes
 import one.reevdev.carserve.feature.service.screen.AnalysisRouter
@@ -68,13 +70,26 @@ fun NavGraphBuilder.analysisScreen(
     }
 }
 
-fun NavController.navigateToService() {
-    navigate(ServiceRoutes.Service.route)
+fun NavController.navigateToService(initialVehicleJson: Vehicle = Vehicle()) {
+    val initVehicleJson = initialVehicleJson.run { Gson().toJson(this) }
+    val encodedVehicle = URLEncoder.encode(initVehicleJson, StandardCharsets.UTF_8.toString())
+    navigate(ServiceRoutes.Service.getRoute(encodedVehicle))
 }
 
 fun NavGraphBuilder.serviceScreen(navigateToHome: () -> Unit) {
-    composable(route = ServiceRoutes.Service.route) {
-        AnalysisRouter(navigateToHome = navigateToHome)
+    composable(
+        route = ServiceRoutes.Service.route,
+        arguments = listOf(navArgument(RouteConstants.ARGUMENT_INIT_VEHICLE) {
+            type = NavType.StringType
+            nullable = true
+        })
+    ) {
+        val initVehicleJson = it.arguments?.getString(RouteConstants.ARGUMENT_INIT_VEHICLE)
+        val decodedInitVehicle = initVehicleJson?.run {
+            val decodedJson = URLDecoder.decode(this, StandardCharsets.UTF_8.toString())
+            Gson().fromJson(decodedJson, Vehicle::class.java)
+        }
+        AnalysisRouter(navigateToHome = navigateToHome, initVehicle = decodedInitVehicle)
     }
 }
 

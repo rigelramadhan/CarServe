@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.screen
+package one.reevdev.carserve.feature.vehicle.screen.add
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,24 +18,25 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
+import one.reevdev.carserve.feature.vehicle.component.ChooseVehicleBottomSheet
 import one.reevdev.carserve.vehicle.R
-import one.reevdev.carserve.vehicle.component.ChooseVehicleBottomSheet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddVehicleRouter(
     modifier: Modifier = Modifier,
-    onProceedForm: (vehicle: Vehicle) -> Unit,
+    shouldShowCarOptions: Boolean = true,
+    onSubmitVehicle: (vehicle: Vehicle) -> Unit,
     viewModel: AddVehicleViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var vehicle by remember { mutableStateOf<Vehicle?>(null) }
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
-    var showBottomSheet by remember { mutableStateOf(true) }
+    var showBottomSheet by remember { mutableStateOf(shouldShowCarOptions) }
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.getAllVehicle()
+        if (shouldShowCarOptions) viewModel.getAllVehicle()
     }
 
     Scaffold(
@@ -51,7 +52,7 @@ fun AddVehicleRouter(
                 .padding(innerPadding),
             onProceedForm = {
                 viewModel.saveVehicle(vehicle ?: it)
-                onProceedForm(it)
+                onSubmitVehicle(it)
             },
             vehicle = vehicle,
         )

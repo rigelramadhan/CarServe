@@ -15,6 +15,7 @@ import one.reevdev.carserve.ui.component.HomeCard
 fun HomeScreen(
     modifier: Modifier = Modifier,
     onServeVisionClick: () -> Unit,
+    onMyVehicleClick: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier
@@ -30,6 +31,11 @@ fun HomeScreen(
                     title = stringResource(R.string.title_serve_vision),
                     description = stringResource(R.string.description_serve_vision),
                     onClick = onServeVisionClick
+                )
+                HomeCard(
+                    title = stringResource(R.string.title_my_vehicles),
+                    description = stringResource(R.string.description_my_vehicle),
+                    onClick = onMyVehicleClick
                 )
             }
         }

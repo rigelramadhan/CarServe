@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import one.reevdev.carserve.feature.service.navigation.analysisScreen
@@ -26,14 +27,15 @@ import one.reevdev.carserve.feature.service.navigation.navigateToForm
 import one.reevdev.carserve.feature.service.navigation.navigateToPdfViewer
 import one.reevdev.carserve.feature.service.navigation.pdfViewerScreen
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
-import one.reevdev.carserve.vehicle.navigation.addVehicleScreen
-import one.reevdev.carserve.vehicle.navigation.navigateToAddToCar
+import one.reevdev.carserve.feature.vehicle.navigation.addVehicleScreen
+import one.reevdev.carserve.feature.vehicle.navigation.navigateToAddToCar
 
 @Composable
 fun AnalysisRouter(
     modifier: Modifier = Modifier,
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
     startDestination: String = AnalysisRoutes.Camera.route,
+    initVehicle: Vehicle? = null,
     navController: NavHostController = rememberNavController(),
     navigateToHome: () -> Unit,
 ) {
@@ -49,6 +51,13 @@ fun AnalysisRouter(
         }
     }
 
+    LaunchedEffect(key1 = initVehicle) {
+        if (initVehicle != null) {
+            viewModel.setVehicle(initVehicle)
+        }
+
+    }
+
     Scaffold(
         modifier = modifier,
         snackbarHost = {
@@ -62,7 +71,11 @@ fun AnalysisRouter(
             startDestination = startDestination
         ) {
             cameraScreen(viewModel) {
-                navController.navigateToAddToCar()
+                if (uiState.param.vehicle.carName.isNotBlank()) {
+                    navController.navigateToForm()
+                } else {
+                    navController.navigateToAddToCar()
+                }
                 viewModel.setLoading(LoadingState.NotLoading)
             }
             addVehicleScreen { vehicle ->

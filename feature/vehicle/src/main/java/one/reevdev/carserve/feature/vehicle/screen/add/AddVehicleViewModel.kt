@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.screen
+package one.reevdev.carserve.feature.vehicle.screen.add
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
