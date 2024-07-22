@@ -21,7 +21,7 @@ fun VehicleListScreen(
     onVehicleDelete: (id: Int) -> Unit,
     onAnalyzeVehicle: (Vehicle) -> Unit,
 ) {
-    var showConfirmationDialog by remember { mutableStateOf<Vehicle?>(null) }
+    var confirmationDialogData by remember { mutableStateOf<Vehicle?>(null) }
 
     if (vehicles.isNotEmpty()) {
         VehicleListItem(
@@ -29,19 +29,20 @@ fun VehicleListScreen(
             vehicleList = vehicles,
             onChooseOption = { vehicle ->
                 vehicle?.let {
-                    showConfirmationDialog = it
+                    confirmationDialogData = it
                 }
             }
         )
     } else {
         EmptyComponent(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             text = stringResource(id = R.string.message_no_vehicle_found)
         )
     }
 
-    showConfirmationDialog?.run {
+    confirmationDialogData?.run {
         ConfirmationDialog(
+            title = "What to do with this vehicle?",
             message = stringResource(
                 R.string.message_vehicle_confirmation_dialog,
                 carName,
@@ -51,12 +52,15 @@ fun VehicleListScreen(
             negativeButtonText = stringResource(R.string.action_delete),
             onNegativeAction = {
                 onVehicleDelete(id)
-                showConfirmationDialog = null
+                confirmationDialogData = null
             },
             positiveButtonText = stringResource(R.string.action_analyze),
             onPositiveAction = {
                 onAnalyzeVehicle(this)
-                showConfirmationDialog = null
+                confirmationDialogData = null
+            },
+            onDismissRequest = {
+                confirmationDialogData = null
             }
         )
     }

@@ -59,7 +59,10 @@ fun VehicleListItem(
                         text = vehicle.carName,
                         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
                     )
-                    Column {
+                    Column(
+                        modifier = Modifier,
+                        horizontalAlignment = Alignment.End
+                    ) {
                         Text(
                             modifier = Modifier,
                             text = vehicle.transmission,

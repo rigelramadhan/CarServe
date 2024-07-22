@@ -8,4 +8,5 @@ object RouteConstants {
     const val PDF_VIEWER = "pdf_viewer"
 
     const val ARGUMENT_PDF_PATH = "pdfPath"
+    const val ARGUMENT_INIT_VEHICLE = "initVehicle"
 }
