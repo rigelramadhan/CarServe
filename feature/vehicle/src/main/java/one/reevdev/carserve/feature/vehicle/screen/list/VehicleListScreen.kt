@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.screen.list
+package one.reevdev.carserve.feature.vehicle.screen.list
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -11,8 +11,8 @@ import androidx.compose.ui.res.stringResource
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.ConfirmationDialog
 import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
+import one.reevdev.carserve.feature.vehicle.component.VehicleListItem
 import one.reevdev.carserve.vehicle.R
-import one.reevdev.carserve.vehicle.component.VehicleListItem
 
 @Composable
 fun VehicleListScreen(

@@ -26,8 +26,8 @@ import one.reevdev.carserve.feature.service.navigation.navigateToForm
 import one.reevdev.carserve.feature.service.navigation.navigateToPdfViewer
 import one.reevdev.carserve.feature.service.navigation.pdfViewerScreen
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
-import one.reevdev.carserve.vehicle.navigation.addVehicleScreen
-import one.reevdev.carserve.vehicle.navigation.navigateToAddToCar
+import one.reevdev.carserve.feature.vehicle.navigation.addVehicleScreen
+import one.reevdev.carserve.feature.vehicle.navigation.navigateToAddToCar
 
 @Composable
 fun AnalysisRouter(

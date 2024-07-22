@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.navigation
+package one.reevdev.carserve.feature.vehicle.navigation
 
 sealed class VehicleRoutes(val route: String) {
     data object AddVehicle : VehicleRoutes(VehicleConstants.ADD_VEHICLE)

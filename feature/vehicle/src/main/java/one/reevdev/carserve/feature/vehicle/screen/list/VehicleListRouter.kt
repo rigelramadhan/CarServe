@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.screen.list
+package one.reevdev.carserve.feature.vehicle.screen.list
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold

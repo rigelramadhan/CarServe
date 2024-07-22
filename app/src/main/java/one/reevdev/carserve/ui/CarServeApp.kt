@@ -7,11 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.feature.service.navigation.navigateToService
 import one.reevdev.carserve.feature.service.navigation.serviceScreen
+import one.reevdev.carserve.feature.vehicle.navigation.navigateToVehicleList
+import one.reevdev.carserve.feature.vehicle.navigation.vehicleListScreen
 import one.reevdev.carserve.ui.navigation.MainRoutes
 import one.reevdev.carserve.ui.navigation.homeScreen
 import one.reevdev.carserve.ui.navigation.navigateToHome
-import one.reevdev.carserve.vehicle.navigation.navigateToVehicleList
-import one.reevdev.carserve.vehicle.navigation.vehicleListScreen
 
 @Composable
 fun CarServeApp(

@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.component
+package one.reevdev.carserve.feature.vehicle.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

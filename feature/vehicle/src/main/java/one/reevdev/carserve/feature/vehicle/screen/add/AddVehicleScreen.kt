@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.screen.add
+package one.reevdev.carserve.feature.vehicle.screen.add
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,8 +19,8 @@ import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
+import one.reevdev.carserve.feature.vehicle.component.SelectableList
 import one.reevdev.carserve.vehicle.R
-import one.reevdev.carserve.vehicle.component.SelectableList
 
 @Composable
 fun AddVehicleScreen(
