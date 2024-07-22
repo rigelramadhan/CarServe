@@ -10,4 +10,5 @@
     <string name="message_vehicle_confirmation_dialog">What to do with this vehicle? (%1$s, %2$s, %3$s transmission)</string>
     <string name="action_delete">Delete</string>
     <string name="action_analyze">Analyze</string>
+    <string name="title_my_vehicles">My Vehicles</string>
 </resources>
