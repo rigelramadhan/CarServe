@@ -15,7 +15,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.PictureAsPdf
+import androidx.compose.material3.Button
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -75,7 +80,11 @@ fun ServiceAnalysisScreen(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .padding(top = 24.dp),
-                    label = stringResource(R.string.label_vehicle_information)
+                    label = stringResource(R.string.label_vehicle_information),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
                 ) {
                     Row {
                         Text(
@@ -135,6 +144,10 @@ fun ServiceAnalysisScreen(
                         .padding(horizontal = 16.dp)
                         .padding(top = 24.dp),
                     label = stringResource(R.string.label_recommendations),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
                 ) {
                     Text(
                         modifier = Modifier,
@@ -174,7 +187,7 @@ fun ServiceAnalysisScreen(
                     .padding(horizontal = 16.dp, vertical = 24.dp)
 
             ) {
-                OutlinedButton(
+                Button(
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 8.dp),
@@ -186,6 +199,11 @@ fun ServiceAnalysisScreen(
                     modifier = Modifier,
                     onClick = onExportPdf
                 ) {
+                    Icon(
+                        modifier = Modifier.padding(end = 8.dp),
+                        imageVector = Icons.Outlined.PictureAsPdf,
+                        contentDescription = null
+                    )
                     Text(text = stringResource(R.string.action_export_pdf))
                 }
             }
