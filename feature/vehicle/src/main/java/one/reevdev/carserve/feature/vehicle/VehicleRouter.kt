@@ -16,7 +16,7 @@ import one.reevdev.carserve.feature.vehicle.navigation.vehicleListScreen
 @Composable
 fun VehicleRouter(
     modifier: Modifier = Modifier,
-    startDestination: String = VehicleRoutes.VehicleList.route,
+    startDestination: Any = VehicleRoutes.VehicleList,
     navController: NavHostController = rememberNavController(),
     onAnalyzeVehicle: (Vehicle) -> Unit,
 ) {

@@ -1,11 +1,39 @@
 package one.reevdev.carserve.feature.service.navigation.routes
 
-import one.reevdev.carserve.feature.service.navigation.RouteConstants
+import android.net.Uri
+import android.os.Build
+import android.os.Bundle
+import androidx.navigation.NavType
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 
-sealed class ServiceRoutes(val route: String) {
-    data object Service : ServiceRoutes(route = "${RouteConstants.SERVICE}/{${RouteConstants.ARGUMENT_INIT_VEHICLE}}") {
-        fun getRoute(initVehicleJson: String? = null): String {
-            return "${RouteConstants.SERVICE}/${initVehicleJson.orEmpty()}"
+sealed class ServiceRoutes {
+
+    @Serializable
+    data class Service(val initVehicle: Vehicle)
+}
+
+val VehicleParameterType = object : NavType<Vehicle>(isNullableAllowed = true) {
+    override fun get(bundle: Bundle, key: String): Vehicle? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            bundle.getParcelable(key, Vehicle::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            bundle.getParcelable(key)
         }
+    }
+
+    override fun put(bundle: Bundle, key: String, value: Vehicle) {
+        bundle.putParcelable(key, value)
+    }
+
+    override fun parseValue(value: String): Vehicle {
+        return Json.decodeFromString<Vehicle>(value)
+    }
+
+    override fun serializeAsValue(value: Vehicle): String {
+        return Uri.encode(Json.encodeToString(value))
     }
 }
