@@ -16,10 +16,8 @@ fun NavController.navigateToHome(clearBackStack: Boolean = false) {
     navigate(route = MainRoutes.Home.route, navOptions = navOptions)
 }
 
-fun NavGraphBuilder.homeScreen(onServeVisionClick: () -> Unit) {
+fun NavGraphBuilder.homeScreen(onServeVisionClick: () -> Unit, onMyVehicleClick: () -> Unit) {
     composable(route = MainRoutes.Home.route) {
-        HomeRouter {
-            onServeVisionClick()
-        }
+        HomeRouter(onServeVisionClick = onServeVisionClick, onMyVehicleClick = onMyVehicleClick)
     }
 }

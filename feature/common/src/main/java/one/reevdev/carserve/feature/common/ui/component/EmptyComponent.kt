@@ -15,17 +15,14 @@ fun EmptyComponent(
     modifier: Modifier = Modifier,
     text: String? = null,
 ) {
-//    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_animation))
-
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        LottieAnimation(composition = composition)
         text?.let {
             Text(
-                modifier = Modifier
-                    .padding(top = 8.dp),
+                modifier = Modifier,
                 text = text
             )
         }

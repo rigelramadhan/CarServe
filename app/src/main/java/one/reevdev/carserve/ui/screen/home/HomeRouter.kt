@@ -9,7 +9,8 @@ import one.reevdev.carserve.feature.common.ui.component.AppHeader
 @Composable
 fun HomeRouter(
     modifier: Modifier = Modifier,
-    onServeVisionClick: () -> Unit
+    onServeVisionClick: () -> Unit,
+    onMyVehicleClick: () -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
@@ -20,7 +21,8 @@ fun HomeRouter(
         HomeScreen(
             modifier = Modifier
                 .padding(innerPadding),
-            onServeVisionClick = onServeVisionClick
+            onServeVisionClick = onServeVisionClick,
+            onMyVehicleClick = onMyVehicleClick,
         )
     }
 }

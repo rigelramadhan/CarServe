@@ -1,4 +1,4 @@
-package one.reevdev.carserve.vehicle.component
+package one.reevdev.carserve.feature.vehicle.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -32,6 +32,7 @@ fun SelectableList(
     label: String? = null,
     options: List<String>,
     selected: String,
+    enableIf: () -> Boolean = { true },
     onSelect: (String) -> Unit,
 ) {
     Column(
@@ -52,6 +53,7 @@ fun SelectableList(
                     .fillMaxWidth()
                     .height(56.dp)
                     .selectable(
+                        enabled = enableIf(),
                         selected = (option == selected),
                         onClick = { onSelect(option) },
                         role = Role.RadioButton
@@ -81,7 +83,8 @@ private fun SelectableListPreview() {
         SelectableList(
             label = stringResource(R.string.label_transmission),
             options = Transmission.entries.map { it.value },
-            selected = Transmission.MANUAL.value
+            selected = Transmission.MANUAL.value,
+            enableIf = { true }
         ) {
 
         }

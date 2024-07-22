@@ -10,4 +10,6 @@
     <string name="results_placeholder">(Results will appear here)</string>
     <string name="title_serve_vision">Serve-Vision</string>
     <string name="description_serve_vision">Check the condition of your car with a capture of an image with our AI-driven analysis.</string>
+    <string name="title_my_vehicles">My Vehicles</string>
+    <string name="description_my_vehicle">Check and analyze your vehicle.</string>
 </resources>

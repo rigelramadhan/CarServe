@@ -13,7 +13,7 @@ import one.reevdev.carserve.core.common.data.handleResource
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
 import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceUseCase
-import one.reevdev.carserve.core.domain.feature.vehicle.model.VehicleParam
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import one.reevdev.carserve.feature.service.utils.MessageConstants
 import javax.inject.Inject
@@ -87,7 +87,7 @@ class ServiceAnalysisViewModel @Inject constructor(
         }
     }
 
-    fun setVehicle(vehicle: VehicleParam) {
+    fun setVehicle(vehicle: Vehicle) {
         _uiState.update {
             it.copy(param = it.param.copy(vehicle = vehicle))
         }

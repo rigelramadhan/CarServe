@@ -290,7 +290,7 @@ private fun ServiceAnalysisPreview() {
                 ServiceFinding("Problem 2", "Solution 2", 0.0),
                 ServiceFinding("Problem 3", "Solution 3", 624500.0),
             ),
-            vehicle = Vehicle("Xenia", "Blue", "MT"),
+            vehicle = Vehicle(1, "Xenia", "Blue", "MT"),
             recommendedAction = "This is the recommended action of the problem",
             estimatedPrice = 244000.0,
             onProceed = {}
