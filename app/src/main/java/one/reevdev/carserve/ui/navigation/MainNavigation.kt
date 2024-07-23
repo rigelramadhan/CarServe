@@ -4,6 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.ui.screen.MainRouter
 import one.reevdev.carserve.ui.screen.home.HomeRouter
 import one.reevdev.carserve.ui.screen.splash.SplashRouter
 
@@ -29,5 +31,21 @@ fun NavGraphBuilder.splashScreen(navigateToHome: () -> Unit, navigateToAuth: () 
             navigateToHome = navigateToHome,
             navigateToLogin = navigateToAuth
         )
+    }
+}
+
+fun NavController.navigateToMain(clearBackStack: Boolean = false) {
+    val navOptions = if (clearBackStack) {
+        NavOptions.Builder()
+            .setPopUpTo(graph.startDestinationId, inclusive = true)
+            .setLaunchSingleTop(true)
+            .build()
+    } else null
+    navigate(MainRoutes.Main, navOptions = navOptions)
+}
+
+fun NavGraphBuilder.mainRouter(navigateToService: (Vehicle) -> Unit, onLoggedOut: () -> Unit) {
+    composable<MainRoutes.Main> {
+        MainRouter(navigateToService = navigateToService, onLoggedOut = onLoggedOut)
     }
 }

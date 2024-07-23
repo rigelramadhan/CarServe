@@ -23,4 +23,10 @@ class AuthPreferences(private val dataStore: DataStore<Preferences>) {
             auth[keyUserEmail] = email
         }
     }
+
+    suspend fun logout() {
+        dataStore.edit { auth ->
+            auth[keyUserEmail] = emptyString()
+        }
+    }
 }

@@ -35,4 +35,9 @@ class AuthRepositoryImpl @Inject constructor(
                 emit(Result.Success(it))
             }
     }
+
+    override fun logout(): Flow<Result<Boolean>> = flow {
+        authPreferences.logout()
+        emit(Result.Success(true))
+    }
 }

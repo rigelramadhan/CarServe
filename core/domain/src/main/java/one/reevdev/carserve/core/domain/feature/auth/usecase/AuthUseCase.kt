@@ -8,4 +8,6 @@ interface AuthUseCase {
     fun login(param: LoginParam): Flow<Result<Boolean>>
 
     fun checkLoggedInUser(): Flow<Result<String>>
+
+    fun logout(): Flow<Result<Boolean>>
 }
