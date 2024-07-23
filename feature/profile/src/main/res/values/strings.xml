@@ -4,4 +4,6 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="message_wrong_credentials">Wrong email or password. Try again.</string>
+    <string name="message_something_wrong">Something went wrong.</string>
 </resources>

@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.screen
+package one.reevdev.carserve.feature.profile.screen.login
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
