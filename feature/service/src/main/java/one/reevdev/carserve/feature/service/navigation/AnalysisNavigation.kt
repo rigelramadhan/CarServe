@@ -71,7 +71,7 @@ fun NavController.navigateToService(initialVehicle: Vehicle = Vehicle()) {
     navigate(ServiceRoutes.Service(initialVehicle))
 }
 
-fun NavGraphBuilder.serviceScreen(navigateToHome: () -> Unit) {
+fun NavGraphBuilder.serviceRouter(navigateToHome: () -> Unit) {
     composable<ServiceRoutes.Service>(
         typeMap = mapOf(typeOf<Vehicle>() to VehicleParameterType)
     ) {

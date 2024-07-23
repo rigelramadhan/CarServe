@@ -6,4 +6,7 @@ sealed class MainRoutes {
 
     @Serializable
     data object Home
+
+    @Serializable
+    data object Splash
 }
