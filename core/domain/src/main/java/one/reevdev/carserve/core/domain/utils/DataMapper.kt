@@ -1,9 +1,11 @@
 package one.reevdev.carserve.core.domain.utils
 
+import one.reevdev.carserve.core.data.datasource.model.auth.LoginParamData
 import one.reevdev.carserve.core.data.datasource.model.service.Finding
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
 import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleEntity
+import one.reevdev.carserve.core.domain.feature.auth.model.LoginParam
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
@@ -55,4 +57,9 @@ fun Vehicle.toRequest() = VehicleEntity(
     carName = carName,
     color = color,
     transmission = transmission
+)
+
+fun LoginParam.toRequest() = LoginParamData(
+    email = email,
+    password = password
 )

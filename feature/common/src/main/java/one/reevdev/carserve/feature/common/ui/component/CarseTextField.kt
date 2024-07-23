@@ -4,8 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -55,6 +56,7 @@ fun CarseTextField(
         },
         colors = TextFieldDefaults.colors(
             unfocusedIndicatorColor = Color.Transparent,
+            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow
         ),
     )
 }
@@ -63,7 +65,11 @@ fun CarseTextField(
 @Composable
 private fun CarseTextFieldPreview() {
     CarServeTheme {
-        CarseTextField(value = "This is the value", label = "Field", endButton = Icons.Default.Settings) {
+        CarseTextField(
+            value = "This is the value",
+            label = "Field",
+            endButton = Icons.Default.AccountCircle
+        ) {
 
         }
     }

@@ -3,6 +3,10 @@ package one.reevdev.carserve.feature.profile.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -12,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
+import one.reevdev.carserve.feature.common.utils.isValidEmail
 import one.reevdev.carserve.feature.profile.R
 
 @Composable
@@ -21,6 +26,8 @@ fun LoginScreen(
     onEmailChange: (String) -> Unit,
     password: String,
     onPasswordChange: (String) -> Unit,
+    showPassword: Boolean,
+    onShowPasswordClick: () -> Unit,
     onLoginClick: () -> Unit,
     onRegisterClick: () -> Unit,
 ) {
@@ -42,8 +49,10 @@ fun LoginScreen(
                 .fillMaxWidth()
                 .padding(top = 12.dp),
             label = stringResource(R.string.password),
+            endButton = if (showPassword) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+            onEndButtonClick = onShowPasswordClick,
             keyboardType = KeyboardType.Password,
-            isValueVisible = false,
+            isValueVisible = showPassword,
             value = password,
             onValueChange = onPasswordChange
         )
@@ -52,7 +61,19 @@ fun LoginScreen(
                 .fillMaxWidth()
                 .padding(top = 48.dp),
             text = stringResource(R.string.login),
+            enableIf = {
+                email.isValidEmail() && password.length >= 8
+            },
             onClick = onLoginClick
+        )
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = 16.dp, horizontal = 16.dp)
+        )
+        CarseButton(
+            modifier = Modifier
+                .fillMaxWidth(),
+            text = stringResource(R.string.register),
+            onClick = onRegisterClick
         )
     }
 }
@@ -66,6 +87,8 @@ private fun LoginScreenPreview() {
             onEmailChange = {},
             password = "testingsatuduatiga",
             onPasswordChange = {},
+            showPassword = false,
+            onShowPasswordClick = {},
             onLoginClick = {},
             onRegisterClick = {}
         )
