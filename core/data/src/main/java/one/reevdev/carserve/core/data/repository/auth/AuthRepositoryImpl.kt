@@ -4,6 +4,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import one.reevdev.carserve.core.common.data.Result
+import one.reevdev.carserve.core.common.data.emptyString
 import one.reevdev.carserve.core.data.BuildConfig
 import one.reevdev.carserve.core.data.datasource.model.auth.LoginParamData
 import javax.inject.Inject
@@ -22,5 +23,9 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
             else
                 emit(Result.Success(false))
         }
+    }
+
+    override fun checkLoggedInUser(): Flow<Result<String>> = flow {
+        emit(Result.Success(emptyString()))
     }
 }

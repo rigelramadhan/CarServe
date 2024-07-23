@@ -6,4 +6,6 @@ import one.reevdev.carserve.core.domain.feature.auth.model.LoginParam
 
 interface AuthUseCase {
     fun login(param: LoginParam): Flow<Result<Boolean>>
+
+    fun checkLoggedInUser(): Flow<Result<String>>
 }

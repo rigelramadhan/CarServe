@@ -41,7 +41,7 @@ fun NavController.navigateToVehicle() {
     navigate(VehicleRoutes.Vehicle)
 }
 
-fun NavGraphBuilder.vehicleScreen(
+fun NavGraphBuilder.vehicleRouter(
     onAnalyzeVehicle: (vehicle: Vehicle) -> Unit
 ) {
     composable<VehicleRoutes.Vehicle> {

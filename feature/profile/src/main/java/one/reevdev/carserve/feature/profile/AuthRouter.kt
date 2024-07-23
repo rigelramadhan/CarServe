@@ -12,7 +12,7 @@ import one.reevdev.carserve.feature.profile.navigation.loginScreen
 fun AuthRouter(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: AuthRoutes.Login,
+    startDestination: Any = AuthRoutes.Login,
     navigateToHome: () -> Unit,
 ) {
     NavHost(
