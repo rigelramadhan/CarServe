@@ -15,4 +15,8 @@ class AuthInteractor @Inject constructor(private val repository: AuthRepository)
     override fun checkLoggedInUser(): Flow<Result<String>> {
         return repository.checkLoggedInUser()
     }
+
+    override fun logout(): Flow<Result<Boolean>> {
+        return repository.logout()
+    }
 }

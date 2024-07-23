@@ -56,7 +56,8 @@ fun CarseTextField(
         },
         colors = TextFieldDefaults.colors(
             unfocusedIndicatorColor = Color.Transparent,
-            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow
+            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow
         ),
     )
 }

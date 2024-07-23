@@ -7,7 +7,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import one.reevdev.carserve.utils.BottomNavBarData
 
 @Composable
@@ -22,8 +24,8 @@ fun BottomNavBar(
     ) {
         items.forEachIndexed { index, navBarData ->
             NavBarItem(
-                icon = navBarData.icon,
-                label = navBarData.label,
+                icon = painterResource(navBarData.icon),
+                label = stringResource(navBarData.label),
                 selected = index == selected,
                 onClick = { onItemSelect(index) }
             )
@@ -34,7 +36,7 @@ fun BottomNavBar(
 @Composable
 fun RowScope.NavBarItem(
     modifier: Modifier = Modifier,
-    icon: ImageVector,
+    icon: Painter,
     label: String,
     selected: Boolean,
     onClick: () -> Unit,

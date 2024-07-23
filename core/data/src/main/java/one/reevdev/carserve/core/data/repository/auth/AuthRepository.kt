@@ -8,4 +8,6 @@ interface AuthRepository {
     fun login(param: LoginParamData): Flow<Result<Boolean>>
 
     fun checkLoggedInUser(): Flow<Result<String>>
+
+    fun logout(): Flow<Result<Boolean>>
 }

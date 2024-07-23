@@ -1,8 +1,10 @@
 package one.reevdev.carserve.utils
 
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 
 data class BottomNavBarData(
-    val label: String,
-    val icon: ImageVector,
+    @StringRes val label: Int,
+    @DrawableRes val icon: Int,
+    val navigateAction: () -> Unit,
 )
