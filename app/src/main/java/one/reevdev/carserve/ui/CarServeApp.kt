@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import one.reevdev.carserve.feature.profile.navigation.authRouter
-import one.reevdev.carserve.feature.profile.navigation.navigateToLogin
+import one.reevdev.carserve.feature.auth.navigation.authRouter
+import one.reevdev.carserve.feature.auth.navigation.navigateToLogin
 import one.reevdev.carserve.feature.service.navigation.navigateToService
 import one.reevdev.carserve.feature.service.navigation.serviceRouter
 import one.reevdev.carserve.ui.navigation.MainRoutes
