@@ -10,3 +10,8 @@ fun String.isValidPhoneNumber(): Boolean {
         """^\+?(\d{1,3})?[-.\s]?(\(?\d{1,4}\)?)[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})([-.\s]?\d{1,9})?$"""
     return this.matches(phoneRegex.toRegex())
 }
+
+fun String.isNumber(): Boolean {
+    val numberRegex = """^-?\d+(\.\d+)?$"""
+    return this.matches(numberRegex.toRegex())
+}

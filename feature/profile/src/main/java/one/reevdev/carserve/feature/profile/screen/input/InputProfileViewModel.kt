@@ -71,7 +71,7 @@ class InputProfileViewModel @Inject constructor(
                                         phoneNumber = data.phoneNumber,
                                         address = data.address
                                     ),
-                                    isPrefilled = true
+                                    isPrefilled = data != SavedProfile()
                                 )
                             },
                             onFailure = { _, errorMessage ->

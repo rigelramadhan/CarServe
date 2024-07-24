@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
+import one.reevdev.carserve.feature.common.utils.isNumber
 import one.reevdev.carserve.feature.common.utils.isValidEmail
 import one.reevdev.carserve.feature.common.utils.isValidPhoneNumber
 import one.reevdev.carserve.feature.profile.R
@@ -66,7 +67,7 @@ fun InputProfileScreen(
                         value = phoneNumber,
                         keyboardType = KeyboardType.Phone,
                         onValueChange = {
-                            if (it.toIntOrNull() != null) onPhoneNumberValueChange(it)
+                            if (it.isNumber()) onPhoneNumberValueChange(it)
                         }
                     )
                     CarseTextField(
@@ -77,20 +78,22 @@ fun InputProfileScreen(
                     )
                 }
             }
+            
+            item {
+                CarseButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 24.dp, top = 48.dp)
+                        .align(Alignment.BottomCenter),
+                    text = stringResource(R.string.action_submit),
+                    enableIf = {
+                        name.isNotBlank() && email.isValidEmail()
+                                && phoneNumber.isValidPhoneNumber() && address.isNotBlank()
+                    },
+                    onClick = onSubmit
+                )
+            }
         }
-        CarseButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 24.dp)
-                .align(Alignment.BottomCenter),
-            text = "Submit",
-            enableIf = {
-                name.isNotBlank() && email.isValidEmail()
-                        && phoneNumber.isValidPhoneNumber() && address.isNotBlank()
-            },
-            onClick = onSubmit
-        )
     }
 }
 
