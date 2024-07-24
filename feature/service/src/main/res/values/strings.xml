@@ -16,4 +16,9 @@
     <string name="message_analyzing_your_vehicle">Analyzing your vehicle</string>
     <string name="action_export_pdf">Export PDF</string>
     <string name="message_no_pdf_viewer">No PDF viewer found</string>
+    <string name="label_customer_information">Customer Information</string>
+    <string name="label_name">Name</string>
+    <string name="label_email">Email</string>
+    <string name="label_phone_number">Phone Number</string>
+    <string name="label_address">Address</string>
 </resources>

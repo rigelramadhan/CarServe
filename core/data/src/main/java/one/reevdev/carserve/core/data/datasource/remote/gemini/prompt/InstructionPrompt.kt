@@ -1,5 +1,6 @@
 package one.reevdev.carserve.core.data.datasource.remote.gemini.prompt
 
+import one.reevdev.carserve.core.data.datasource.model.profile.LastSavedProfile
 import one.reevdev.carserve.core.data.datasource.model.service.AvailableService
 import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleEntity
 
@@ -14,6 +15,7 @@ object InstructionPrompt {
     fun analyzeCar(
         symptoms: String,
         problem: String,
+        profile: LastSavedProfile,
         vehicle: VehicleEntity,
         availableService: List<AvailableService>
     ) = """
@@ -32,6 +34,12 @@ object InstructionPrompt {
         Color: ${vehicle.color}
         Transmission: ${vehicle.transmission}
         
+        Here's the customer information.
+        Name: ${profile.name}
+        Email: ${profile.email}
+        Phone: ${profile.phoneNumber}
+        Address: ${profile.address}
+        
         Here are the symptoms and problems I found.
         Symptoms: $symptoms
         Other complaints: $problem
@@ -39,10 +47,10 @@ object InstructionPrompt {
         ${ResponseRule.SERVICE_JSON}
         
         Create a thorough, comprehensive, and MAKE SURE TO BE SIGNIFICANTLY EXTENDED analysis in 
-        the html format to fill the analysisHtml data with beautiful but professional formatting 
-        and make the prices with rupiah currency. Make the vehicle information, findings, and 
-        recommended action in a table format with a relevant description above it. Make the 
-        html very comprehensive and extended.
+        the html format with 2cm margin to fill the analysisHtml data with beautiful but professional 
+        formatting and make the prices with rupiah currency. Make the vehicle information, customer 
+        information, findings, and recommended action in a table format with a relevant description 
+        above it. Make the html very comprehensive and extended.
     """.trimIndent()
 
     private val htmlFormat = """

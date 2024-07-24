@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
+import one.reevdev.carserve.feature.common.utils.isValidEmail
+import one.reevdev.carserve.feature.common.utils.isValidPhoneNumber
 import one.reevdev.carserve.feature.profile.R
 
 @Composable
@@ -38,7 +40,7 @@ fun InputProfileScreen(
     ) {
         LazyColumn(
             modifier = Modifier
-                .padding(bottom = 72.dp, top = 24.dp)
+                .padding(bottom = 72.dp, top = 16.dp)
                 .padding(horizontal = 16.dp)
         ) {
             item {
@@ -63,7 +65,9 @@ fun InputProfileScreen(
                         label = stringResource(R.string.label_phone_number),
                         value = phoneNumber,
                         keyboardType = KeyboardType.Phone,
-                        onValueChange = onPhoneNumberValueChange
+                        onValueChange = {
+                            if (it.toIntOrNull() != null) onPhoneNumberValueChange(it)
+                        }
                     )
                     CarseTextField(
                         modifier = Modifier.fillMaxWidth(),
@@ -81,9 +85,11 @@ fun InputProfileScreen(
                 .padding(bottom = 24.dp)
                 .align(Alignment.BottomCenter),
             text = "Submit",
-            onClick = {
-
-            }
+            enableIf = {
+                name.isNotBlank() && email.isValidEmail()
+                        && phoneNumber.isValidPhoneNumber() && address.isNotBlank()
+            },
+            onClick = onSubmit
         )
     }
 }

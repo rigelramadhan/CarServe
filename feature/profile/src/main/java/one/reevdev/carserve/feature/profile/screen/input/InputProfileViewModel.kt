@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
-import one.reevdev.carserve.core.domain.feature.profile.model.ProfileParam
+import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
 import one.reevdev.carserve.core.domain.feature.profile.usecase.ProfileUseCase
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class InputProfileViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(InputProfileUiState())
     val uiState: StateFlow<InputProfileUiState> by lazy { _uiState }
 
-    fun saveLastProfileData(param: ProfileParam) {
+    fun saveLastProfileData(param: SavedProfile) {
         viewModelScope.launch {
             profileUseCase.saveLastProfileData(param)
                 .collect {
@@ -65,12 +65,13 @@ class InputProfileViewModel @Inject constructor(
                                 state.copy(
                                     loadingState = LoadingState.NotLoading,
                                     errorMessage = null,
-                                    param = ProfileParam(
+                                    param = SavedProfile(
                                         name = data.name,
                                         email = data.email,
                                         phoneNumber = data.phoneNumber,
                                         address = data.address
-                                    )
+                                    ),
+                                    isPrefilled = true
                                 )
                             },
                             onFailure = { _, errorMessage ->
@@ -84,10 +85,41 @@ class InputProfileViewModel @Inject constructor(
                 }
         }
     }
+
+    fun setName(name: String) {
+        _uiState.update {
+            it.copy(param = it.param.copy(name = name))
+        }
+    }
+
+    fun setEmail(email: String) {
+        _uiState.update {
+            it.copy(param = it.param.copy(email = email))
+        }
+    }
+
+    fun setPhoneNumber(phoneNumber: String) {
+        _uiState.update {
+            it.copy(param = it.param.copy(phoneNumber = phoneNumber))
+        }
+    }
+
+    fun setAddress(address: String) {
+        _uiState.update {
+            it.copy(param = it.param.copy(address = address))
+        }
+    }
+
+    fun removePrefilledData() {
+        _uiState.update {
+            it.copy(param = SavedProfile(), isPrefilled = false)
+        }
+    }
 }
 
 data class InputProfileUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
-    val param: ProfileParam = ProfileParam()
+    val param: SavedProfile = SavedProfile(),
+    val isPrefilled: Boolean = false,
 )

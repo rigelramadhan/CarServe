@@ -3,6 +3,7 @@ package one.reevdev.carserve.feature.service.screen.analysis
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,10 +36,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import one.reevdev.carserve.core.common.data.toRupiahCurrency
+import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
 import one.reevdev.carserve.feature.common.ui.component.LabelText
+import one.reevdev.carserve.feature.common.ui.component.TextWithLabel
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
@@ -49,7 +52,8 @@ fun ServiceAnalysisScreen(
     modifier: Modifier = Modifier,
     loadingState: LoadingState,
     findings: List<ServiceFinding>? = null,
-    vehicle: Vehicle? = null, // Pair of car name and transmission
+    vehicle: Vehicle? = null,
+    profile: SavedProfile? = null,
     recommendedAction: String,
     estimatedPrice: Double,
     image: Bitmap? = null,
@@ -98,6 +102,26 @@ fun ServiceAnalysisScreen(
                             text = transmission,
                             style = MaterialTheme.typography.bodyMedium
                         )
+                    }
+                }
+            }
+        }
+
+        profile?.let {
+            item {
+                CardColumn(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 24.dp),
+                    label = stringResource(R.string.label_customer_information),
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        TextWithLabel(label = stringResource(R.string.label_name), text = it.name)
+                        TextWithLabel(label = stringResource(R.string.label_email), text = it.email)
+                        TextWithLabel(label = stringResource(R.string.label_phone_number), text = it.phoneNumber)
+                        TextWithLabel(label = stringResource(R.string.label_address), text = it.address)
                     }
                 }
             }
@@ -308,6 +332,7 @@ private fun ServiceAnalysisPreview() {
                 ServiceFinding("Problem 2", "Solution 2", 0.0),
                 ServiceFinding("Problem 3", "Solution 3", 624500.0),
             ),
+            profile = SavedProfile("John Doe", "john@doe.com", "081311111111", "Jl. Address, West Java, Indonesia"),
             vehicle = Vehicle(1, "Xenia", "Blue", "MT"),
             recommendedAction = "This is the recommended action of the problem",
             estimatedPrice = 244000.0,

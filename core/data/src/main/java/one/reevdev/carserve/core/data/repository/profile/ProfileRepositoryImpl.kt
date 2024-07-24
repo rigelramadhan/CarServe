@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.data.datasource.model.profile.LastSavedProfile
-import one.reevdev.carserve.core.data.datasource.model.profile.ProfileParamData
 import one.reevdev.carserve.core.data.datastore.ProfilePreferences
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,7 +14,7 @@ class ProfileRepositoryImpl @Inject constructor(
     private val profilePreferences: ProfilePreferences
 ) : ProfileRepository {
 
-    override fun saveLastProfileData(param: ProfileParamData): Flow<Result<Boolean>> = flow {
+    override fun saveLastProfileData(param: LastSavedProfile): Flow<Result<Boolean>> = flow {
         profilePreferences.run {
             setLastUserName(param.name)
             setLastUserEmail(param.email)
