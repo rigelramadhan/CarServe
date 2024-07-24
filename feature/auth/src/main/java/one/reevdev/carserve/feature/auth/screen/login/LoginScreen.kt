@@ -43,6 +43,7 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxWidth(),
             label = stringResource(R.string.email),
+            keyboardType = KeyboardType.Email,
             value = email,
             onValueChange = onEmailChange
         )

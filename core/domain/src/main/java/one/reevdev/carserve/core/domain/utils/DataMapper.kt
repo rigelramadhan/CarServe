@@ -1,11 +1,15 @@
 package one.reevdev.carserve.core.domain.utils
 
 import one.reevdev.carserve.core.data.datasource.model.auth.LoginParamData
+import one.reevdev.carserve.core.data.datasource.model.profile.LastSavedProfile
+import one.reevdev.carserve.core.data.datasource.model.profile.ProfileParamData
 import one.reevdev.carserve.core.data.datasource.model.service.Finding
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.datasource.model.service.ServiceParamData
 import one.reevdev.carserve.core.data.datasource.model.vehicle.VehicleEntity
 import one.reevdev.carserve.core.domain.feature.auth.model.LoginParam
+import one.reevdev.carserve.core.domain.feature.profile.model.ProfileParam
+import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
@@ -62,4 +66,18 @@ fun Vehicle.toRequest() = VehicleEntity(
 fun LoginParam.toRequest() = LoginParamData(
     email = email,
     password = password
+)
+
+fun ProfileParam.toRequest() = ProfileParamData(
+    name = name,
+    email = email,
+    phoneNumber = phoneNumber,
+    address = address
+)
+
+fun LastSavedProfile.toDomain() = SavedProfile(
+    name = name,
+    email = email,
+    phoneNumber = phoneNumber,
+    address = address
 )

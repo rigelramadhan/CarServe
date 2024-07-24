@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import one.reevdev.carserve.core.data.repository.auth.AuthRepository
 import one.reevdev.carserve.core.data.repository.auth.AuthRepositoryImpl
+import one.reevdev.carserve.core.data.repository.profile.ProfileRepository
+import one.reevdev.carserve.core.data.repository.profile.ProfileRepositoryImpl
 import one.reevdev.carserve.core.data.repository.service.ServiceRepository
 import one.reevdev.carserve.core.data.repository.service.ServiceRepositoryImpl
 import one.reevdev.carserve.core.data.repository.vehicle.VehicleRepository
@@ -27,4 +29,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun provideAuthRepository(repositoryImpl: AuthRepositoryImpl): AuthRepository
+
+    @Singleton
+    @Binds
+    fun provideProfileRepository(repositoryImpl: ProfileRepositoryImpl): ProfileRepository
 }
