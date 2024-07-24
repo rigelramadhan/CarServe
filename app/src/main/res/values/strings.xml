@@ -8,12 +8,12 @@
     <string name="image2_description">Cookies</string>
     <string name="image3_description">Cake</string>
     <string name="results_placeholder">(Results will appear here)</string>
-    <string name="title_serve_vision">Serve-Vision</string>
-    <string name="description_serve_vision">Check the condition of your car with a capture of an image with our AI-driven analysis.</string>
-    <string name="title_my_vehicles">My Vehicles</string>
-    <string name="description_my_vehicle">Check and analyze your vehicle.</string>
+    <string name="title_serve_vision">AI Analysis</string>
+    <string name="description_serve_vision">Check the condition of a vehicle with a capture of an image with AI-driven analysis.</string>
+    <string name="title_my_vehicles">Vehicles</string>
+    <string name="description_my_vehicle">See, manage, and analyze vehicles.</string>
     <string name="home">Home</string>
-    <string name="label_my_vehicle">My Vehicle</string>
+    <string name="label_my_vehicle">Vehicle</string>
     <string name="label_account">Account</string>
     <string name="label_logout">Logout</string>
 </resources>
