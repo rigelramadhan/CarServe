@@ -1,10 +1,10 @@
-package one.reevdev.carserve.feature.profile.navigation
+package one.reevdev.carserve.feature.auth.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import one.reevdev.carserve.feature.profile.AuthRouter
-import one.reevdev.carserve.feature.profile.screen.login.LoginRouter
+import one.reevdev.carserve.feature.auth.AuthRouter
+import one.reevdev.carserve.feature.auth.screen.login.LoginRouter
 
 fun NavController.navigateToLogin() {
     navigate(AuthRoutes.Login)

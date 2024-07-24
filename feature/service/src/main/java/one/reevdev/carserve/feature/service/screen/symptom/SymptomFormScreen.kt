@@ -33,7 +33,7 @@ fun SymptomFormScreen(
         CarseTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 24.dp,bottom = 16.dp),
+                .padding(bottom = 16.dp),
             value = symptoms,
             onValueChange = { symptoms = it },
             label = stringResource(R.string.label_symptoms),

@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.navigation
+package one.reevdev.carserve.feature.auth.navigation
 
 import kotlinx.serialization.Serializable
 

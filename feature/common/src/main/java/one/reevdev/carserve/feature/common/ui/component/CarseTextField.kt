@@ -29,6 +29,7 @@ fun CarseTextField(
     value: String,
     keyboardType: KeyboardType = KeyboardType.Text,
     isValueVisible: Boolean = true,
+    prefix: String? = null,
     endButton: ImageVector? = null,
     onEndButtonClick: (() -> Unit)? = null,
     enabledIf: () -> Boolean = { true },
@@ -40,6 +41,7 @@ fun CarseTextField(
         value = value,
         enabled = enabledIf(),
         onValueChange = onValueChange,
+        prefix = prefix?.run { { Text(prefix) } },
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
         visualTransformation = if (isValueVisible) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = endButton?.run {
@@ -67,8 +69,9 @@ fun CarseTextField(
 private fun CarseTextFieldPreview() {
     CarServeTheme {
         CarseTextField(
-            value = "This is the value",
-            label = "Field",
+            value = "Adama Traore",
+            label = "Name",
+            prefix = "Mr.",
             endButton = Icons.Default.AccountCircle
         ) {
 

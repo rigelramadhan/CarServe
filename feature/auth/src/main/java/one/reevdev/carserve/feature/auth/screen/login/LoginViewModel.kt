@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.screen.login
+package one.reevdev.carserve.feature.auth.screen.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.screen.login
+package one.reevdev.carserve.feature.auth.screen.login
 
 import android.content.Context
 import androidx.compose.foundation.layout.padding
@@ -21,7 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.emptyString
-import one.reevdev.carserve.feature.profile.R
+import one.reevdev.carserve.feature.auth.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

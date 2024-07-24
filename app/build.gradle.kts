@@ -60,7 +60,7 @@ dependencies {
     implementation(project(":feature:common"))
     implementation(project(":feature:service"))
     implementation(project(":feature:vehicle"))
-    implementation(project(":feature:profile"))
+    implementation(project(":feature:auth"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

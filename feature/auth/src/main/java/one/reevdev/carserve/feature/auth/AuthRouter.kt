@@ -1,12 +1,12 @@
-package one.reevdev.carserve.feature.profile
+package one.reevdev.carserve.feature.auth
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import one.reevdev.carserve.feature.profile.navigation.AuthRoutes
-import one.reevdev.carserve.feature.profile.navigation.loginScreen
+import one.reevdev.carserve.feature.auth.navigation.AuthRoutes
+import one.reevdev.carserve.feature.auth.navigation.loginScreen
 
 @Composable
 fun AuthRouter(
