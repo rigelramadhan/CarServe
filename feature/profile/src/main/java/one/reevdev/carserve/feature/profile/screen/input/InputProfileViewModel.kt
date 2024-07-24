@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
 import one.reevdev.carserve.core.domain.feature.profile.model.ProfileParam
@@ -24,17 +25,62 @@ class InputProfileViewModel @Inject constructor(
         viewModelScope.launch {
             profileUseCase.saveLastProfileData(param)
                 .collect {
-                    it.handleResource(
-                        onLoading = {
+                    _uiState.update { state ->
+                        it.handleResource(
+                            onLoading = {
+                                state.copy(
+                                    loadingState = LoadingState.DefaultLoading
+                                )
+                            },
+                            onSuccess = {
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = null,
+                                )
+                            },
+                            onFailure = { _, errorMessage ->
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = errorMessage
+                                )
+                            }
+                        )
+                    }
+                }
+        }
+    }
 
-                        },
-                        onSuccess = {
-
-                        },
-                        onFailure = { _, errorMessage ->
-
-                        }
-                    )
+    fun getLastProfileData() {
+        viewModelScope.launch {
+            profileUseCase.getLastProfileData()
+                .collect {
+                    _uiState.update { state ->
+                        it.handleResource(
+                            onLoading = {
+                                state.copy(
+                                    loadingState = LoadingState.DefaultLoading
+                                )
+                            },
+                            onSuccess = { data ->
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = null,
+                                    param = ProfileParam(
+                                        name = data.name,
+                                        email = data.email,
+                                        phoneNumber = data.phoneNumber,
+                                        address = data.address
+                                    )
+                                )
+                            },
+                            onFailure = { _, errorMessage ->
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = errorMessage
+                                )
+                            }
+                        )
+                    }
                 }
         }
     }
@@ -43,4 +89,5 @@ class InputProfileViewModel @Inject constructor(
 data class InputProfileUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
+    val param: ProfileParam = ProfileParam()
 )

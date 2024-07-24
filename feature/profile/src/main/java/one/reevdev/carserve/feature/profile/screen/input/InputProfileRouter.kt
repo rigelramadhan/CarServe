@@ -6,12 +6,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import one.reevdev.carserve.core.common.data.emptyString
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import one.reevdev.carserve.core.domain.feature.profile.model.ProfileParam
 import one.reevdev.carserve.feature.profile.R
 
@@ -22,10 +24,16 @@ fun InputProfileRouter(
     viewModel: InputProfileViewModel = hiltViewModel(),
     onSubmit: (ProfileParam) -> Unit,
 ) {
-    val (name, onNameValueChange) = rememberSaveable { mutableStateOf(emptyString()) }
-    val (email, onEmailValueChange) = rememberSaveable { mutableStateOf(emptyString()) }
-    val (phoneNumber, onPhoneNumberValueChange) = rememberSaveable { mutableStateOf(emptyString()) }
-    val (address, onAddressValueChange) = rememberSaveable { mutableStateOf(emptyString()) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val (name, onNameValueChange) = rememberSaveable { mutableStateOf(uiState.param.name) }
+    val (email, onEmailValueChange) = rememberSaveable { mutableStateOf(uiState.param.email) }
+    val (phoneNumber, onPhoneNumberValueChange) = rememberSaveable { mutableStateOf(uiState.param.phoneNumber) }
+    val (address, onAddressValueChange) = rememberSaveable { mutableStateOf(uiState.param.address) }
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getLastProfileData()
+    }
 
     Scaffold(
         modifier = modifier,
@@ -46,6 +54,7 @@ fun InputProfileRouter(
             onAddressValueChange = onAddressValueChange
         ) {
             val param = ProfileParam(name, email, phoneNumber, address)
+            viewModel.saveLastProfileData(param)
             onSubmit(param)
         }
     }
