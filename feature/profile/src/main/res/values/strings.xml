@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_name">Name</string>
+    <string name="label_email">Email</string>
+    <string name="label_phone_number">Phone Number</string>
+    <string name="label_address">Address</string>
+    <string name="label_profile">Profile</string>
+    <string name="message_prefill_last_input">Prefill data found (%1$s). Do you want to use it?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="label_customer_information">Customer Information</string>
+    <string name="action_submit">Submit</string>
+</resources>

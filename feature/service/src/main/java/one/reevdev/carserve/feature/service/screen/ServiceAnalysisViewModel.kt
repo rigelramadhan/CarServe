@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
+import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
 import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceUseCase
@@ -90,6 +91,12 @@ class ServiceAnalysisViewModel @Inject constructor(
     fun setVehicle(vehicle: Vehicle) {
         _uiState.update {
             it.copy(param = it.param.copy(vehicle = vehicle))
+        }
+    }
+
+    fun setProfile(profile: SavedProfile) {
+        _uiState.update {
+            it.copy(param = it.param.copy(profile = profile))
         }
     }
 }

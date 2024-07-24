@@ -41,6 +41,7 @@ class ServiceGeminiApi @Inject constructor() {
             symptoms = param.symptoms,
             problem = param.generalProblem,
             vehicle = param.vehicle,
+            profile = param.profile,
             availableService = availableServices
         )
 

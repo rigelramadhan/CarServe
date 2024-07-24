@@ -1,5 +1,15 @@
 package one.reevdev.carserve.ui.navigation
 
-sealed class MainRoutes(val route: String) {
-    data object Home : MainRoutes(MainConstants.HOME)
+import kotlinx.serialization.Serializable
+
+sealed class MainRoutes {
+
+    @Serializable
+    data object Main
+
+    @Serializable
+    data object Home
+
+    @Serializable
+    data object Splash
 }

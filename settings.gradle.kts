@@ -1,5 +1,11 @@
 import java.net.URI
 
+include(":feature:profile")
+
+
+include(":feature:auth")
+
+
 include(":feature:vehicle")
 
 

@@ -9,14 +9,14 @@ import one.reevdev.carserve.feature.vehicle.screen.add.AddVehicleRouter
 import one.reevdev.carserve.feature.vehicle.screen.list.VehicleListRouter
 
 fun NavController.navigateToAddToCar() {
-    navigate(VehicleRoutes.AddVehicle.route)
+    navigate(VehicleRoutes.AddVehicle)
 }
 
 fun NavGraphBuilder.addVehicleScreen(
     shouldShowCarOptions: Boolean = true,
     onSubmitVehicle: (vehicle: Vehicle) -> Unit
 ) {
-    composable(route = VehicleRoutes.AddVehicle.route) {
+    composable<VehicleRoutes.AddVehicle> {
         AddVehicleRouter(
             shouldShowCarOptions = shouldShowCarOptions,
             onSubmitVehicle = onSubmitVehicle
@@ -25,26 +25,26 @@ fun NavGraphBuilder.addVehicleScreen(
 }
 
 fun NavController.navigateToVehicleList() {
-    navigate(VehicleRoutes.VehicleList.route)
+    navigate(VehicleRoutes.VehicleList)
 }
 
 fun NavGraphBuilder.vehicleListScreen(
     onAddVehicle: () -> Unit,
     onAnalyzeVehicle: (vehicle: Vehicle) -> Unit
 ) {
-    composable(route = VehicleRoutes.VehicleList.route) {
+    composable<VehicleRoutes.VehicleList> {
         VehicleListRouter(onAddVehicle = onAddVehicle, onAnalyzeVehicle = onAnalyzeVehicle)
     }
 }
 
 fun NavController.navigateToVehicle() {
-    navigate(VehicleRoutes.Vehicle.route)
+    navigate(VehicleRoutes.Vehicle)
 }
 
-fun NavGraphBuilder.vehicleScreen(
+fun NavGraphBuilder.vehicleRouter(
     onAnalyzeVehicle: (vehicle: Vehicle) -> Unit
 ) {
-    composable(route = VehicleRoutes.Vehicle.route) {
+    composable<VehicleRoutes.Vehicle> {
         VehicleRouter(
             onAnalyzeVehicle = onAnalyzeVehicle
         )
