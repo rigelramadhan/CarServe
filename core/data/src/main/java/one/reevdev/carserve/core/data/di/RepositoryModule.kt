@@ -4,14 +4,14 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import one.reevdev.carserve.core.data.repository.auth.AuthRepository
-import one.reevdev.carserve.core.data.repository.auth.AuthRepositoryImpl
-import one.reevdev.carserve.core.data.repository.profile.ProfileRepository
-import one.reevdev.carserve.core.data.repository.profile.ProfileRepositoryImpl
-import one.reevdev.carserve.core.data.repository.service.ServiceRepository
-import one.reevdev.carserve.core.data.repository.service.ServiceRepositoryImpl
-import one.reevdev.carserve.core.data.repository.vehicle.VehicleRepository
-import one.reevdev.carserve.core.data.repository.vehicle.VehicleRepositoryImpl
+import one.reevdev.carserve.core.data.feature.auth.repository.AuthRepository
+import one.reevdev.carserve.core.data.feature.auth.repository.AuthRepositoryImpl
+import one.reevdev.carserve.core.data.feature.profile.repository.ProfileRepository
+import one.reevdev.carserve.core.data.feature.profile.repository.ProfileRepositoryImpl
+import one.reevdev.carserve.core.data.feature.service.repository.ServiceRepository
+import one.reevdev.carserve.core.data.feature.service.repository.ServiceRepositoryImpl
+import one.reevdev.carserve.core.data.feature.vehicle.repository.VehicleRepository
+import one.reevdev.carserve.core.data.feature.vehicle.repository.VehicleRepositoryImpl
 import javax.inject.Singleton
 
 @Module

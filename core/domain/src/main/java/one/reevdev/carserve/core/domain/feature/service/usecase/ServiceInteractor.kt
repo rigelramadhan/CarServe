@@ -3,7 +3,7 @@ package one.reevdev.carserve.core.domain.feature.service.usecase
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.common.data.mapFlowData
-import one.reevdev.carserve.core.data.repository.service.ServiceRepository
+import one.reevdev.carserve.core.data.feature.service.repository.ServiceRepository
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
 import one.reevdev.carserve.core.domain.utils.toDomain

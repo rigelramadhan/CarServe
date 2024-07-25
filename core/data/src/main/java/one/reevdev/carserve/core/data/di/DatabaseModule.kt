@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import one.reevdev.carserve.core.data.datasource.local.vehicle.VehicleDatabase
+import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.database.VehicleDatabase
 import javax.inject.Singleton
 
 @Module

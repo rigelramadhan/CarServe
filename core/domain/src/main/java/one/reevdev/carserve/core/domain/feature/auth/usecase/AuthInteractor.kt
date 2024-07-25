@@ -2,7 +2,7 @@ package one.reevdev.carserve.core.domain.feature.auth.usecase
 
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
-import one.reevdev.carserve.core.data.repository.auth.AuthRepository
+import one.reevdev.carserve.core.data.feature.auth.repository.AuthRepository
 import one.reevdev.carserve.core.domain.feature.auth.model.LoginParam
 import one.reevdev.carserve.core.domain.utils.toRequest
 import javax.inject.Inject
