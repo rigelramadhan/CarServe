@@ -19,8 +19,8 @@ import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
-import one.reevdev.carserve.feature.profile.navigation.inputProfileScreen
-import one.reevdev.carserve.feature.profile.navigation.navigateToInputProfile
+import one.reevdev.carserve.feature.profile.navigation.inputCustomerScreen
+import one.reevdev.carserve.feature.profile.navigation.navigateToInputCustomer
 import one.reevdev.carserve.feature.service.navigation.analysisScreen
 import one.reevdev.carserve.feature.service.navigation.cameraScreen
 import one.reevdev.carserve.feature.service.navigation.formScreen
@@ -80,17 +80,24 @@ fun AnalysisRouter(
                 }
                 viewModel.setLoading(LoadingState.NotLoading)
             }
-            addVehicleScreen { vehicle ->
-                viewModel.setVehicle(vehicle)
-                navController.navigateToForm()
-            }
-            inputProfileScreen { profile ->
-                viewModel.setProfile(profile)
-                navController.navigateToAnalysis()
-            }
-            formScreen(viewModel) {
-                navController.navigateToInputProfile()
-            }
+            addVehicleScreen(
+                onSubmitVehicle = { vehicle ->
+                    viewModel.setVehicle(vehicle)
+                    navController.navigateToForm()
+                }
+            )
+            inputCustomerScreen(
+                onSubmit = { profile ->
+                    viewModel.setProfile(profile)
+                    navController.navigateToAnalysis()
+                }
+            )
+            formScreen(
+                viewModel = viewModel,
+                proceedToAnalysis = {
+                    navController.navigateToInputCustomer()
+                }
+            )
             analysisScreen(
                 viewModel = viewModel,
                 onProceed = { navigateToHome() },

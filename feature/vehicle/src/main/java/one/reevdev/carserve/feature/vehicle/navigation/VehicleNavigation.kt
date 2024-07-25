@@ -19,7 +19,7 @@ fun NavGraphBuilder.addVehicleScreen(
     composable<VehicleRoutes.AddVehicle> {
         AddVehicleRouter(
             shouldShowCarOptions = shouldShowCarOptions,
-            onSubmitVehicle = onSubmitVehicle
+            onSubmitVehicle = onSubmitVehicle,
         )
     }
 }
@@ -33,7 +33,10 @@ fun NavGraphBuilder.vehicleListScreen(
     onAnalyzeVehicle: (vehicle: Vehicle) -> Unit
 ) {
     composable<VehicleRoutes.VehicleList> {
-        VehicleListRouter(onAddVehicle = onAddVehicle, onAnalyzeVehicle = onAnalyzeVehicle)
+        VehicleListRouter(
+            onAddVehicle = onAddVehicle,
+            onAnalyzeVehicle = onAnalyzeVehicle
+        )
     }
 }
 

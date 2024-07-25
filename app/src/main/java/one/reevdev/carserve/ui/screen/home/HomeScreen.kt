@@ -24,12 +24,13 @@ fun HomeScreen(
         item {
             Column(
                 modifier = Modifier
-                    .padding(top = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(vertical = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 HomeCard(
                     title = stringResource(R.string.title_serve_vision),
                     description = stringResource(R.string.description_serve_vision),
+                    icon = R.drawable.ic_verified_24,
                     onClick = onServeVisionClick
                 )
                 HomeCard(

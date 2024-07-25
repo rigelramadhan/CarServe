@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.service.component
+package one.reevdev.carserve.feature.service.screen.camera
 
 import android.content.ContentValues
 import android.content.Context
@@ -12,25 +12,35 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Camera
+import androidx.compose.material.icons.outlined.FlipCameraAndroid
+import androidx.compose.material.icons.outlined.PhotoLibrary
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import one.reevdev.carserve.feature.service.R
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -40,34 +50,65 @@ fun CameraScreen(
     modifier: Modifier = Modifier,
     context: Context = LocalContext.current,
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-    lensFacing: Int = CameraSelector.LENS_FACING_BACK,
+    onGalleryPressed: () -> Unit,
     onCapturePressed: (() -> Unit)? = null,
     onSuccessCapture: (Uri?) -> Unit,
 ) {
+    var lensFacing by remember { mutableIntStateOf(CameraSelector.LENS_FACING_BACK) }
     val preview = remember { Preview.Builder().build() }
     val previewView = remember { PreviewView(context) }
-    val cameraSelector = remember {
-        CameraSelector.Builder()
-            .requireLensFacing(lensFacing)
-            .build()
-    }
     val imageCapture = remember { ImageCapture.Builder().build() }
 
     LaunchedEffect(lensFacing) {
+        val cameraSelector = CameraSelector.Builder()
+            .requireLensFacing(lensFacing)
+            .build()
         setupCamera(context, lifecycleOwner, cameraSelector, preview, previewView, imageCapture)
     }
 
     Box(modifier = modifier.fillMaxSize()) {
         AndroidView(modifier = Modifier.fillMaxSize(), factory = { previewView })
-        CaptureButton(
+        Row(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 32.dp),
-            imageCapture = imageCapture,
-            context = context,
-            onButtonClick = onCapturePressed,
-            onSuccessCapture = onSuccessCapture
-        )
+                .padding(bottom = 48.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            val iconButtonSize = 48.dp
+            FilledIconButton(
+                modifier = Modifier
+                    .size(iconButtonSize),
+                onClick = onGalleryPressed
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.PhotoLibrary,
+                    contentDescription = stringResource(R.string.content_description_gallery_button)
+                )
+            }
+            CaptureButton(
+                modifier = Modifier,
+                imageCapture = imageCapture,
+                context = context,
+                onButtonClick = onCapturePressed,
+                onSuccessCapture = onSuccessCapture
+            )
+            FilledIconButton(
+                modifier = Modifier
+                    .size(iconButtonSize),
+                onClick = {
+                    lensFacing =
+                        if (lensFacing == CameraSelector.LENS_FACING_BACK) CameraSelector.LENS_FACING_FRONT
+                        else CameraSelector.LENS_FACING_BACK
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.FlipCameraAndroid,
+                    contentDescription = stringResource(R.string.content_description_flip_camera_button)
+                )
+            }
+        }
     }
 }
 
@@ -107,7 +148,11 @@ private suspend fun setupCamera(
     preview.setSurfaceProvider(previewView.surfaceProvider)
 }
 
-private fun captureImage(imageCapture: ImageCapture, context: Context, onSuccessCapture: (uri: Uri?) -> Unit) {
+private fun captureImage(
+    imageCapture: ImageCapture,
+    context: Context,
+    onSuccessCapture: (uri: Uri?) -> Unit
+) {
     val name = "car-serve-${System.currentTimeMillis()}.jpeg"
     val contentValues = ContentValues().apply {
         put(MediaStore.MediaColumns.DISPLAY_NAME, name)

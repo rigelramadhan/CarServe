@@ -2,10 +2,7 @@ package one.reevdev.carserve.feature.service.screen.analysis
 
 import android.content.Context
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,11 +11,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import one.reevdev.carserve.feature.common.ui.component.AppHeader
 import one.reevdev.carserve.feature.service.R
 import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.utils.DocumentHelper
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ServiceAnalysisRouter(
     modifier: Modifier = Modifier,
@@ -35,7 +32,10 @@ fun ServiceAnalysisRouter(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(text = stringResource(id = R.string.label_analysis)) })
+            AppHeader(
+                title = stringResource(id = R.string.label_analysis),
+                hasBackButton = true,
+            )
         }
     ) { innerPadding ->
         ServiceAnalysisScreen(

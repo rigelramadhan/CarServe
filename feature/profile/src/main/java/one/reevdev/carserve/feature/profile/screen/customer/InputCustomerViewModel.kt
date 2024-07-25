@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.screen.input
+package one.reevdev.carserve.feature.profile.screen.customer
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

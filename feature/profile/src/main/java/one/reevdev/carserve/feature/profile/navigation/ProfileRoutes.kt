@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 sealed class ProfileRoutes {
 
     @Serializable
-    data object InputProfile
+    data object InputCustomer
 }
