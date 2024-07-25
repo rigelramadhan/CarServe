@@ -31,6 +31,7 @@ fun VehicleListRouter(
         topBar = {
             AppHeader(
                 title = stringResource(R.string.title_my_vehicles),
+                hasBackButton = true,
             )
         }
     ) { innerPadding ->

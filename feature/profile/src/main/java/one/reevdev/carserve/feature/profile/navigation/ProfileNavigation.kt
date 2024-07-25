@@ -12,12 +12,10 @@ fun NavController.navigateToInputProfile() {
 
 fun NavGraphBuilder.inputProfileScreen(
     onSubmit: (param: SavedProfile) -> Unit,
-    navigateBack: () -> Unit
 ) {
     composable<ProfileRoutes.InputProfile> {
         InputProfileRouter(
             onSubmit = onSubmit,
-            navigateBack = navigateBack
         )
     }
 }

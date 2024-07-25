@@ -39,13 +39,11 @@ fun NavController.navigateToForm() {
 
 fun NavGraphBuilder.formScreen(
     viewModel: ServiceAnalysisViewModel,
-    navigateBack: () -> Unit,
     proceedToAnalysis: () -> Unit,
 ) {
     composable<AnalysisRoutes.Form> {
         SymptomFormRouter(
             viewModel = viewModel,
-            navigateBack = navigateBack,
             proceedToAnalysis = proceedToAnalysis
         )
     }
@@ -57,14 +55,12 @@ fun NavController.navigateToAnalysis() {
 
 fun NavGraphBuilder.analysisScreen(
     viewModel: ServiceAnalysisViewModel,
-    navigateBack: () -> Unit,
     onProceed: () -> Unit,
     navigateToPdfViewer: (String) -> Unit,
 ) {
     composable<AnalysisRoutes.Analysis> {
         ServiceAnalysisRouter(
             viewModel = viewModel,
-            navigateBack = navigateBack,
             onProceed = onProceed,
             navigateToPdfViewer = navigateToPdfViewer
         )

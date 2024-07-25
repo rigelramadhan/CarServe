@@ -2,7 +2,6 @@ package one.reevdev.carserve.feature.service.screen.analysis
 
 import android.content.Context
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,13 +16,11 @@ import one.reevdev.carserve.feature.service.R
 import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.utils.DocumentHelper
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ServiceAnalysisRouter(
     modifier: Modifier = Modifier,
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
     context: Context = LocalContext.current,
-    navigateBack: () -> Unit,
     onProceed: () -> Unit,
     navigateToPdfViewer: (String) -> Unit,
 ) {
@@ -36,8 +33,7 @@ fun ServiceAnalysisRouter(
     Scaffold(
         topBar = {
             AppHeader(
-                title = stringResource(id = R.string.label_analysis),
-                navigateBack = navigateBack
+                title = stringResource(id = R.string.label_analysis)
             )
         }
     ) { innerPadding ->

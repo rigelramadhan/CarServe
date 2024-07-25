@@ -28,7 +28,6 @@ fun AddVehicleRouter(
     shouldShowCarOptions: Boolean = true,
     viewModel: AddVehicleViewModel = hiltViewModel(),
     onSubmitVehicle: (vehicle: Vehicle) -> Unit,
-    navigateBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var vehicle by remember { mutableStateOf<Vehicle?>(null) }
@@ -45,8 +44,7 @@ fun AddVehicleRouter(
         topBar = {
             AppHeader(
                 title = stringResource(R.string.title_add_vehicle),
-                hasBackButton = true,
-                navigateBack = navigateBack
+                hasBackButton = true
             )
         }
     ) { innerPadding ->

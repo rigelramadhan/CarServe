@@ -81,14 +81,12 @@ fun AnalysisRouter(
                 viewModel.setLoading(LoadingState.NotLoading)
             }
             addVehicleScreen(
-                navigateBack = { navController.navigateUp() },
                 onSubmitVehicle = { vehicle ->
                     viewModel.setVehicle(vehicle)
                     navController.navigateToForm()
                 }
             )
             inputProfileScreen(
-                navigateBack = { navController.navigateUp() },
                 onSubmit = { profile ->
                     viewModel.setProfile(profile)
                     navController.navigateToAnalysis()
@@ -96,14 +94,12 @@ fun AnalysisRouter(
             )
             formScreen(
                 viewModel = viewModel,
-                navigateBack = { navController.navigateUp() },
                 proceedToAnalysis = {
                     navController.navigateToInputProfile()
                 }
             )
             analysisScreen(
                 viewModel = viewModel,
-                navigateBack = { navController.navigateUp() },
                 onProceed = { navigateToHome() },
                 navigateToPdfViewer = { path -> navController.navigateToPdfViewer(path) }
             )

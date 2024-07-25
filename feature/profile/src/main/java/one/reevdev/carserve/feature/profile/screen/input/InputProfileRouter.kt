@@ -35,7 +35,6 @@ import one.reevdev.carserve.feature.profile.R
 fun InputProfileRouter(
     modifier: Modifier = Modifier,
     viewModel: InputProfileViewModel = hiltViewModel(),
-    navigateBack: () -> Unit,
     onSubmit: (SavedProfile) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -58,8 +57,7 @@ fun InputProfileRouter(
         topBar = {
             AppHeader(
                 title = stringResource(R.string.label_customer_information),
-                hasBackButton = true,
-                navigateBack = navigateBack
+                hasBackButton = true
             )
         }
     ) { innerPadding ->

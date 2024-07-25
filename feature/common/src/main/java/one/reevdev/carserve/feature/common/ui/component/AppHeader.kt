@@ -1,11 +1,12 @@
 package one.reevdev.carserve.feature.common.ui.component
 
-import androidx.compose.foundation.clickable
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,8 +25,9 @@ fun AppHeader(
     modifier: Modifier = Modifier,
     title: String? = null,
     hasBackButton: Boolean = false,
-    navigateBack: (() -> Unit)? = null,
 ) {
+    val backPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+
     CenterAlignedTopAppBar(
         modifier = modifier,
         title = {
@@ -50,14 +52,15 @@ fun AppHeader(
         },
         navigationIcon = {
             if (hasBackButton) {
-                Icon(
-                    modifier = Modifier
-                        .padding(start = 16.dp)
-                        .clickable { navigateBack?.invoke() },
-                    painter = painterResource(id = R.drawable.ic_arrow_back_24),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
-                )
+                IconButton(onClick = { backPressedDispatcher?.onBackPressed() }) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(start = 8.dp),
+                        painter = painterResource(id = R.drawable.ic_arrow_back_24),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
         },
     )

@@ -34,7 +34,6 @@ fun VehicleRouter(
             )
             addVehicleScreen(
                 shouldShowCarOptions = false,
-                navigateBack = { navController.navigateUp() },
                 onSubmitVehicle = { navController.navigateUp() }
             )
         }
