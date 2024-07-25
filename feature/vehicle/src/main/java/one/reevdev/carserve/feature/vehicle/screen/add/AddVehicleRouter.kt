@@ -26,8 +26,9 @@ import one.reevdev.carserve.vehicle.R
 fun AddVehicleRouter(
     modifier: Modifier = Modifier,
     shouldShowCarOptions: Boolean = true,
-    onSubmitVehicle: (vehicle: Vehicle) -> Unit,
     viewModel: AddVehicleViewModel = hiltViewModel(),
+    onSubmitVehicle: (vehicle: Vehicle) -> Unit,
+    navigateBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var vehicle by remember { mutableStateOf<Vehicle?>(null) }
@@ -43,7 +44,9 @@ fun AddVehicleRouter(
         modifier = modifier,
         topBar = {
             AppHeader(
-                title = stringResource(R.string.title_add_vehicle)
+                title = stringResource(R.string.title_add_vehicle),
+                hasBackButton = true,
+                navigateBack = navigateBack
             )
         }
     ) { innerPadding ->

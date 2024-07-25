@@ -28,7 +28,11 @@ fun VehicleListRouter(
 
     Scaffold(
         modifier = modifier,
-        topBar = { AppHeader(title = stringResource(R.string.title_my_vehicles)) }
+        topBar = {
+            AppHeader(
+                title = stringResource(R.string.title_my_vehicles),
+            )
+        }
     ) { innerPadding ->
         VehicleListScreen(
             Modifier

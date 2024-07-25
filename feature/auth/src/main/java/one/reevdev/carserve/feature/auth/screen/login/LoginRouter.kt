@@ -6,8 +6,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,6 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.emptyString
 import one.reevdev.carserve.feature.auth.R
+import one.reevdev.carserve.feature.common.ui.component.AppHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,7 +64,7 @@ fun LoginRouter(
     Scaffold(
         modifier = modifier,
         topBar = {
-            TopAppBar(title = { Text(text = stringResource(id = R.string.login)) })
+            AppHeader(title = stringResource(id = R.string.login))
         },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
