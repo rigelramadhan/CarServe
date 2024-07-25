@@ -22,4 +22,6 @@
     <string name="label_phone_number">Phone Number</string>
     <string name="label_address">Address</string>
     <string name="label_symptoms_problems"><![CDATA[Symptoms & Problems]]></string>
+    <string name="content_description_gallery_button">Gallery button</string>
+    <string name="content_description_flip_camera_button">Flip camera button</string>
 </resources>
