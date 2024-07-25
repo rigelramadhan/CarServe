@@ -16,8 +16,8 @@ import one.reevdev.carserve.utils.BottomNavBarData
 fun BottomNavBar(
     modifier: Modifier = Modifier,
     items: List<BottomNavBarData>,
-    selected: Int,
-    onItemSelect: (Int) -> Unit,
+    currentRoute: String,
+    onItemSelect: (Any) -> Unit,
 ) {
     NavigationBar(
         modifier = modifier
@@ -26,8 +26,8 @@ fun BottomNavBar(
             NavBarItem(
                 icon = painterResource(navBarData.icon),
                 label = stringResource(navBarData.label),
-                selected = index == selected,
-                onClick = { onItemSelect(index) }
+                selected = navBarData.route.toString() == currentRoute.substringAfterLast("."),
+                onClick = { onItemSelect(navBarData.route) }
             )
         }
     }
@@ -46,6 +46,8 @@ fun RowScope.NavBarItem(
         icon = { Icon(icon, null) },
         label = { Text(text = label) },
         selected = selected,
-        onClick = onClick
+        onClick = {
+            onClick()
+        }
     )
 }

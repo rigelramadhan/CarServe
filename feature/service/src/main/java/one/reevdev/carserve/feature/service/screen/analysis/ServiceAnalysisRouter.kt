@@ -33,7 +33,8 @@ fun ServiceAnalysisRouter(
     Scaffold(
         topBar = {
             AppHeader(
-                title = stringResource(id = R.string.label_analysis)
+                title = stringResource(id = R.string.label_analysis),
+                hasBackButton = true,
             )
         }
     ) { innerPadding ->

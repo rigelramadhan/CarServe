@@ -14,15 +14,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.R
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.feature.common.ui.navigation.Route
+import one.reevdev.carserve.feature.vehicle.navigation.VehicleRoutes
 import one.reevdev.carserve.feature.vehicle.navigation.navigateToVehicle
 import one.reevdev.carserve.feature.vehicle.navigation.vehicleRouter
 import one.reevdev.carserve.ui.component.BottomNavBar
 import one.reevdev.carserve.ui.navigation.MainRoutes
 import one.reevdev.carserve.ui.navigation.homeScreen
-import one.reevdev.carserve.ui.navigation.navigateToHome
 import one.reevdev.carserve.utils.BottomNavBarData
 
 @Composable
@@ -35,20 +37,28 @@ fun MainRouter(
     onLoggedOut: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     val bottomBarItems = remember {
-        mapOf(
-            0 to BottomNavBarData(
-                label = R.string.home, icon = R.drawable.ic_home_24
-            ) { navController.navigateToHome() },
+        listOf(
+            BottomNavBarData(
+                route = MainRoutes.Home,
+                label = R.string.home,
+                icon = R.drawable.ic_home_24
+            ),
 
-            1 to BottomNavBarData(
-                label = R.string.label_my_vehicle, icon = R.drawable.ic_airport_shuttle_24
-            ) { navController.navigateToVehicle() },
+            BottomNavBarData(
+                route = VehicleRoutes.Vehicle,
+                label = R.string.label_my_vehicle,
+                icon = R.drawable.ic_airport_shuttle_24
+            ),
 
-            2 to BottomNavBarData(
-                label = R.string.label_logout, icon = R.drawable.ic_logout_24
-            ) { viewModel.logout() },
+            BottomNavBarData(
+                route = { viewModel.logout() },
+                label = R.string.label_logout,
+                icon = R.drawable.ic_logout_24
+            ),
         )
     }
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
@@ -63,11 +73,21 @@ fun MainRouter(
         modifier = modifier,
         bottomBar = {
             BottomNavBar(
-                items = bottomBarItems.values.toList(),
-                selected = selectedItem,
+                items = bottomBarItems,
+                currentRoute = currentRoute.orEmpty(),
                 onItemSelect = {
-                    selectedItem = it
-                    bottomBarItems[it]?.navigateAction?.invoke()
+                    when (val route = it) {
+                        is Route -> {
+                            navController.navigate(route)
+                        }
+
+                        is Function0<*> -> {
+                            @Suppress("UNCHECKED_CAST")
+                            (route as? () -> Unit)?.invoke()
+                        }
+
+                        else -> Unit
+                    }
                 }
             )
         }
