@@ -1,14 +1,15 @@
 package one.reevdev.carserve.feature.vehicle.navigation
 
 import kotlinx.serialization.Serializable
+import one.reevdev.carserve.feature.common.ui.navigation.Route
 
 sealed class VehicleRoutes {
     @Serializable
-    data object Vehicle
+    data object Vehicle : Route
 
     @Serializable
-    data object AddVehicle
+    data object AddVehicle : Route
 
     @Serializable
-    data object VehicleList
+    data object VehicleList : Route
 }

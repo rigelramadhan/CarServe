@@ -80,17 +80,24 @@ fun AnalysisRouter(
                 }
                 viewModel.setLoading(LoadingState.NotLoading)
             }
-            addVehicleScreen { vehicle ->
-                viewModel.setVehicle(vehicle)
-                navController.navigateToForm()
-            }
-            inputProfileScreen { profile ->
-                viewModel.setProfile(profile)
-                navController.navigateToAnalysis()
-            }
-            formScreen(viewModel) {
-                navController.navigateToInputProfile()
-            }
+            addVehicleScreen(
+                onSubmitVehicle = { vehicle ->
+                    viewModel.setVehicle(vehicle)
+                    navController.navigateToForm()
+                }
+            )
+            inputProfileScreen(
+                onSubmit = { profile ->
+                    viewModel.setProfile(profile)
+                    navController.navigateToAnalysis()
+                }
+            )
+            formScreen(
+                viewModel = viewModel,
+                proceedToAnalysis = {
+                    navController.navigateToInputProfile()
+                }
+            )
             analysisScreen(
                 viewModel = viewModel,
                 onProceed = { navigateToHome() },
