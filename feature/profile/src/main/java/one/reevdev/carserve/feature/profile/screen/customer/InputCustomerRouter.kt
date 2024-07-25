@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.screen.input
+package one.reevdev.carserve.feature.profile.screen.customer
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,7 +32,7 @@ import one.reevdev.carserve.feature.profile.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputProfileRouter(
+fun InputCustomerRouter(
     modifier: Modifier = Modifier,
     viewModel: InputProfileViewModel = hiltViewModel(),
     onSubmit: (SavedProfile) -> Unit,
