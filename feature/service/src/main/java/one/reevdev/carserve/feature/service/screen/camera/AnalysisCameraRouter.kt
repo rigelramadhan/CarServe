@@ -32,12 +32,17 @@ fun AnalysisCameraRouter(
 
     val pickMedia = rememberLauncherForActivityResult(contract = PickVisualMedia()) { uri ->
         if (uri != null) {
+            viewModel.setLoading(LoadingState.DefaultLoading)
             mediaUri = uri
         }
     }
 
     LaunchedEffect(key1 = mediaUri) {
-        if (mediaUri != null) proceedToForm(mediaUri)
+        if (mediaUri != null) {
+            viewModel.setPhoto(mediaUri?.toBitmap(context))
+            proceedToForm(mediaUri)
+            mediaUri = null
+        }
     }
 
     Box(
@@ -52,8 +57,7 @@ fun AnalysisCameraRouter(
                 pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
             },
             onSuccessCapture = {
-                viewModel.setPhoto(it?.toBitmap(context))
-                proceedToForm(it)
+                mediaUri = it
             }
         )
         AppHeader(title = emptyString(), isTransparent = true, hasBackButton = true)
