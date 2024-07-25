@@ -16,4 +16,7 @@
     <string name="label_my_vehicle">Vehicle</string>
     <string name="label_account">Account</string>
     <string name="label_logout">Logout</string>
+    <string name="message_logout_confirmation">Do you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

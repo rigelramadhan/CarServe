@@ -1,15 +1,19 @@
 package one.reevdev.carserve.ui.screen
 
+import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -18,6 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.R
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.feature.common.ui.component.ConfirmationDialog
 import one.reevdev.carserve.feature.common.ui.navigation.Route
 import one.reevdev.carserve.feature.vehicle.navigation.VehicleRoutes
 import one.reevdev.carserve.feature.vehicle.navigation.navigateToVehicle
@@ -31,6 +36,7 @@ import one.reevdev.carserve.utils.BottomNavBarData
 fun MainRouter(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
+    context: Context = LocalContext.current,
     startDestination: Any = MainRoutes.Home,
     navController: NavHostController = rememberNavController(),
     navigateToService: (Vehicle) -> Unit,
@@ -39,6 +45,7 @@ fun MainRouter(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    var showLogoutConfirmationDialog by remember { mutableStateOf(false) }
 
     val bottomBarItems = remember {
         listOf(
@@ -55,7 +62,9 @@ fun MainRouter(
             ),
 
             BottomNavBarData(
-                route = { viewModel.logout() },
+                route = {
+                    showLogoutConfirmationDialog = true
+                },
                 label = R.string.label_logout,
                 icon = R.drawable.ic_logout_24
             ),
@@ -109,5 +118,20 @@ fun MainRouter(
                 }
             )
         }
+    }
+
+    if (showLogoutConfirmationDialog) {
+        ConfirmationDialog(
+            title = stringResource(R.string.message_logout_confirmation),
+            positiveButtonText = stringResource(R.string.yes),
+            onPositiveAction = { viewModel.logout() },
+            negativeButtonText = stringResource(R.string.no),
+            onNegativeAction = {
+                showLogoutConfirmationDialog = false
+            },
+            onDismissRequest = {
+                showLogoutConfirmationDialog = false
+            }
+        )
     }
 }

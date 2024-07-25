@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -69,19 +66,19 @@ fun LoginScreen(
             },
             onClick = onLoginClick
         )
-        HorizontalDivider(
-            modifier = Modifier.padding(vertical = 16.dp, horizontal = 16.dp)
-        )
-        CarseButton(
-            modifier = Modifier
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.tertiary,
-                contentColor = MaterialTheme.colorScheme.onTertiary
-            ),
-            text = stringResource(R.string.register),
-            onClick = onRegisterClick
-        )
+//        HorizontalDivider(
+//            modifier = Modifier.padding(vertical = 16.dp, horizontal = 16.dp)
+//        )
+//        CarseButton(
+//            modifier = Modifier
+//                .fillMaxWidth(),
+//            colors = ButtonDefaults.buttonColors(
+//                containerColor = MaterialTheme.colorScheme.tertiary,
+//                contentColor = MaterialTheme.colorScheme.onTertiary
+//            ),
+//            text = stringResource(R.string.register),
+//            onClick = onRegisterClick
+//        )
     }
 }
 
