@@ -1,4 +1,4 @@
-package one.reevdev.carserve.ui.screen.home
+package one.reevdev.carserve.feature.service.screen.history
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -6,16 +6,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
+import one.reevdev.carserve.feature.service.R
 
 @Composable
-fun HomeRouter(
+fun AnalysisHistoryRouter(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel(),
-    onServeVisionClick: () -> Unit,
-    onMyVehicleClick: () -> Unit,
+    viewModel: AnalysisHistoryViewModel = hiltViewModel(),
+    onItemClick: (ServiceAnalysis) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -26,15 +28,14 @@ fun HomeRouter(
     Scaffold(
         modifier = modifier,
         topBar = {
-            AppHeader()
+            AppHeader(title = stringResource(R.string.title_analysis_history), hasBackButton = true)
         }
     ) { innerPadding ->
-        HomeScreen(
+        AnalysisHistoryScreen(
             modifier = Modifier
                 .padding(innerPadding),
             analysisHistory = uiState.analysisHistory,
-            onServeVisionClick = onServeVisionClick,
-            onMyVehicleClick = onMyVehicleClick,
+            onItemClick = onItemClick
         )
     }
 }

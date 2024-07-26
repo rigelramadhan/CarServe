@@ -50,7 +50,11 @@ fun NavGraphBuilder.formScreen(
 }
 
 fun NavController.navigateToAnalysis() {
-    navigate(AnalysisRoutes.Analysis)
+    navigate(AnalysisRoutes.Analysis) {
+        popUpTo(AnalysisRoutes.Analysis) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.analysisScreen(

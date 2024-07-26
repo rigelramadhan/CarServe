@@ -20,6 +20,7 @@ class ServiceRepositoryImpl @Inject constructor(
 ) : ServiceRepository {
 
     override fun analyzeService(param: ServiceParamData): Flow<Result<ServiceAnalysisResult>> = flow {
+        emit(Result.Loading())
         val result = geminiDataSource.analyzeService(param).last()
         if (result is Result.Success) {
             withContext(Dispatchers.IO) {
