@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LocalDataSource @Inject constructor(
+class VehicleLocalDataSource @Inject constructor(
     private val vehicleDao: VehicleDao
 ) {
     suspend fun insertVehicle(vehicleEntity: VehicleEntity) = vehicleDao.insertVehicle(vehicleEntity)

@@ -3,14 +3,14 @@ package one.reevdev.carserve.core.data.feature.vehicle.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import one.reevdev.carserve.core.common.data.Result
-import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.LocalDataSource
+import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.VehicleLocalDataSource
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class VehicleRepositoryImpl @Inject constructor(
-    private val localDataSource: LocalDataSource
+    private val localDataSource: VehicleLocalDataSource
 ) : VehicleRepository {
     override fun saveVehicle(vehicle: VehicleEntity): Flow<Result<Boolean>> = flow {
         emit(Result.Loading())
