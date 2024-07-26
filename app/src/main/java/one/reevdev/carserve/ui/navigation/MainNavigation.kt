@@ -2,26 +2,36 @@ package one.reevdev.carserve.ui.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.ui.screen.MainRouter
 import one.reevdev.carserve.ui.screen.home.HomeRouter
 import one.reevdev.carserve.ui.screen.splash.SplashRouter
 
 fun NavController.navigateToHome(clearBackStack: Boolean = false) {
-    val navOptions = if (clearBackStack) {
-        NavOptions.Builder()
-            .setPopUpTo(graph.startDestinationId, inclusive = true)
-            .setLaunchSingleTop(true)
-            .build()
-    } else null
-    navigate(MainRoutes.Home, navOptions = navOptions)
+    navigate(MainRoutes.Home) {
+        if (clearBackStack) {
+            popUpTo(MainRoutes.Home) {
+                inclusive = true
+            }
+        }
+    }
 }
 
-fun NavGraphBuilder.homeScreen(onServeVisionClick: () -> Unit, onMyVehicleClick: () -> Unit) {
+fun NavGraphBuilder.homeScreen(
+    onServeVisionClick: () -> Unit,
+    onMyVehicleClick: () -> Unit,
+    onAllAnalysisHistoryClick: () -> Unit,
+    onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit
+) {
     composable<MainRoutes.Home> {
-        HomeRouter(onServeVisionClick = onServeVisionClick, onMyVehicleClick = onMyVehicleClick)
+        HomeRouter(
+            onServeVisionClick = onServeVisionClick,
+            onMyVehicleClick = onMyVehicleClick,
+            onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,
+            onAnalysisHistoryItemClick = onAnalysisHistoryItemClick
+        )
     }
 }
 
@@ -35,17 +45,27 @@ fun NavGraphBuilder.splashScreen(navigateToHome: () -> Unit, navigateToAuth: () 
 }
 
 fun NavController.navigateToMain(clearBackStack: Boolean = false) {
-    val navOptions = if (clearBackStack) {
-        NavOptions.Builder()
-            .setPopUpTo(graph.startDestinationId, inclusive = true)
-            .setLaunchSingleTop(true)
-            .build()
-    } else null
-    navigate(MainRoutes.Main, navOptions = navOptions)
+    navigate(MainRoutes.Main) {
+        if (clearBackStack) {
+            popUpTo(MainRoutes.Main) {
+                inclusive = true
+            }
+        }
+    }
 }
 
-fun NavGraphBuilder.mainRouter(navigateToService: (Vehicle) -> Unit, onLoggedOut: () -> Unit) {
+fun NavGraphBuilder.mainRouter(
+    navigateToService: (Vehicle) -> Unit,
+    navigateToServiceHistory: () -> Unit,
+    navigateToServiceDetail: (ServiceAnalysis) -> Unit,
+    onLoggedOut: () -> Unit
+) {
     composable<MainRoutes.Main> {
-        MainRouter(navigateToService = navigateToService, onLoggedOut = onLoggedOut)
+        MainRouter(
+            navigateToService = navigateToService,
+            navigateToAnalysisHistory = navigateToServiceHistory,
+            navigateToAnalysisDetail = navigateToServiceDetail,
+            onLoggedOut = onLoggedOut
+        )
     }
 }

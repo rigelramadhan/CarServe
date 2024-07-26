@@ -5,7 +5,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.feature.service.navigation.routes.AnalysisParameterType
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
 import one.reevdev.carserve.feature.service.navigation.routes.ServiceRoutes
 import one.reevdev.carserve.feature.service.navigation.routes.VehicleParameterType
@@ -13,6 +15,8 @@ import one.reevdev.carserve.feature.service.screen.AnalysisRouter
 import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisRouter
 import one.reevdev.carserve.feature.service.screen.camera.AnalysisCameraRouter
+import one.reevdev.carserve.feature.service.screen.detail.AnalysisDetailRouter
+import one.reevdev.carserve.feature.service.screen.history.AnalysisHistoryRouter
 import one.reevdev.carserve.feature.service.screen.pdfviewer.PdfViewerScreen
 import one.reevdev.carserve.feature.service.screen.symptom.SymptomFormRouter
 import kotlin.reflect.typeOf
@@ -50,7 +54,11 @@ fun NavGraphBuilder.formScreen(
 }
 
 fun NavController.navigateToAnalysis() {
-    navigate(AnalysisRoutes.Analysis)
+    navigate(AnalysisRoutes.Analysis) {
+        popUpTo(AnalysisRoutes.Analysis) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.analysisScreen(
@@ -88,5 +96,28 @@ fun NavGraphBuilder.pdfViewerScreen() {
     composable<AnalysisRoutes.PdfViewer> {
         val pdfFilePath = it.toRoute<AnalysisRoutes.PdfViewer>().pdfPath
         PdfViewerScreen(pdfFilePath = pdfFilePath)
+    }
+}
+
+fun NavController.navigateToAnalysisHistory() {
+    navigate(AnalysisRoutes.AnalysisHistory)
+}
+
+fun NavGraphBuilder.analysisHistoryScreen(onItemClick: (ServiceAnalysis) -> Unit) {
+    composable<AnalysisRoutes.AnalysisHistory> {
+        AnalysisHistoryRouter(onItemClick = onItemClick)
+    }
+}
+
+fun NavController.navigateToAnalysisDetail(analysis: ServiceAnalysis) {
+    navigate(AnalysisRoutes.AnalysisDetail(analysis))
+}
+
+fun NavGraphBuilder.analysisDetailScreen() {
+    composable<AnalysisRoutes.AnalysisDetail>(
+        typeMap = mapOf(typeOf<ServiceAnalysis>() to AnalysisParameterType)
+    ) {
+        val analysis = it.toRoute<AnalysisRoutes.AnalysisDetail>().analysis
+        AnalysisDetailRouter(serviceAnalysis = analysis)
     }
 }

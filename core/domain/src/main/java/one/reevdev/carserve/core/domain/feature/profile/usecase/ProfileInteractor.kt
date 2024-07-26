@@ -3,7 +3,7 @@ package one.reevdev.carserve.core.domain.feature.profile.usecase
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.common.data.mapFlowData
-import one.reevdev.carserve.core.data.repository.profile.ProfileRepository
+import one.reevdev.carserve.core.data.feature.profile.repository.ProfileRepository
 import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
 import one.reevdev.carserve.core.domain.utils.toDomain
 import one.reevdev.carserve.core.domain.utils.toRequest
