@@ -26,6 +26,6 @@
     <string name="content_description_flip_camera_button">Flip camera button</string>
     <string name="template_vehicle_title">%1$s (%2$s - %3$s)</string>
     <string name="label_findings">Findings</string>
-    <string name="message_result_finding_count"><![CDATA[This analysis results in <b>%1$s findings</b>.]]></string>
+    <string name="message_result_finding_count">This analysis results in <b>%1$s findings</b>.</string>
     <string name="title_analysis_history">Analysis History</string>
 </resources>

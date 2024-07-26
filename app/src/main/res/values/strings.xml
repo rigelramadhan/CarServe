@@ -20,4 +20,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="message_last_analysis">Last %1$s Analysis</string>
+    <string name="label_see_all">See All</string>
 </resources>

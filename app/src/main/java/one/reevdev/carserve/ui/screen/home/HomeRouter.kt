@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
 
 @Composable
@@ -16,6 +17,8 @@ fun HomeRouter(
     viewModel: HomeViewModel = hiltViewModel(),
     onServeVisionClick: () -> Unit,
     onMyVehicleClick: () -> Unit,
+    onAllAnalysisHistoryClick: () -> Unit,
+    onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -34,7 +37,9 @@ fun HomeRouter(
                 .padding(innerPadding),
             analysisHistory = uiState.analysisHistory,
             onServeVisionClick = onServeVisionClick,
+            onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,
             onMyVehicleClick = onMyVehicleClick,
+            onAnalysisHistoryItemClick = onAnalysisHistoryItemClick
         )
     }
 }

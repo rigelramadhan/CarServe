@@ -3,6 +3,7 @@ package one.reevdev.carserve.ui.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.ui.screen.MainRouter
 import one.reevdev.carserve.ui.screen.home.HomeRouter
@@ -18,9 +19,19 @@ fun NavController.navigateToHome(clearBackStack: Boolean = false) {
     }
 }
 
-fun NavGraphBuilder.homeScreen(onServeVisionClick: () -> Unit, onMyVehicleClick: () -> Unit) {
+fun NavGraphBuilder.homeScreen(
+    onServeVisionClick: () -> Unit,
+    onMyVehicleClick: () -> Unit,
+    onAllAnalysisHistoryClick: () -> Unit,
+    onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit
+) {
     composable<MainRoutes.Home> {
-        HomeRouter(onServeVisionClick = onServeVisionClick, onMyVehicleClick = onMyVehicleClick)
+        HomeRouter(
+            onServeVisionClick = onServeVisionClick,
+            onMyVehicleClick = onMyVehicleClick,
+            onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,
+            onAnalysisHistoryItemClick = onAnalysisHistoryItemClick
+        )
     }
 }
 
@@ -43,8 +54,18 @@ fun NavController.navigateToMain(clearBackStack: Boolean = false) {
     }
 }
 
-fun NavGraphBuilder.mainRouter(navigateToService: (Vehicle) -> Unit, onLoggedOut: () -> Unit) {
+fun NavGraphBuilder.mainRouter(
+    navigateToService: (Vehicle) -> Unit,
+    navigateToServiceHistory: () -> Unit,
+    navigateToServiceDetail: (ServiceAnalysis) -> Unit,
+    onLoggedOut: () -> Unit
+) {
     composable<MainRoutes.Main> {
-        MainRouter(navigateToService = navigateToService, onLoggedOut = onLoggedOut)
+        MainRouter(
+            navigateToService = navigateToService,
+            navigateToAnalysisHistory = navigateToServiceHistory,
+            navigateToAnalysisDetail = navigateToServiceDetail,
+            onLoggedOut = onLoggedOut
+        )
     }
 }
