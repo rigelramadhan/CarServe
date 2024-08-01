@@ -17,7 +17,7 @@ import one.reevdev.carserve.core.common.data.emptyString
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Transmission
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.CarseButton
-import one.reevdev.carserve.feature.common.ui.component.CarseTextField
+import one.reevdev.carserve.feature.common.ui.component.SelectableTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.vehicle.component.SelectableList
 import one.reevdev.carserve.vehicle.R
@@ -25,53 +25,112 @@ import one.reevdev.carserve.vehicle.R
 @Composable
 fun AddVehicleScreen(
     modifier: Modifier = Modifier,
-    vehicle: Vehicle? = null,
+    vehicleChoice: List<Vehicle> = emptyList(),
+    vehicle: Vehicle = Vehicle(),
     onProceedForm: (vehicle: Vehicle) -> Unit,
 ) {
-    val transmissionOptions by remember { mutableStateOf(Transmission.entries.map { it.value }) }
-    val (selected, onSelected) = remember { mutableStateOf(transmissionOptions[0]) }
+    val transmissionOptions = Transmission.entries.map { it.value }
+    val (selectedTransmission, onTransmissionSelected) = remember { mutableStateOf(transmissionOptions[0]) }
     var carName by remember { mutableStateOf(emptyString()) }
+    var carType by remember { mutableStateOf(emptyString()) }
+    var carBrand by remember { mutableStateOf(emptyString()) }
     var color by remember { mutableStateOf(emptyString()) }
     var isFieldsDisabled by remember { mutableStateOf(false) }
-    
+
+    val brandChoices by remember(vehicleChoice) {
+        mutableStateOf(vehicleChoice.map { it.carBrand }.distinct())
+    }
+
+    val modelChoices by remember(vehicleChoice, carBrand) {
+        mutableStateOf(vehicleChoice.filter { it.carBrand == carBrand }.map { it.carName }.distinct())
+    }
+
+    val typeChoices by remember(vehicleChoice, carName) {
+        mutableStateOf(vehicleChoice.filter { it.carName == carName }.map { it.carType }.distinct())
+    }
+
+    val colorChoices by remember(vehicleChoice, carType) {
+        mutableStateOf(vehicleChoice.filter { it.carType == carType }.map { it.color }.distinct())
+    }
+
     LaunchedEffect(vehicle) {
-        vehicle?.let { car ->
+        vehicle.let { car ->
             carName = car.carName
             color = car.color
-            onSelected(transmissionOptions.find { car.transmission == it }.orEmpty())
+            onTransmissionSelected(transmissionOptions.find { car.transmission == it }.orEmpty())
         }
-        isFieldsDisabled = (vehicle != null)
+        isFieldsDisabled = (vehicle.carBrand.isNotBlank())
     }
 
     Column(
         modifier = modifier
             .padding(16.dp),
     ) {
-        CarseTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = carName,
-            onValueChange = { carName = it },
-            enabledIf = { !isFieldsDisabled },
-            label = stringResource(R.string.label_car_model),
+        SelectableTextField(
+            selectedValue = carBrand,
+            options = brandChoices,
+            label = stringResource(R.string.label_car_brand),
+            onValueChangedEvent = {
+                carBrand = it
+                carName = emptyString()
+                carType = emptyString()
+                color = emptyString()
+                isFieldsDisabled = false
+            }
         )
-        CarseTextField(
+        SelectableTextField(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            value = color,
-            onValueChange = { color = it },
-            enabledIf = { !isFieldsDisabled },
+                .padding(top = 16.dp),
+            selectedValue = carName,
+            options = modelChoices,
+            label = stringResource(R.string.label_car_model),
+            onValueChangedEvent = {
+                carName = it
+                carType = emptyString()
+                color = emptyString()
+                isFieldsDisabled = false
+            }
+        )
+        SelectableTextField(
+            modifier = Modifier
+                .padding(top = 16.dp),
+            selectedValue = carType,
+            options = typeChoices,
+            label = stringResource(R.string.label_car_type),
+            onValueChangedEvent = {
+                carType = it
+                when {
+                    carType.contains("MT") -> {
+                        onTransmissionSelected(Transmission.MANUAL.value)
+                        isFieldsDisabled = true
+                    }
+                    carType.contains("AT") -> {
+                        onTransmissionSelected(Transmission.AUTOMATIC.value)
+                        isFieldsDisabled = true
+                    }
+                }
+                color = emptyString()
+            }
+        )
+        SelectableTextField(
+            modifier = Modifier
+                .padding(top = 16.dp),
+            selectedValue = color,
+            options = colorChoices,
             label = stringResource(R.string.label_car_color),
+            onValueChangedEvent = {
+                color = it
+            }
         )
         SelectableList(
             modifier = Modifier
-                .padding(top = 48.dp),
+                .padding(top = 32.dp),
             label = stringResource(id = R.string.label_transmission),
             options = transmissionOptions,
-            selected = selected,
+            selected = selectedTransmission,
             enableIf = { !isFieldsDisabled }
         ) {
-            onSelected(it)
+            onTransmissionSelected(it)
         }
         CarseButton(
             modifier = Modifier
@@ -79,14 +138,16 @@ fun AddVehicleScreen(
                 .padding(top = 48.dp),
             text = stringResource(R.string.label_proceed),
             enableIf = {
-                carName.isNotBlank() && color.isNotBlank() && selected.isNotBlank()
+                carName.isNotBlank() && color.isNotBlank() && selectedTransmission.isNotBlank()
             },
             onClick = {
                 onProceedForm(
                     Vehicle(
+                        carBrand = carBrand,
                         carName = carName,
+                        carType = carType,
                         color = color,
-                        transmission = selected
+                        transmission = selectedTransmission
                     )
                 )
             }

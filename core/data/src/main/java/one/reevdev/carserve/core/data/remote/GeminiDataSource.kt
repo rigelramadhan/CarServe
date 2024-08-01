@@ -1,12 +1,12 @@
-package one.reevdev.carserve.core.data.gemini
+package one.reevdev.carserve.core.data.remote
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceParamData
-import one.reevdev.carserve.core.data.gemini.api.ServiceGeminiApi
-import one.reevdev.carserve.core.data.gemini.sheet.SheetsApi
+import one.reevdev.carserve.core.data.remote.api.ServiceGeminiApi
+import one.reevdev.carserve.core.data.remote.sheet.SheetsApi
 import javax.inject.Inject
 import javax.inject.Singleton
 

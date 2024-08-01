@@ -1,4 +1,4 @@
-package one.reevdev.carserve.core.data.gemini.api.prompt
+package one.reevdev.carserve.core.data.remote.api.prompt
 
 import one.reevdev.carserve.core.data.feature.profile.datasource.model.local.LastSavedProfile
 import one.reevdev.carserve.core.data.feature.service.datasource.model.Finding
@@ -8,7 +8,7 @@ import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.Veh
 object SampleData {
 
     val serviceResult = ServiceAnalysisResult(
-        vehicle = VehicleEntity(1, "Car Name 1", "Color 1", "Transmission"),
+        vehicle = VehicleEntity(1, carBrand = "Brand 1", carName = "Car Name 1", color = "Color 1", carType = "Car Type 1", transmission = "Transmission"),
         profile = LastSavedProfile(
             "John Doe",
             "john@doe.com",

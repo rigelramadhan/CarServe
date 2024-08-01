@@ -12,4 +12,6 @@
     <string name="action_analyze">Analyze</string>
     <string name="title_my_vehicles">My Vehicles</string>
     <string name="content_description_add_vehicle_icon">Add vehicle icon</string>
+    <string name="label_car_type">Car Type</string>
+    <string name="label_car_brand">Car Brand</string>
 </resources>
