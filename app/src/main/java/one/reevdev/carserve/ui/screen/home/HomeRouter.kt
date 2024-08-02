@@ -1,6 +1,10 @@
 package one.reevdev.carserve.ui.screen.home
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,6 +23,7 @@ fun HomeRouter(
     onMyVehicleClick: () -> Unit,
     onAllAnalysisHistoryClick: () -> Unit,
     onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit,
+    onServiceAdvisorClick: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -29,7 +34,13 @@ fun HomeRouter(
     Scaffold(
         modifier = modifier,
         topBar = {
-            AppHeader()
+            AppHeader(
+                actions = {
+                    IconButton(onClick = onServiceAdvisorClick) {
+                        Icon(imageVector = Icons.Outlined.AccountCircle, contentDescription = null)
+                    }
+                }
+            )
         }
     ) { innerPadding ->
         HomeScreen(

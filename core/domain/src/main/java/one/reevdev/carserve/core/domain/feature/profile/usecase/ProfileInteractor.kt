@@ -22,4 +22,8 @@ class ProfileInteractor @Inject constructor(
             it.toDomain()
         }
     }
+
+    override fun getServiceAdvisorData(): Flow<Result<String>> {
+        return profileRepository.getServiceAdvisorData()
+    }
 }

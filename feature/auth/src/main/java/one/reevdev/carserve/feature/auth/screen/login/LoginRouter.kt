@@ -2,7 +2,6 @@ package one.reevdev.carserve.feature.auth.screen.login
 
 import android.content.Context
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -21,8 +20,9 @@ import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.emptyString
 import one.reevdev.carserve.feature.auth.R
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
+import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
+import one.reevdev.carserve.feature.common.ui.state.LoadingState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginRouter(
     modifier: Modifier = Modifier,
@@ -86,5 +86,9 @@ fun LoginRouter(
             },
             onRegisterClick = navigateToRegister
         )
+    }
+
+    if (uiState.loadingState != LoadingState.NotLoading) {
+        LoadingDialog()
     }
 }

@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.feature.auth.navigation.authRouter
 import one.reevdev.carserve.feature.auth.navigation.navigateToLogin
+import one.reevdev.carserve.feature.profile.navigation.navigateToServiceAdvisor
+import one.reevdev.carserve.feature.profile.navigation.serviceAdvisorScreen
 import one.reevdev.carserve.feature.service.navigation.analysisDetailScreen
 import one.reevdev.carserve.feature.service.navigation.analysisHistoryScreen
 import one.reevdev.carserve.feature.service.navigation.navigateToAnalysisDetail
@@ -52,6 +54,9 @@ fun CarServeApp(
                 navigateToServiceDetail = {
                     navController.navigateToAnalysisDetail(it)
                 },
+                navigateToServiceAdvisor = {
+                    navController.navigateToServiceAdvisor()
+                },
                 onLoggedOut = {
                     navController.navigateToLogin()
                 }
@@ -63,6 +68,7 @@ fun CarServeApp(
                 onItemClick = { navController.navigateToAnalysisDetail(it) }
             )
             analysisDetailScreen()
+            serviceAdvisorScreen()
         }
     }
 }
