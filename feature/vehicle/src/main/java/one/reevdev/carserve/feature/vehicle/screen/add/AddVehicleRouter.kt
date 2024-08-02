@@ -25,18 +25,20 @@ import one.reevdev.carserve.vehicle.R
 @Composable
 fun AddVehicleRouter(
     modifier: Modifier = Modifier,
-    shouldShowCarOptions: Boolean = true,
+    shouldShowCarOptions: Boolean = false,
     viewModel: AddVehicleViewModel = hiltViewModel(),
     onSubmitVehicle: (vehicle: Vehicle) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var vehicle by remember { mutableStateOf<Vehicle?>(null) }
+    var vehicle by remember { mutableStateOf(Vehicle()) }
+
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
     var showBottomSheet by remember { mutableStateOf(shouldShowCarOptions) }
 
     LaunchedEffect(key1 = Unit) {
-        if (shouldShowCarOptions) viewModel.getAllVehicle()
+        if (shouldShowCarOptions) viewModel.getAllSavedVehicle()
+        viewModel.getAllVehicle()
     }
 
     Scaffold(
@@ -51,16 +53,17 @@ fun AddVehicleRouter(
         AddVehicleScreen(
             modifier = Modifier
                 .padding(innerPadding),
-            onProceedForm = {
-                viewModel.saveVehicle(vehicle ?: it)
-                onSubmitVehicle(it)
+            onProceedForm = { vehicle ->
+                viewModel.saveVehicle(vehicle)
+                onSubmitVehicle(vehicle)
             },
+            vehicleChoice = uiState.vehicleChoices,
             vehicle = vehicle,
         )
         if (showBottomSheet) {
             ChooseVehicleBottomSheet(
                 sheetState = sheetState,
-                vehicleList = uiState.vehicles,
+                vehicleList = uiState.savedVehicles,
                 onDismiss = { showBottomSheet = false }
             ) { chosenVehicle ->
                 scope.launch { sheetState.hide() }.invokeOnCompletion {
@@ -68,7 +71,7 @@ fun AddVehicleRouter(
                         showBottomSheet = false
                     }
                 }
-                vehicle = chosenVehicle
+                vehicle = chosenVehicle ?: Vehicle()
             }
         }
     }

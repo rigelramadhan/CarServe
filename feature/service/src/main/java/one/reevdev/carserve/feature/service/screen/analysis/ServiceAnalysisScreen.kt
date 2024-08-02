@@ -78,131 +78,14 @@ fun ServiceAnalysisScreen(
             }
         }
 
-        vehicle?.run {
-            item {
-                CardColumn(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 24.dp),
-                    label = stringResource(R.string.label_vehicle_information),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-                ) {
-                    Row {
-                        Text(
-                            modifier = Modifier
-                                .weight(1f),
-                            text = carName,
-                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
-                        )
-                        Text(
-                            modifier = Modifier,
-                            text = transmission,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
-            }
-        }
-
-        profile?.let {
-            item {
-                CardColumn(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 24.dp),
-                    label = stringResource(R.string.label_customer_information),
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        TextWithLabel(label = stringResource(R.string.label_name), text = it.name)
-                        TextWithLabel(label = stringResource(R.string.label_email), text = it.email)
-                        TextWithLabel(label = stringResource(R.string.label_phone_number), text = it.phoneNumber)
-                        TextWithLabel(label = stringResource(R.string.label_address), text = it.address)
-                    }
-                }
-            }
-        }
-
-        findings?.let {
-            when (loadingState) {
-                is LoadingState.NotLoading -> {
-                    findingResult(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                            .padding(top = 24.dp),
-                        findings = it,
-                        scope = this
-                    )
-                }
-                is LoadingState.CustomLoading -> {
-                    item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                                .padding(top = 24.dp),
-                        ) {
-                            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-                            loadingState.messageRes?.let { message ->
-                                Text(
-                                    modifier = Modifier.padding(top = 8.dp),
-                                    text = stringResource(message)
-                                )
-                            }
-                        }
-                    }
-                }
-                else -> {}
-            }
-        }
-
-        item {
-            if (recommendedAction.isNotBlank()) {
-                CardColumn(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 24.dp),
-                    label = stringResource(R.string.label_recommendations),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-                ) {
-                    Text(
-                        modifier = Modifier,
-                        text = recommendedAction,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-        }
-
-        if (estimatedPrice > 0.0) {
-            item {
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 24.dp),
-                ) {
-                    HorizontalDivider()
-                    LabelText(
-                        modifier = Modifier.padding(top = 24.dp),
-                        label = stringResource(R.string.label_total_estimated_price)
-                    )
-                    Text(
-                        modifier = Modifier,
-                        text = estimatedPrice.toRupiahCurrency(),
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-            }
-        }
+        analysisDetail(
+            loadingState = loadingState,
+            vehicle = vehicle,
+            profile = profile,
+            findings = findings,
+            recommendedAction = recommendedAction,
+            estimatedPrice = estimatedPrice
+        )
 
         item {
             Row(
@@ -230,6 +113,141 @@ fun ServiceAnalysisScreen(
                     )
                     Text(text = stringResource(R.string.action_export_pdf))
                 }
+            }
+        }
+    }
+}
+
+fun LazyListScope.analysisDetail(
+    loadingState: LoadingState,
+    vehicle: Vehicle?,
+    profile: SavedProfile?,
+    findings: List<ServiceFinding>?,
+    recommendedAction: String,
+    estimatedPrice: Double,
+) {
+    vehicle?.run {
+        item {
+            CardColumn(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 24.dp),
+                label = stringResource(R.string.label_vehicle_information),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                )
+            ) {
+                Row {
+                    Text(
+                        modifier = Modifier
+                            .weight(1f),
+                        text = carType,
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+                    )
+                    Text(
+                        modifier = Modifier,
+                        text = transmission,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+        }
+    }
+
+    profile?.let {
+        item {
+            CardColumn(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 24.dp),
+                label = stringResource(R.string.label_customer_information),
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    TextWithLabel(label = stringResource(R.string.label_name), text = it.name)
+                    TextWithLabel(label = stringResource(R.string.label_email), text = it.email)
+                    TextWithLabel(label = stringResource(R.string.label_phone_number), text = it.phoneNumber)
+                    TextWithLabel(label = stringResource(R.string.label_address), text = it.address)
+                }
+            }
+        }
+    }
+
+    findings?.let {
+        when (loadingState) {
+            is LoadingState.NotLoading -> {
+                findingResult(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 24.dp),
+                    findings = it,
+                    scope = this
+                )
+            }
+            is LoadingState.CustomLoading -> {
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 24.dp),
+                    ) {
+                        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                        loadingState.messageRes?.let { message ->
+                            Text(
+                                modifier = Modifier.padding(top = 8.dp),
+                                text = stringResource(message)
+                            )
+                        }
+                    }
+                }
+            }
+            else -> {}
+        }
+    }
+
+    item {
+        if (recommendedAction.isNotBlank()) {
+            CardColumn(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 24.dp),
+                label = stringResource(R.string.label_recommendations),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                )
+            ) {
+                Text(
+                    modifier = Modifier,
+                    text = recommendedAction,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+    }
+
+    if (estimatedPrice > 0.0) {
+        item {
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 24.dp),
+            ) {
+                HorizontalDivider()
+                LabelText(
+                    modifier = Modifier.padding(top = 24.dp),
+                    label = stringResource(R.string.label_total_estimated_price)
+                )
+                Text(
+                    modifier = Modifier,
+                    text = estimatedPrice.toRupiahCurrency(),
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
         }
     }

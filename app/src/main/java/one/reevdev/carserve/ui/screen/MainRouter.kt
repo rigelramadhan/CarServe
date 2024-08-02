@@ -1,6 +1,5 @@
 package one.reevdev.carserve.ui.screen
 
-import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -12,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -21,9 +19,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.R
+import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.ConfirmationDialog
 import one.reevdev.carserve.feature.common.ui.navigation.Route
+import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
+import one.reevdev.carserve.feature.service.navigation.serviceRouter
 import one.reevdev.carserve.feature.vehicle.navigation.VehicleRoutes
 import one.reevdev.carserve.feature.vehicle.navigation.navigateToVehicle
 import one.reevdev.carserve.feature.vehicle.navigation.vehicleRouter
@@ -36,10 +37,12 @@ import one.reevdev.carserve.utils.BottomNavBarData
 fun MainRouter(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
-    context: Context = LocalContext.current,
     startDestination: Any = MainRoutes.Home,
     navController: NavHostController = rememberNavController(),
     navigateToService: (Vehicle) -> Unit,
+    navigateToAnalysisDetail: (ServiceAnalysis) -> Unit,
+    navigateToAnalysisHistory: () -> Unit,
+    navigateToServiceAdvisor: () -> Unit,
     onLoggedOut: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -53,6 +56,12 @@ fun MainRouter(
                 route = MainRoutes.Home,
                 label = R.string.home,
                 icon = R.drawable.ic_home_24
+            ),
+
+            BottomNavBarData(
+                route = { navigateToAnalysisHistory() },
+                label = R.string.label_history,
+                icon = R.drawable.ic_history_24
             ),
 
             BottomNavBarData(
@@ -109,7 +118,10 @@ fun MainRouter(
         ) {
             homeScreen(
                 onServeVisionClick = { navigateToService(Vehicle()) },
-                onMyVehicleClick = { navController.navigateToVehicle() }
+                onMyVehicleClick = { navController.navigateToVehicle() },
+                onAllAnalysisHistoryClick = { navigateToAnalysisHistory() },
+                onAnalysisHistoryItemClick = { navigateToAnalysisDetail(it) },
+                onServiceAdvisorClick = {navigateToServiceAdvisor() }
             )
             vehicleRouter(
                 onAnalyzeVehicle = {
@@ -117,6 +129,7 @@ fun MainRouter(
                     navigateToService(it)
                 }
             )
+            serviceRouter(AnalysisRoutes.AnalysisHistory) {}
         }
     }
 

@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import one.reevdev.carserve.core.data.datasource.remote.sheet.SheetsApi
+import one.reevdev.carserve.core.data.remote.sheet.SheetsApi
 import retrofit2.Retrofit
 
 @Module

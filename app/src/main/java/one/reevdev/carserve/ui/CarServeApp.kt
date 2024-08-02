@@ -9,6 +9,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.feature.auth.navigation.authRouter
 import one.reevdev.carserve.feature.auth.navigation.navigateToLogin
+import one.reevdev.carserve.feature.profile.navigation.navigateToServiceAdvisor
+import one.reevdev.carserve.feature.profile.navigation.serviceAdvisorScreen
+import one.reevdev.carserve.feature.service.navigation.analysisDetailScreen
+import one.reevdev.carserve.feature.service.navigation.analysisHistoryScreen
+import one.reevdev.carserve.feature.service.navigation.navigateToAnalysisDetail
+import one.reevdev.carserve.feature.service.navigation.navigateToAnalysisHistory
 import one.reevdev.carserve.feature.service.navigation.navigateToService
 import one.reevdev.carserve.feature.service.navigation.serviceRouter
 import one.reevdev.carserve.ui.navigation.MainRoutes
@@ -42,6 +48,15 @@ fun CarServeApp(
                 navigateToService = { vehicle ->
                     navController.navigateToService(vehicle)
                 },
+                navigateToServiceHistory = {
+                    navController.navigateToAnalysisHistory()
+                },
+                navigateToServiceDetail = {
+                    navController.navigateToAnalysisDetail(it)
+                },
+                navigateToServiceAdvisor = {
+                    navController.navigateToServiceAdvisor()
+                },
                 onLoggedOut = {
                     navController.navigateToLogin()
                 }
@@ -49,6 +64,11 @@ fun CarServeApp(
             serviceRouter(
                 navigateToHome = { navController.navigateToMain(clearBackStack = true) }
             )
+            analysisHistoryScreen(
+                onItemClick = { navController.navigateToAnalysisDetail(it) }
+            )
+            analysisDetailScreen()
+            serviceAdvisorScreen()
         }
     }
 }

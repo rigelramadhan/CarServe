@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
 import one.reevdev.carserve.feature.profile.screen.customer.InputCustomerRouter
+import one.reevdev.carserve.feature.profile.screen.serviceadvisor.ServiceAdvisorRouter
 
 fun NavController.navigateToInputCustomer() {
     navigate(ProfileRoutes.InputCustomer)
@@ -17,5 +18,15 @@ fun NavGraphBuilder.inputCustomerScreen(
         InputCustomerRouter(
             onSubmit = onSubmit,
         )
+    }
+}
+
+fun NavController.navigateToServiceAdvisor() {
+    navigate(ProfileRoutes.ServiceAdvisor)
+}
+
+fun NavGraphBuilder.serviceAdvisorScreen() {
+    composable<ProfileRoutes.ServiceAdvisor> {
+        ServiceAdvisorRouter()
     }
 }

@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":feature:service"))
     implementation(project(":feature:vehicle"))
     implementation(project(":feature:auth"))
+    implementation(project(":feature:profile"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

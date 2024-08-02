@@ -3,7 +3,7 @@ package one.reevdev.carserve.core.domain.feature.vehicle.usecase
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.common.data.mapFlowData
-import one.reevdev.carserve.core.data.repository.vehicle.VehicleRepository
+import one.reevdev.carserve.core.data.feature.vehicle.repository.VehicleRepository
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.core.domain.utils.toDomain
 import one.reevdev.carserve.core.domain.utils.toRequest
@@ -26,6 +26,10 @@ class VehicleInteractor @Inject constructor(
 
     override fun getVehicleById(id: Int): Flow<Result<Vehicle>> {
         return repository.getVehicleById(id).mapFlowData { it.toDomain() }
+    }
+
+    override fun getAllSavedVehicles(): Flow<Result<List<Vehicle>>> {
+        return repository.getAllSavedVehicles().mapFlowData { it.map { vehicle -> vehicle.toDomain() } }
     }
 
     override fun getAllVehicles(): Flow<Result<List<Vehicle>>> {

@@ -9,4 +9,6 @@ interface ProfileUseCase {
     fun saveLastProfileData(param: SavedProfile) : Flow<Result<Boolean>>
 
     fun getLastProfileData() : Flow<Result<SavedProfile>>
+
+    fun getServiceAdvisorData() : Flow<Result<String>>
 }

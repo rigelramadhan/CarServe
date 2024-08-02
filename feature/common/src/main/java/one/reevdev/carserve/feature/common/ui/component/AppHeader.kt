@@ -1,6 +1,7 @@
 package one.reevdev.carserve.feature.common.ui.component
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -28,6 +29,7 @@ fun AppHeader(
     title: String? = null,
     hasBackButton: Boolean = false,
     isTransparent: Boolean = false,
+    actions: @Composable RowScope.() -> Unit = {},
 ) {
     val backPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val color = if (isTransparent) {
@@ -79,6 +81,7 @@ fun AppHeader(
                 }
             }
         },
+        actions = actions
     )
 }
 
