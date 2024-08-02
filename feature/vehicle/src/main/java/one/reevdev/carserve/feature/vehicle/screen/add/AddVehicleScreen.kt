@@ -55,7 +55,9 @@ fun AddVehicleScreen(
 
     LaunchedEffect(vehicle) {
         vehicle.let { car ->
+            carBrand = car.carBrand
             carName = car.carName
+            carType = car.carType
             color = car.color
             onTransmissionSelected(transmissionOptions.find { car.transmission == it }.orEmpty())
         }
@@ -141,14 +143,17 @@ fun AddVehicleScreen(
                 carName.isNotBlank() && color.isNotBlank() && selectedTransmission.isNotBlank()
             },
             onClick = {
+                val submitVehicle = Vehicle(
+                    id = vehicle.id,
+                    carBrand = carBrand,
+                    carName = carName,
+                    carType = carType,
+                    color = color,
+                    transmission = selectedTransmission
+                )
                 onProceedForm(
-                    Vehicle(
-                        carBrand = carBrand,
-                        carName = carName,
-                        carType = carType,
-                        color = color,
-                        transmission = selectedTransmission
-                    )
+                    if (submitVehicle == vehicle) submitVehicle
+                    else submitVehicle.copy(id = 0)
                 )
             }
         )

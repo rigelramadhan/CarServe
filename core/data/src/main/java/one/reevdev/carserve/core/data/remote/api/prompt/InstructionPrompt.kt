@@ -30,7 +30,9 @@ object InstructionPrompt {
         based on the given symptoms and general problem.
         
         Here's the car information.
+        Car brand: ${vehicle.carBrand}
         Car name: ${vehicle.carName}
+        Car type: ${vehicle.carType}
         Color: ${vehicle.color}
         Transmission: ${vehicle.transmission}
         
