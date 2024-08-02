@@ -24,7 +24,6 @@ class AuthRepositoryImpl @Inject constructor(
         param.run {
             if (email == BuildConfig.testingEmail && password == BuildConfig.password) {
                 authPreferences.setUserEmail(email)
-                profilePreferences.setLastUserEmail(email)
                 emit(Result.Success(true))
             } else
                 emit(Result.Success(false))

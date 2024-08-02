@@ -1,4 +1,4 @@
-package one.reevdev.carserve.core.data.gemini.api
+package one.reevdev.carserve.core.data.remote.api
 
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.Content
@@ -8,7 +8,7 @@ import one.reevdev.carserve.core.data.BuildConfig
 import one.reevdev.carserve.core.data.feature.service.datasource.model.AvailableService
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceParamData
-import one.reevdev.carserve.core.data.gemini.api.prompt.InstructionPrompt
+import one.reevdev.carserve.core.data.remote.api.prompt.InstructionPrompt
 import one.reevdev.carserve.core.data.utils.toContent
 import javax.inject.Inject
 import javax.inject.Singleton

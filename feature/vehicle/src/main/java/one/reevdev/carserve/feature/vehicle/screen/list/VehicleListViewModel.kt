@@ -24,7 +24,7 @@ class VehicleListViewModel @Inject constructor(
 
     fun getAllVehicle() {
         viewModelScope.launch {
-            useCase.getAllVehicles()
+            useCase.getAllSavedVehicles()
                 .catch {  }
                 .collect { result ->
                     _uiState.update { state ->

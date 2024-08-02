@@ -14,5 +14,7 @@ interface VehicleUseCase {
 
     fun getVehicleById(id: Int): Flow<Result<Vehicle>>
 
+    fun getAllSavedVehicles(): Flow<Result<List<Vehicle>>>
+
     fun getAllVehicles(): Flow<Result<List<Vehicle>>>
 }

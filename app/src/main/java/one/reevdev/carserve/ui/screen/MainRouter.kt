@@ -23,6 +23,8 @@ import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.ConfirmationDialog
 import one.reevdev.carserve.feature.common.ui.navigation.Route
+import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
+import one.reevdev.carserve.feature.service.navigation.serviceRouter
 import one.reevdev.carserve.feature.vehicle.navigation.VehicleRoutes
 import one.reevdev.carserve.feature.vehicle.navigation.navigateToVehicle
 import one.reevdev.carserve.feature.vehicle.navigation.vehicleRouter
@@ -53,6 +55,12 @@ fun MainRouter(
                 route = MainRoutes.Home,
                 label = R.string.home,
                 icon = R.drawable.ic_home_24
+            ),
+
+            BottomNavBarData(
+                route = { navigateToAnalysisHistory() },
+                label = R.string.label_history,
+                icon = R.drawable.ic_history_24
             ),
 
             BottomNavBarData(
@@ -119,6 +127,7 @@ fun MainRouter(
                     navigateToService(it)
                 }
             )
+            serviceRouter(AnalysisRoutes.AnalysisHistory) {}
         }
     }
 

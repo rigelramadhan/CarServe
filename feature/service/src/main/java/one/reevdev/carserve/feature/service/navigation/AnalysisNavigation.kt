@@ -79,12 +79,19 @@ fun NavController.navigateToService(initialVehicle: Vehicle = Vehicle()) {
     navigate(ServiceRoutes.Service(initialVehicle))
 }
 
-fun NavGraphBuilder.serviceRouter(navigateToHome: () -> Unit) {
+fun NavGraphBuilder.serviceRouter(
+    startDestination: Any = AnalysisRoutes.Camera,
+    navigateToHome: () -> Unit,
+) {
     composable<ServiceRoutes.Service>(
         typeMap = mapOf(typeOf<Vehicle>() to VehicleParameterType)
     ) {
         val initVehicle = it.toRoute<ServiceRoutes.Service>().initVehicle
-        AnalysisRouter(navigateToHome = navigateToHome, initVehicle = initVehicle)
+        AnalysisRouter(
+            startDestination = startDestination,
+            navigateToHome = navigateToHome,
+            initVehicle = initVehicle
+        )
     }
 }
 

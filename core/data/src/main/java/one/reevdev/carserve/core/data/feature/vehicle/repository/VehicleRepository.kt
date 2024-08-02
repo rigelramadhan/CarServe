@@ -14,5 +14,7 @@ interface VehicleRepository {
 
     fun getVehicleById(id: Int): Flow<Result<VehicleEntity>>
 
+    fun getAllSavedVehicles(): Flow<Result<List<VehicleEntity>>>
+
     fun getAllVehicles(): Flow<Result<List<VehicleEntity>>>
 }

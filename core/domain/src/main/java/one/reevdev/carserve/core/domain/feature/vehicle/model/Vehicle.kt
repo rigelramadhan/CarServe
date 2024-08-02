@@ -9,7 +9,9 @@ import one.reevdev.carserve.core.common.data.emptyString
 @Parcelize
 data class Vehicle(
     val id: Int = 0,
+    val carBrand: String = emptyString(),
     val carName: String = emptyString(),
+    val carType: String = emptyString(),
     val color: String = emptyString(),
     val transmission: String = emptyString(),
 ) : Parcelable

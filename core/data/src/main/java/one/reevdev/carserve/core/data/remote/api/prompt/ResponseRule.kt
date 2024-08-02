@@ -1,4 +1,4 @@
-package one.reevdev.carserve.core.data.gemini.api.prompt
+package one.reevdev.carserve.core.data.remote.api.prompt
 
 import one.reevdev.carserve.core.common.data.toJson
 

@@ -69,7 +69,38 @@ class AddVehicleViewModel @Inject constructor(
                                 state.copy(
                                     loadingState = LoadingState.NotLoading,
                                     errorMessage = null,
-                                    vehicles = it
+                                    vehicleChoices = it
+                                )
+                            },
+                            onFailure = { _, message ->
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = message
+                                )
+                            }
+                        )
+                    }
+                }
+        }
+    }
+
+    fun getAllSavedVehicle() {
+        viewModelScope.launch {
+            vehicleUseCase.getAllSavedVehicles()
+                .catch {  }
+                .collect { result ->
+                    _uiState.update { state ->
+                        result.handleResource(
+                            onLoading = {
+                                state.copy(
+                                    loadingState = LoadingState.DefaultLoading,
+                                )
+                            },
+                            onSuccess = {
+                                state.copy(
+                                    loadingState = LoadingState.NotLoading,
+                                    errorMessage = null,
+                                    savedVehicles = it
                                 )
                             },
                             onFailure = { _, message ->
@@ -88,6 +119,7 @@ class AddVehicleViewModel @Inject constructor(
 data class AddVehicleUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
+    val vehicleChoices: List<Vehicle> = emptyList(),
     val vehicleSaved: Boolean = false,
-    val vehicles: List<Vehicle> = emptyList(),
+    val savedVehicles: List<Vehicle> = emptyList(),
 )

@@ -142,7 +142,7 @@ fun LazyListScope.analysisDetail(
                     Text(
                         modifier = Modifier
                             .weight(1f),
-                        text = carName,
+                        text = carType,
                         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
                     )
                     Text(

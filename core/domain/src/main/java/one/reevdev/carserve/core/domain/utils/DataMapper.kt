@@ -52,14 +52,18 @@ fun ServiceParam.toRequest() = ServiceParamData(
 
 fun VehicleEntity.toDomain() = Vehicle(
     id = id,
+    carBrand = carBrand,
     carName = carName,
+    carType = carType,
     color = color,
     transmission = transmission
 )
 
 fun Vehicle.toRequest() = VehicleEntity(
     id = id,
+    carBrand = carBrand,
     carName = carName,
+    carType = carType,
     color = color,
     transmission = transmission
 )

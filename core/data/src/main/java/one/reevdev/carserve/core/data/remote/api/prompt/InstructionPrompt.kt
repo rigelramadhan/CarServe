@@ -1,4 +1,4 @@
-package one.reevdev.carserve.core.data.gemini.api.prompt
+package one.reevdev.carserve.core.data.remote.api.prompt
 
 import one.reevdev.carserve.core.data.feature.profile.datasource.model.local.LastSavedProfile
 import one.reevdev.carserve.core.data.feature.service.datasource.model.AvailableService
@@ -30,7 +30,9 @@ object InstructionPrompt {
         based on the given symptoms and general problem.
         
         Here's the car information.
+        Car brand: ${vehicle.carBrand}
         Car name: ${vehicle.carName}
+        Car type: ${vehicle.carType}
         Color: ${vehicle.color}
         Transmission: ${vehicle.transmission}
         

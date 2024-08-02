@@ -28,6 +28,10 @@ class VehicleInteractor @Inject constructor(
         return repository.getVehicleById(id).mapFlowData { it.toDomain() }
     }
 
+    override fun getAllSavedVehicles(): Flow<Result<List<Vehicle>>> {
+        return repository.getAllSavedVehicles().mapFlowData { it.map { vehicle -> vehicle.toDomain() } }
+    }
+
     override fun getAllVehicles(): Flow<Result<List<Vehicle>>> {
         return repository.getAllVehicles().mapFlowData { it.map { vehicle -> vehicle.toDomain() } }
     }

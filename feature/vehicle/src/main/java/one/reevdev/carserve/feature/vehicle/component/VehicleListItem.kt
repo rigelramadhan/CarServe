@@ -77,7 +77,7 @@ fun VehicleItem(
             Text(
                 modifier = Modifier
                     .weight(1f),
-                text = vehicle.carName,
+                text = vehicle.carType,
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
             )
             Column(
@@ -105,10 +105,10 @@ private fun VehicleListItemPreview() {
     CarServeTheme {
         VehicleListItem(
             vehicleList = listOf(
-                Vehicle(1, "Daihatsu Terios 2022", "White", "Automatic"),
-                Vehicle(1, "Daihatsu Xenia 2022", "Black", "Manual"),
-                Vehicle(1, "Daihatsu Sigra 2022", "Red", "Manual"),
-                Vehicle(1, "Daihatsu Agya 2022", "White", "Automatic"),
+                Vehicle(1, "Daihatsu", "Terios", "Daihatsu Terios 2022", "White", "Automatic"),
+                Vehicle(1, "Daihatsu", "Terios", "Daihatsu Xenia 2022", "Black", "Manual"),
+                Vehicle(1, "Daihatsu", "Terios", "Daihatsu Sigra 2022", "Red", "Manual"),
+                Vehicle(1, "Daihatsu", "Terios", "Daihatsu Agya 2022", "White", "Automatic"),
             ),
             onChooseOption = {
 

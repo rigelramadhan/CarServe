@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import one.reevdev.carserve.utils.BottomNavBarData
 
 @Composable
@@ -54,7 +55,7 @@ fun RowScope.NavBarItem(
                 tint = iconTint
             )
         },
-        label = { Text(text = label) },
+        label = { Text(text = label, textAlign = TextAlign.Center) },
         selected = selected,
         onClick = {
             onClick()

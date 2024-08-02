@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import one.reevdev.carserve.core.data.gemini.GeminiConstants
+import one.reevdev.carserve.core.data.remote.GeminiConstants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -34,6 +34,7 @@ object NetworkModule {
     fun provideRetrosheetInterceptor(): RetrosheetInterceptor {
         return RetrosheetInterceptor.Builder()
             .addSheet("Services", "no", "service", "estimated_price")
+            .addSheet("Vehicle", "id", "brand", "name", "model", "transmission", "color")
             .build()
     }
 }

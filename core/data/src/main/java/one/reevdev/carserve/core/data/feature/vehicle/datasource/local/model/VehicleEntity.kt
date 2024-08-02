@@ -10,8 +10,14 @@ data class VehicleEntity(
     @ColumnInfo("id")
     val id: Int = 0,
 
+    @ColumnInfo("carBrand")
+    val carBrand: String,
+
     @ColumnInfo("carName")
     val carName: String,
+
+    @ColumnInfo("carType")
+    val carType: String,
 
     @ColumnInfo("color")
     val color: String,

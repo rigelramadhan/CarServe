@@ -9,7 +9,7 @@ import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.data.feature.service.datasource.local.ServiceLocalDataSource
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceParamData
-import one.reevdev.carserve.core.data.gemini.GeminiDataSource
+import one.reevdev.carserve.core.data.remote.GeminiDataSource
 import javax.inject.Inject
 import javax.inject.Singleton
 
