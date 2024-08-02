@@ -42,6 +42,7 @@ fun MainRouter(
     navigateToService: (Vehicle) -> Unit,
     navigateToAnalysisDetail: (ServiceAnalysis) -> Unit,
     navigateToAnalysisHistory: () -> Unit,
+    navigateToServiceAdvisor: () -> Unit,
     onLoggedOut: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -119,7 +120,8 @@ fun MainRouter(
                 onServeVisionClick = { navigateToService(Vehicle()) },
                 onMyVehicleClick = { navController.navigateToVehicle() },
                 onAllAnalysisHistoryClick = { navigateToAnalysisHistory() },
-                onAnalysisHistoryItemClick = { navigateToAnalysisDetail(it) }
+                onAnalysisHistoryItemClick = { navigateToAnalysisDetail(it) },
+                onServiceAdvisorClick = {navigateToServiceAdvisor() }
             )
             vehicleRouter(
                 onAnalyzeVehicle = {

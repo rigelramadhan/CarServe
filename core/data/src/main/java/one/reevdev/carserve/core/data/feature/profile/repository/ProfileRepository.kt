@@ -9,4 +9,6 @@ interface ProfileRepository {
     fun saveLastProfileData(param: LastSavedProfile) : Flow<Result<Boolean>>
 
     fun getLastProfileData() : Flow<Result<LastSavedProfile>>
+
+    fun getServiceAdvisorData() : Flow<Result<String>>
 }

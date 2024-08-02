@@ -6,4 +6,7 @@ sealed class ProfileRoutes {
 
     @Serializable
     data object InputCustomer
+
+    @Serializable
+    data object ServiceAdvisor
 }

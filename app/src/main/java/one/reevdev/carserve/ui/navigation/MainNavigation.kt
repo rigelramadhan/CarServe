@@ -23,14 +23,16 @@ fun NavGraphBuilder.homeScreen(
     onServeVisionClick: () -> Unit,
     onMyVehicleClick: () -> Unit,
     onAllAnalysisHistoryClick: () -> Unit,
-    onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit
+    onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit,
+    onServiceAdvisorClick: () -> Unit
 ) {
     composable<MainRoutes.Home> {
         HomeRouter(
             onServeVisionClick = onServeVisionClick,
             onMyVehicleClick = onMyVehicleClick,
             onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,
-            onAnalysisHistoryItemClick = onAnalysisHistoryItemClick
+            onAnalysisHistoryItemClick = onAnalysisHistoryItemClick,
+            onServiceAdvisorClick = onServiceAdvisorClick
         )
     }
 }
@@ -58,6 +60,7 @@ fun NavGraphBuilder.mainRouter(
     navigateToService: (Vehicle) -> Unit,
     navigateToServiceHistory: () -> Unit,
     navigateToServiceDetail: (ServiceAnalysis) -> Unit,
+    navigateToServiceAdvisor: () -> Unit,
     onLoggedOut: () -> Unit
 ) {
     composable<MainRoutes.Main> {
@@ -65,7 +68,8 @@ fun NavGraphBuilder.mainRouter(
             navigateToService = navigateToService,
             navigateToAnalysisHistory = navigateToServiceHistory,
             navigateToAnalysisDetail = navigateToServiceDetail,
-            onLoggedOut = onLoggedOut
+            navigateToServiceAdvisor = navigateToServiceAdvisor,
+            onLoggedOut = onLoggedOut,
         )
     }
 }
