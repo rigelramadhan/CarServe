@@ -3,7 +3,7 @@ package one.reevdev.carserve.feature.vehicle.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.vehicle.VehicleRouter
 import one.reevdev.carserve.feature.vehicle.screen.add.AddVehicleRouter
 import one.reevdev.carserve.feature.vehicle.screen.list.VehicleListRouter
@@ -14,7 +14,7 @@ fun NavController.navigateToAddToCar() {
 
 fun NavGraphBuilder.addVehicleScreen(
     shouldShowCarOptions: Boolean = true,
-    onSubmitVehicle: (vehicle: Vehicle) -> Unit
+    onSubmitVehicle: (vehicle: CustomerVehicle) -> Unit
 ) {
     composable<VehicleRoutes.AddVehicle> {
         AddVehicleRouter(
@@ -30,7 +30,7 @@ fun NavController.navigateToVehicleList() {
 
 fun NavGraphBuilder.vehicleListScreen(
     onAddVehicle: () -> Unit,
-    onAnalyzeVehicle: (vehicle: Vehicle) -> Unit
+    onAnalyzeVehicle: (vehicle: CustomerVehicle) -> Unit
 ) {
     composable<VehicleRoutes.VehicleList> {
         VehicleListRouter(
@@ -45,7 +45,7 @@ fun NavController.navigateToVehicle() {
 }
 
 fun NavGraphBuilder.vehicleRouter(
-    onAnalyzeVehicle: (vehicle: Vehicle) -> Unit
+    onAnalyzeVehicle: (vehicle: CustomerVehicle) -> Unit
 ) {
     composable<VehicleRoutes.Vehicle> {
         VehicleRouter(

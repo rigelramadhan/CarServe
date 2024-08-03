@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.vehicle.navigation.VehicleRoutes
 import one.reevdev.carserve.feature.vehicle.navigation.addVehicleScreen
 import one.reevdev.carserve.feature.vehicle.navigation.navigateToAddToCar
@@ -18,7 +18,7 @@ fun VehicleRouter(
     modifier: Modifier = Modifier,
     startDestination: Any = VehicleRoutes.VehicleList,
     navController: NavHostController = rememberNavController(),
-    onAnalyzeVehicle: (Vehicle) -> Unit,
+    onAnalyzeVehicle: (CustomerVehicle) -> Unit,
 ) {
     Scaffold(
         modifier = modifier

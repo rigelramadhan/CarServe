@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.vehicle.R
@@ -23,9 +23,9 @@ import one.reevdev.carserve.vehicle.R
 fun ChooseVehicleBottomSheet(
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(),
-    vehicleList: List<Vehicle> = emptyList(),
+    vehicleList: List<CustomerVehicle> = emptyList(),
     onDismiss: () -> Unit,
-    onChooseOption: (Vehicle?) -> Unit,
+    onChooseOption: (CustomerVehicle?) -> Unit,
 ) {
     ModalBottomSheet(
         modifier = modifier,
@@ -61,10 +61,10 @@ private fun ChooseVehicleBottomSheetPreview() {
                 initialValue = SheetValue.Expanded
             ),
             vehicleList = listOf(
-                Vehicle(1, "Car 1", "Black", "Automatic"),
-                Vehicle(1, "Car 1", "Black", "Automatic"),
-                Vehicle(1, "Car 1", "Black", "Automatic"),
-                Vehicle(1, "Car 1", "Black", "Automatic"),
+                CustomerVehicle("1", "Car 1", "Black", "Automatic"),
+                CustomerVehicle("1", "Car 1", "Black", "Automatic"),
+                CustomerVehicle("1", "Car 1", "Black", "Automatic"),
+                CustomerVehicle("1", "Car 1", "Black", "Automatic"),
             ),
             onDismiss = {}
         ) {

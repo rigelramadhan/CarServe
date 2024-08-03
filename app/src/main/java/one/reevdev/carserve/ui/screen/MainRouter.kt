@@ -20,7 +20,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.R
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.ConfirmationDialog
 import one.reevdev.carserve.feature.common.ui.navigation.Route
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
@@ -39,7 +39,7 @@ fun MainRouter(
     viewModel: MainViewModel = hiltViewModel(),
     startDestination: Any = MainRoutes.Home,
     navController: NavHostController = rememberNavController(),
-    navigateToService: (Vehicle) -> Unit,
+    navigateToService: (CustomerVehicle) -> Unit,
     navigateToAnalysisDetail: (ServiceAnalysis) -> Unit,
     navigateToAnalysisHistory: () -> Unit,
     navigateToServiceAdvisor: () -> Unit,
@@ -117,7 +117,7 @@ fun MainRouter(
             startDestination = startDestination
         ) {
             homeScreen(
-                onServeVisionClick = { navigateToService(Vehicle()) },
+                onServeVisionClick = { navigateToService(CustomerVehicle()) },
                 onMyVehicleClick = { navController.navigateToVehicle() },
                 onAllAnalysisHistoryClick = { navigateToAnalysisHistory() },
                 onAnalysisHistoryItemClick = { navigateToAnalysisDetail(it) },
