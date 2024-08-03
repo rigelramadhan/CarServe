@@ -96,7 +96,10 @@ class ServiceAnalysisViewModel @Inject constructor(
 
     fun setProfile(profile: SavedProfile) {
         _uiState.update {
-            it.copy(param = it.param.copy(profile = profile))
+            val vehicle = it.param.vehicle.copy(
+                ownerEmail = profile.email
+            )
+            it.copy(param = it.param.copy(profile = profile, vehicle = vehicle))
         }
     }
 }
