@@ -24,7 +24,7 @@ class AddVehicleViewModel @Inject constructor(
 
     fun saveVehicle(vehicle: Vehicle) {
         viewModelScope.launch {
-            vehicleUseCase.saveVehicle(vehicle)
+            vehicleUseCase.saveCustomerVehicle(vehicle)
                 .catch {  }
                 .collect {
                     _uiState.update { state ->
@@ -86,7 +86,7 @@ class AddVehicleViewModel @Inject constructor(
 
     fun getAllSavedVehicle() {
         viewModelScope.launch {
-            vehicleUseCase.getAllSavedVehicles()
+            vehicleUseCase.getAllCustomerVehicles()
                 .catch {  }
                 .collect { result ->
                     _uiState.update { state ->

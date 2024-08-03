@@ -1,10 +1,10 @@
 package one.reevdev.carserve.core.data.feature.service.datasource.model
 
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.local.LastSavedProfile
+import one.reevdev.carserve.core.data.feature.profile.datasource.model.Customer
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
 
 data class ServiceAnalysisResult(
-    val profile: LastSavedProfile,
+    val profile: Customer,
     val vehicle: VehicleEntity,
     val recommendedAction: String,
     val findings: List<Finding>,

@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.VehicleLocalDataSource
+import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.CustomerVehicleEntity
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.remote.VehicleRemoteDataSource
 import one.reevdev.carserve.core.data.utils.toEntity
@@ -15,50 +16,50 @@ class VehicleRepositoryImpl @Inject constructor(
     private val localDataSource: VehicleLocalDataSource,
     private val remoteDataSource: VehicleRemoteDataSource
 ) : VehicleRepository {
-    override fun saveVehicle(vehicle: VehicleEntity): Flow<Result<Boolean>> = flow {
+    override fun saveCustomerVehicle(vehicle: CustomerVehicleEntity): Flow<Result<Boolean>> = flow {
         emit(Result.Loading())
         try {
-            localDataSource.insertVehicle(vehicle)
+            localDataSource.insertCustomerVehicle(vehicle)
             emit(Result.Success(true))
         } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
 
-    override fun updateVehicle(vehicle: VehicleEntity): Flow<Result<Boolean>> = flow {
+    override fun updateCustomerVehicle(vehicle: CustomerVehicleEntity): Flow<Result<Boolean>> = flow {
         emit(Result.Loading())
         try {
-            localDataSource.updateVehicle(vehicle)
+            localDataSource.updateCustomerVehicle(vehicle)
             emit(Result.Success(true))
         } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
 
-    override fun deleteVehicle(id: Int): Flow<Result<Boolean>> = flow {
+    override fun deleteCustomerVehicle(policeNo: String): Flow<Result<Boolean>> = flow {
         emit(Result.Loading())
         try {
-            localDataSource.deleteVehicleById(id)
+            localDataSource.deleteCustomerVehicleByPoliceNo(policeNo)
             emit(Result.Success(true))
         } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
 
-    override fun getVehicleById(id: Int): Flow<Result<VehicleEntity>> = flow {
+    override fun getCustomerVehicleById(policeNo: String): Flow<Result<CustomerVehicleEntity>> = flow {
         emit(Result.Loading())
         try {
-            val data = localDataSource.getVehicleById(id)
+            val data = localDataSource.getCustomerVehicleByPoliceNo(policeNo)
             emit(Result.Success(data))
         } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
 
-    override fun getAllSavedVehicles(): Flow<Result<List<VehicleEntity>>> = flow {
+    override fun getAllCustomerVehicles(): Flow<Result<List<CustomerVehicleEntity>>> = flow {
         emit(Result.Loading())
         try {
-            val data = localDataSource.getAllVehicle()
+            val data = localDataSource.getAllCustomerVehicle()
             emit(Result.Success(data))
         } catch (e: Exception) {
             emit(Result.Error(e))

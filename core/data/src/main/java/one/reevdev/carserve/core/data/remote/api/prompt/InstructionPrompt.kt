@@ -1,6 +1,6 @@
 package one.reevdev.carserve.core.data.remote.api.prompt
 
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.local.LastSavedProfile
+import one.reevdev.carserve.core.data.feature.profile.datasource.model.Customer
 import one.reevdev.carserve.core.data.feature.service.datasource.model.AvailableService
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
 
@@ -15,7 +15,7 @@ object InstructionPrompt {
     fun analyzeCar(
         symptoms: String,
         problem: String,
-        profile: LastSavedProfile,
+        profile: Customer,
         vehicle: VehicleEntity,
         availableService: List<AvailableService>
     ) = """

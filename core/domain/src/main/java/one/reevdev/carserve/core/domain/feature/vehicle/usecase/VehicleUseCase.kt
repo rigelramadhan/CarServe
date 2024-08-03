@@ -2,19 +2,20 @@ package one.reevdev.carserve.core.domain.feature.vehicle.usecase
 
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 
 interface VehicleUseCase {
 
-    fun saveVehicle(vehicle: Vehicle): Flow<Result<Boolean>>
+    fun saveCustomerVehicle(vehicle: CustomerVehicle): Flow<Result<Boolean>>
 
-    fun updateVehicle(vehicle: Vehicle): Flow<Result<Boolean>>
+    fun updateCustomerVehicle(vehicle: CustomerVehicle): Flow<Result<Boolean>>
 
-    fun deleteVehicle(id: Int): Flow<Result<Boolean>>
+    fun deleteCustomerVehicle(policeNo: String): Flow<Result<Boolean>>
 
-    fun getVehicleById(id: Int): Flow<Result<Vehicle>>
+    fun getCustomerVehicleByPoliceNo(policeNo: String): Flow<Result<CustomerVehicle>>
 
-    fun getAllSavedVehicles(): Flow<Result<List<Vehicle>>>
+    fun getAllCustomerVehicles(): Flow<Result<List<CustomerVehicle>>>
 
     fun getAllVehicles(): Flow<Result<List<Vehicle>>>
 }

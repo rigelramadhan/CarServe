@@ -1,6 +1,6 @@
 package one.reevdev.carserve.core.data.remote.api.prompt
 
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.local.LastSavedProfile
+import one.reevdev.carserve.core.data.feature.profile.datasource.model.Customer
 import one.reevdev.carserve.core.data.feature.service.datasource.model.Finding
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
@@ -9,7 +9,7 @@ object SampleData {
 
     val serviceResult = ServiceAnalysisResult(
         vehicle = VehicleEntity(1, carBrand = "Brand 1", carName = "Car Name 1", color = "Color 1", carType = "Car Type 1", transmission = "Transmission"),
-        profile = LastSavedProfile(
+        profile = Customer(
             "John Doe",
             "john@doe.com",
             "081122114114",

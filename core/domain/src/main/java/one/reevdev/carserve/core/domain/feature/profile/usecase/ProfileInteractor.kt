@@ -14,11 +14,11 @@ class ProfileInteractor @Inject constructor(
 ) : ProfileUseCase {
 
     override fun saveLastProfileData(param: SavedProfile): Flow<Result<Boolean>> {
-        return profileRepository.saveLastProfileData(param.toRequest())
+        return profileRepository.saveCustomer(param.toRequest())
     }
 
     override fun getLastProfileData(): Flow<Result<SavedProfile>> {
-        return profileRepository.getLastProfileData().mapFlowData {
+        return profileRepository.getLastCustomer().mapFlowData {
             it.toDomain()
         }
     }
