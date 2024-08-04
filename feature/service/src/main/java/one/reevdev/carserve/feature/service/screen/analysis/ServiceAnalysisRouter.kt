@@ -21,6 +21,7 @@ fun ServiceAnalysisRouter(
     modifier: Modifier = Modifier,
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
     context: Context = LocalContext.current,
+    onPhoneClick: (String) -> Unit,
     onProceed: () -> Unit,
     navigateToPdfViewer: (String) -> Unit,
 ) {
@@ -42,12 +43,13 @@ fun ServiceAnalysisRouter(
             modifier = modifier
                 .padding(innerPadding),
             vehicle = uiState.serviceAnalysis.vehicle,
-            profile = uiState.serviceAnalysis.profile,
+            customer = uiState.serviceAnalysis.profile,
             loadingState = uiState.loadingState,
             findings = uiState.serviceAnalysis.serviceFindings,
             recommendedAction = uiState.serviceAnalysis.recommendedAction,
             estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
             image = uiState.param.photo,
+            onPhoneClick = onPhoneClick,
             onProceed = onProceed,
             onExportPdf = {
                 if (uiState.serviceAnalysis.analysisHtml.isNotBlank()) {

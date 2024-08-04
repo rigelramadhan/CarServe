@@ -13,7 +13,7 @@ fun NavController.navigateToAddToCar() {
 }
 
 fun NavGraphBuilder.addVehicleScreen(
-    shouldShowCarOptions: Boolean = true,
+    shouldShowCarOptions: Boolean = false,
     onSubmitVehicle: (vehicle: CustomerVehicle) -> Unit
 ) {
     composable<VehicleRoutes.AddVehicle> {

@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
+import one.reevdev.carserve.feature.common.utils.dialNumber
 import one.reevdev.carserve.feature.service.R
 import one.reevdev.carserve.feature.service.utils.DocumentHelper
 
@@ -59,7 +60,8 @@ fun AnalysisDetailRouter(
                 profile = profile,
                 findings = serviceFindings,
                 recommendedAction = recommendedAction,
-                estimatedPrice = totalEstimatedPrice
+                estimatedPrice = totalEstimatedPrice,
+                onPhoneClick = { it.dialNumber(context) }
             )
         }
     }

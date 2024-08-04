@@ -80,7 +80,7 @@ fun AddVehicleScreen(
         CarseTextField(
             label = stringResource(R.string.label_police_number),
             value = policeNo,
-            onValueChange = { policeNo = it }
+            onValueChange = { policeNo = it.uppercase() }
         )
         SelectableTextField(
             modifier = Modifier

@@ -15,11 +15,12 @@ import one.reevdev.carserve.feature.service.screen.analysis.analysisDetail
 fun AnalysisDetailScreen(
     modifier: Modifier = Modifier,
     loadingState: LoadingState,
-    vehicle: CustomerVehicle?,
-    profile: Customer?,
-    findings: List<ServiceFinding>?,
+    vehicle: CustomerVehicle,
+    profile: Customer,
+    findings: List<ServiceFinding>,
     recommendedAction: String,
     estimatedPrice: Double,
+    onPhoneClick: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -28,10 +29,11 @@ fun AnalysisDetailScreen(
         analysisDetail(
             loadingState = loadingState,
             vehicle = vehicle,
-            profile = profile,
+            customer = profile,
             findings = findings,
             recommendedAction = recommendedAction,
-            estimatedPrice = estimatedPrice
+            estimatedPrice = estimatedPrice,
+            onPhoneClick = onPhoneClick
         )
     }
 }

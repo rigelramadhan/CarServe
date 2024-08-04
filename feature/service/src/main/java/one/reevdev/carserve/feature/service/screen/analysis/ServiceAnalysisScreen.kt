@@ -3,33 +3,40 @@ package one.reevdev.carserve.feature.service.screen.analysis
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Call
+import androidx.compose.material.icons.outlined.PersonPinCircle
 import androidx.compose.material.icons.outlined.PictureAsPdf
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,22 +48,23 @@ import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
 import one.reevdev.carserve.feature.common.ui.component.LabelText
-import one.reevdev.carserve.feature.common.ui.component.TextWithLabel
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
+import one.reevdev.carserve.feature.service.component.AnalysisFindingItem
 import one.reevdev.carserve.feature.service.component.CardColumn
 
 @Composable
 fun ServiceAnalysisScreen(
     modifier: Modifier = Modifier,
     loadingState: LoadingState,
-    findings: List<ServiceFinding>? = null,
-    vehicle: CustomerVehicle? = null,
-    profile: Customer? = null,
+    findings: List<ServiceFinding> = emptyList(),
+    vehicle: CustomerVehicle = CustomerVehicle(),
+    customer: Customer = Customer(),
     recommendedAction: String,
     estimatedPrice: Double,
     image: Bitmap? = null,
+    onPhoneClick: (String) -> Unit,
     onProceed: () -> Unit,
     onExportPdf: () -> Unit,
 ) {
@@ -81,10 +89,11 @@ fun ServiceAnalysisScreen(
         analysisDetail(
             loadingState = loadingState,
             vehicle = vehicle,
-            profile = profile,
+            customer = customer,
             findings = findings,
             recommendedAction = recommendedAction,
-            estimatedPrice = estimatedPrice
+            estimatedPrice = estimatedPrice,
+            onPhoneClick = onPhoneClick
         )
 
         item {
@@ -120,62 +129,122 @@ fun ServiceAnalysisScreen(
 
 fun LazyListScope.analysisDetail(
     loadingState: LoadingState,
-    vehicle: CustomerVehicle?,
-    profile: Customer?,
-    findings: List<ServiceFinding>?,
+    vehicle: CustomerVehicle,
+    customer: Customer,
+    findings: List<ServiceFinding>,
     recommendedAction: String,
     estimatedPrice: Double,
+    onPhoneClick: (String) -> Unit,
 ) {
-    vehicle?.run {
-        item {
-            CardColumn(
+    item {
+        if (vehicle.carType.isNotBlank()) {
+            OutlinedCard(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .padding(top = 24.dp),
-                label = stringResource(R.string.label_vehicle_information),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                )
+                    .padding(top = 24.dp)
             ) {
-                Row {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+
                     Text(
-                        modifier = Modifier
-                            .weight(1f),
-                        text = carType,
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+                        modifier = Modifier,
+                        text = "${vehicle.carBrand} ${vehicle.carName}",
+                        style = MaterialTheme.typography.titleMedium
                     )
                     Text(
                         modifier = Modifier,
-                        text = transmission,
-                        style = MaterialTheme.typography.bodyMedium
+                        text = stringResource(
+                            R.string.format_policeno_color_transmission,
+                            vehicle.policeNo,
+                            vehicle.color,
+                            vehicle.transmission
+                        ),
+                        style = MaterialTheme.typography.bodySmall
                     )
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
+                    if (customer.email.isNotBlank()) {
+                        Row {
+                            Image(
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .clip(CircleShape),
+                                painter = painterResource(id = one.reevdev.carserve.feature.common.R.drawable.placeholder_customer_avatar),
+                                contentDescription = null,
+                            )
+                            Column(
+                                Modifier
+                                    .padding(start = 16.dp)
+                                    .weight(1f)
+                            ) {
+                                Text(
+                                    modifier = Modifier,
+                                    text = customer.name,
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                                Text(
+                                    modifier = Modifier,
+                                    text = customer.phoneNumber,
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        color = MaterialTheme.colorScheme.onSurface.copy(
+                                            alpha = 0.5f
+                                        )
+                                    )
+                                )
+                                Text(
+                                    modifier = Modifier,
+                                    text = customer.email,
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        color = MaterialTheme.colorScheme.onSurface.copy(
+                                            alpha = 0.5f
+                                        )
+                                    )
+                                )
+                            }
+                            IconButton(
+                                onClick = { onPhoneClick(customer.phoneNumber) },
+                                colors = IconButtonDefaults.filledIconButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Call,
+                                    contentDescription = null
+                                )
+                            }
+                        }
+                        Card(
+                            modifier = Modifier
+                                .padding(top = 16.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        ) {
+                            Row(modifier = Modifier.padding(8.dp)) {
+                                Icon(
+                                    modifier = Modifier.size(18.dp),
+                                    imageVector = Icons.Outlined.PersonPinCircle,
+                                    contentDescription = null
+                                )
+                                Text(
+                                    modifier = Modifier
+                                        .padding(start = 4.dp)
+                                        .fillMaxWidth(),
+                                    text = customer.address,
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
-    profile?.let {
-        item {
-            CardColumn(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 24.dp),
-                label = stringResource(R.string.label_customer_information),
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    TextWithLabel(label = stringResource(R.string.label_name), text = it.name)
-                    TextWithLabel(label = stringResource(R.string.label_email), text = it.email)
-                    TextWithLabel(label = stringResource(R.string.label_phone_number), text = it.phoneNumber)
-                    TextWithLabel(label = stringResource(R.string.label_address), text = it.address)
-                }
-            }
-        }
-    }
-
-    findings?.let {
+    findings.let {
         when (loadingState) {
             is LoadingState.NotLoading -> {
                 findingResult(
@@ -187,6 +256,7 @@ fun LazyListScope.analysisDetail(
                     scope = this
                 )
             }
+
             is LoadingState.CustomLoading -> {
                 item {
                     Column(
@@ -205,6 +275,7 @@ fun LazyListScope.analysisDetail(
                     }
                 }
             }
+
             else -> {}
         }
     }
@@ -217,8 +288,8 @@ fun LazyListScope.analysisDetail(
                     .padding(top = 24.dp),
                 label = stringResource(R.string.label_recommendations),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             ) {
                 Text(
@@ -275,10 +346,13 @@ fun findingResult(
             }
 
             items(findings) { finding ->
-                FindingComponent(
-                    problem = finding.problem,
-                    potentialSolve = finding.solution,
-                    estimatedPrice = finding.estimatedPrice,
+                AnalysisFindingItem(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 12.dp),
+                    solution = finding.solution,
+                    analysis = finding.problem,
+                    estimatedPrice = finding.estimatedPrice.toRupiahCurrency(),
                 )
             }
         } else {
@@ -292,65 +366,23 @@ fun findingResult(
     }
 }
 
-@Composable
-fun FindingComponent(
-    modifier: Modifier = Modifier,
-    problem: String,
-    potentialSolve: String,
-    estimatedPrice: Double,
-) {
-    CardColumn(
-        modifier = modifier
-            .padding(horizontal = 16.dp)
-            .padding(bottom = 4.dp),
-    ) {
-        Text(
-            modifier = Modifier,
-            text = problem,
-            style = MaterialTheme.typography.bodyLarge
-        )
-        HorizontalDivider(
-            modifier = Modifier.padding(vertical = 8.dp),
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = stringResource(R.string.label_solution),
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
-        )
-        Text(
-            modifier = Modifier,
-            text = potentialSolve,
-            style = MaterialTheme.typography.bodyMedium
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        val finalPrice =
-            if (estimatedPrice <= 0.0) "No cost"
-            else stringResource(
-                R.string.format_estimated_price,
-                estimatedPrice.toRupiahCurrency()
-            )
-        Text(
-            modifier = Modifier,
-            text = finalPrice,
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Light)
-        )
-    }
-}
-
 @Preview
 @Composable
 private fun ServiceAnalysisPreview() {
     CarServeTheme {
         ServiceAnalysisScreen(
-            loadingState = LoadingState.CustomLoading(message = "Analyzing Car"),
+            loadingState = LoadingState.NotLoading,
             findings = listOf(
                 ServiceFinding("Problem 1", "Solution 1", 24500.0),
                 ServiceFinding("Problem 2", "Solution 2", 0.0),
                 ServiceFinding("Problem 3", "Solution 3", 624500.0),
             ),
-            profile = Customer("John Doe", "john@doe.com", "081311111111", "Jl. Address, West Java, Indonesia"),
+            customer = Customer(
+                "John Doe",
+                "john@doe.com",
+                "081311111111",
+                "Jl. Address, West Java, Indonesia"
+            ),
             vehicle = CustomerVehicle(
                 policeNo = "AG 2446 NB",
                 ownerEmail = "john@doe.com",
@@ -362,6 +394,39 @@ private fun ServiceAnalysisPreview() {
             ),
             recommendedAction = "This is the recommended action of the problem",
             estimatedPrice = 244000.0,
+            onPhoneClick = {},
+            onProceed = {}
+        ) {
+
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun ServiceAnalysisPreview_Empty() {
+    CarServeTheme {
+        ServiceAnalysisScreen(
+            loadingState = LoadingState.NotLoading,
+            findings = emptyList(),
+            customer = Customer(
+                "John Doe",
+                "john@doe.com",
+                "081311111111",
+                "Jl. Address, West Java, Indonesia"
+            ),
+            vehicle = CustomerVehicle(
+                policeNo = "AG 2446 NB",
+                ownerEmail = "john@doe.com",
+                carBrand = "Brand 1",
+                carName = "Car Name 1",
+                color = "Color 1",
+                carType = "Car Type 1",
+                transmission = "Transmission"
+            ),
+            recommendedAction = "This is the recommended action of the problem",
+            estimatedPrice = 244000.0,
+            onPhoneClick = {},
             onProceed = {}
         ) {
 

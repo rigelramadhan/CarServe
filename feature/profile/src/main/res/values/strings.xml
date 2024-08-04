@@ -12,4 +12,5 @@
     <string name="action_submit">Submit</string>
     <string name="title_service_advisor_information">Advisor Information</string>
     <string name="title_customers">Customers</string>
+    <string name="message_know_customer">Know your customer. A good service is what they want.</string>
 </resources>

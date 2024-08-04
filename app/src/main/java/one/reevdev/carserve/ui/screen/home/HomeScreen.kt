@@ -25,10 +25,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.R
 import one.reevdev.carserve.core.domain.feature.profile.model.Customer
-import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
-import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerWithVehicle
+import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
 import one.reevdev.carserve.feature.common.ui.component.LabelText
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.ui.component.HomeCard
@@ -118,6 +117,11 @@ fun HomeScreen(
                     }
                 }
             }
+        } else {
+            EmptyComponent(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                text = stringResource(R.string.message_no_customer_or_analysis)
+            )
         }
     }
 }
@@ -143,43 +147,6 @@ private fun HomeScreenPreview() {
                 "Transmission"
             )
         )
-        val dummyAnalysis = ServiceAnalysis(
-            vehicle = CustomerVehicle(
-                policeNo = "AG 2446 NB",
-                ownerEmail = "john@doe.com",
-                carBrand = "Brand 1",
-                carName = "Car Name 1",
-                color = "Color 1",
-                carType = "Car Type 1",
-                transmission = "Transmission"
-            ),
-            profile = Customer(
-                "John Doe",
-                "johndoe@email.com",
-                "081311048587",
-                "Jl. Address"
-            ),
-            recommendedAction = "This is the recommended action",
-            serviceFindings = listOf(
-                ServiceFinding(
-                    "Problem 1",
-                    "Solution 1",
-                    25000.0
-                ),
-                ServiceFinding(
-                    "Problem 1",
-                    "Solution 1",
-                    25000.0
-                ),
-                ServiceFinding(
-                    "Problem 1",
-                    "Solution 1",
-                    25000.0
-                ),
-            ),
-            totalEstimatedPrice = 75000.0,
-            analysisHtml = ""
-        )
         HomeScreen(
             greeting = "Good morning, John!",
             onServeVisionClick = {},
@@ -189,6 +156,21 @@ private fun HomeScreenPreview() {
                 recentCustomer,
                 recentCustomer,
             ),
+            onAllAnalysisHistoryClick = {},
+            onServiceAdvisorClick = {},
+            onRecentCustomerClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun HomeScreenPreview_Empty() {
+    CarServeTheme {
+        HomeScreen(
+            greeting = "Good morning, John!",
+            onServeVisionClick = {},
+            recentCustomer = emptyList(),
             onAllAnalysisHistoryClick = {},
             onServiceAdvisorClick = {},
             onRecentCustomerClick = {}

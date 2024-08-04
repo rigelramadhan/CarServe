@@ -39,6 +39,7 @@ fun AnalysisRouter(
     startDestination: Any = AnalysisRoutes.Camera,
     initVehicle: CustomerVehicle? = null,
     navController: NavHostController = rememberNavController(),
+    onPhoneClick: (String) -> Unit,
     navigateToHome: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -100,6 +101,7 @@ fun AnalysisRouter(
             )
             analysisScreen(
                 viewModel = viewModel,
+                onPhoneClick = onPhoneClick,
                 onProceed = { navigateToHome() },
                 navigateToPdfViewer = { path -> navController.navigateToPdfViewer(path) }
             )

@@ -26,4 +26,5 @@
     <string name="format_car_name_color">%1$s - %2$s</string>
     <string name="label_mechanic">Mechanic</string>
     <string name="label_customers">Customers</string>
+    <string name="message_no_customer_or_analysis">You have no recent customer or analysis.</string>
 </resources>
