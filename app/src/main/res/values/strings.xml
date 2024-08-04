@@ -19,8 +19,10 @@
     <string name="message_logout_confirmation">Do you want to logout?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="message_last_analysis">Last %1$s Analysis</string>
+    <string name="message_last_customers">Last %1$s Customers</string>
     <string name="label_see_all">See All</string>
     <string name="label_history">History</string>
     <string name="content_description_analysis_card">Analysis card</string>
+    <string name="format_car_name_color">%1$s - %2$s</string>
+    <string name="label_mechanic">Mechanic</string>
 </resources>

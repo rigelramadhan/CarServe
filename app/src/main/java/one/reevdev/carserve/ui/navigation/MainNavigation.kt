@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerWithVehicle
 import one.reevdev.carserve.ui.screen.MainRouter
 import one.reevdev.carserve.ui.screen.home.HomeRouter
 import one.reevdev.carserve.ui.screen.splash.SplashRouter
@@ -24,7 +25,8 @@ fun NavGraphBuilder.homeScreen(
     onMyVehicleClick: () -> Unit,
     onAllAnalysisHistoryClick: () -> Unit,
     onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit,
-    onServiceAdvisorClick: () -> Unit
+    onServiceAdvisorClick: () -> Unit,
+    onRecentCustomerClick: (CustomerWithVehicle) -> Unit
 ) {
     composable<MainRoutes.Home> {
         HomeRouter(
@@ -32,7 +34,8 @@ fun NavGraphBuilder.homeScreen(
             onMyVehicleClick = onMyVehicleClick,
             onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,
             onAnalysisHistoryItemClick = onAnalysisHistoryItemClick,
-            onServiceAdvisorClick = onServiceAdvisorClick
+            onServiceAdvisorClick = onServiceAdvisorClick,
+            onRecentCustomerClick = onRecentCustomerClick
         )
     }
 }

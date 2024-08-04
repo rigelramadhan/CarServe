@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerWithVehicle
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
 
 @Composable
@@ -24,11 +25,12 @@ fun HomeRouter(
     onAllAnalysisHistoryClick: () -> Unit,
     onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit,
     onServiceAdvisorClick: () -> Unit,
+    onRecentCustomerClick: (CustomerWithVehicle) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.getAnalysisHistory()
+        viewModel.getRecentCustomers()
     }
 
     Scaffold(
@@ -46,11 +48,14 @@ fun HomeRouter(
         HomeScreen(
             modifier = Modifier
                 .padding(innerPadding),
+            greeting = "Good morning!",
             analysisHistory = uiState.analysisHistory,
+            recentCustomer = uiState.recentCustomers,
             onServeVisionClick = onServeVisionClick,
             onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,
             onMyVehicleClick = onMyVehicleClick,
-            onAnalysisHistoryItemClick = onAnalysisHistoryItemClick
+            onAnalysisHistoryItemClick = onAnalysisHistoryItemClick,
+            onRecentCustomerClick = onRecentCustomerClick
         )
     }
 }

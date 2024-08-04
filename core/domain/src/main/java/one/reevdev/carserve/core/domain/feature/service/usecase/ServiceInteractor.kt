@@ -29,7 +29,7 @@ class ServiceInteractor @Inject constructor(
         return repository.getServiceHistory().mapFlowData { data ->
             data.map {
                 CustomerWithVehicle(
-                    customerEntity = it.profile.toDomain(),
+                    customer = it.profile.toDomain(),
                     vehicles = it.vehicle.toDomain()
                 )
             }

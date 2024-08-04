@@ -121,7 +121,8 @@ fun MainRouter(
                 onMyVehicleClick = { navController.navigateToVehicle() },
                 onAllAnalysisHistoryClick = { navigateToAnalysisHistory() },
                 onAnalysisHistoryItemClick = { navigateToAnalysisDetail(it) },
-                onServiceAdvisorClick = {navigateToServiceAdvisor() }
+                onServiceAdvisorClick = { navigateToServiceAdvisor() },
+                onRecentCustomerClick = {  }
             )
             vehicleRouter(
                 onAnalyzeVehicle = {

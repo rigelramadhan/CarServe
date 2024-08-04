@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceUseCase
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerWithVehicle
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import javax.inject.Inject
 
@@ -22,9 +23,9 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> by lazy { _uiState }
 
-    fun getAnalysisHistory() {
+    fun getRecentCustomers() {
         viewModelScope.launch {
-            useCase.getServiceHistory()
+            useCase.getRecentCustomerWithVehicle()
                 .catch { throwable ->
                     _uiState.update {
                         it.copy(
@@ -44,7 +45,7 @@ class HomeViewModel @Inject constructor(
                                 state.copy(
                                     loadingState = LoadingState.NotLoading,
                                     errorMessage = null,
-                                    analysisHistory = it.take(3)
+                                    recentCustomers = it.take(5)
                                 )
                             },
                             onFailure = { _, errorMessage ->
@@ -64,4 +65,5 @@ data class HomeUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
     val analysisHistory: List<ServiceAnalysis> = emptyList(),
+    val recentCustomers: List<CustomerWithVehicle> = emptyList(),
 )
