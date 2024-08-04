@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.map
 import one.reevdev.carserve.core.common.data.Result
 import one.reevdev.carserve.core.data.datastore.AuthPreferences
 import one.reevdev.carserve.core.data.datastore.ProfilePreferences
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.Customer
+import one.reevdev.carserve.core.data.feature.profile.datasource.model.CustomerEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,7 +17,7 @@ class ProfileRepositoryImpl @Inject constructor(
     private val authPreferences: AuthPreferences,
 ) : ProfileRepository {
 
-    override fun saveCustomer(param: Customer): Flow<Result<Boolean>> = flow {
+    override fun saveCustomer(param: CustomerEntity): Flow<Result<Boolean>> = flow {
         profilePreferences.run {
             setLastUserName(param.name)
             setLastUserEmail(param.email)
@@ -27,7 +27,7 @@ class ProfileRepositoryImpl @Inject constructor(
         emit(Result.Success(true))
     }
 
-    override fun getLastCustomer(): Flow<Result<Customer>> = flow {
+    override fun getLastCustomer(): Flow<Result<CustomerEntity>> = flow {
         profilePreferences.run {
             combine(
                 getLastUserName(),
@@ -35,14 +35,14 @@ class ProfileRepositoryImpl @Inject constructor(
                 getLastUserPhoneNumber(),
                 getLastUserAddress()
             ) { name, email, phoneNumber, address ->
-                Customer(name, email, phoneNumber, address)
+                CustomerEntity(name, email, phoneNumber, address)
             }.collect {
                 emit(Result.Success(it))
             }
         }
     }
 
-    override fun getCustomerByEmail(email: String): Flow<Result<Customer>> {
+    override fun getCustomerByEmail(email: String): Flow<Result<CustomerEntity>> {
         TODO("Not yet implemented")
     }
 

@@ -7,7 +7,7 @@ import one.reevdev.carserve.core.common.data.emptyString
 
 @Serializable
 @Parcelize
-data class SavedProfile(
+data class Customer(
     val name: String = emptyString(),
     val email: String = emptyString(),
     val phoneNumber: String = emptyString(),

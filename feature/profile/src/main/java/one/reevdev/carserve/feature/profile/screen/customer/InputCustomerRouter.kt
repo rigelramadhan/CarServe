@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
-import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
+import one.reevdev.carserve.core.domain.feature.profile.model.Customer
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
 import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.OutlinedCarseButton
@@ -35,7 +35,7 @@ import one.reevdev.carserve.feature.profile.R
 fun InputCustomerRouter(
     modifier: Modifier = Modifier,
     viewModel: InputProfileViewModel = hiltViewModel(),
-    onSubmit: (SavedProfile) -> Unit,
+    onSubmit: (Customer) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val sheetState = rememberModalBottomSheetState()

@@ -36,9 +36,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import one.reevdev.carserve.core.common.data.toRupiahCurrency
-import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
+import one.reevdev.carserve.core.domain.feature.profile.model.Customer
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
 import one.reevdev.carserve.feature.common.ui.component.LabelText
 import one.reevdev.carserve.feature.common.ui.component.TextWithLabel
@@ -52,8 +52,8 @@ fun ServiceAnalysisScreen(
     modifier: Modifier = Modifier,
     loadingState: LoadingState,
     findings: List<ServiceFinding>? = null,
-    vehicle: Vehicle? = null,
-    profile: SavedProfile? = null,
+    vehicle: CustomerVehicle? = null,
+    profile: Customer? = null,
     recommendedAction: String,
     estimatedPrice: Double,
     image: Bitmap? = null,
@@ -120,8 +120,8 @@ fun ServiceAnalysisScreen(
 
 fun LazyListScope.analysisDetail(
     loadingState: LoadingState,
-    vehicle: Vehicle?,
-    profile: SavedProfile?,
+    vehicle: CustomerVehicle?,
+    profile: Customer?,
     findings: List<ServiceFinding>?,
     recommendedAction: String,
     estimatedPrice: Double,
@@ -350,8 +350,16 @@ private fun ServiceAnalysisPreview() {
                 ServiceFinding("Problem 2", "Solution 2", 0.0),
                 ServiceFinding("Problem 3", "Solution 3", 624500.0),
             ),
-            profile = SavedProfile("John Doe", "john@doe.com", "081311111111", "Jl. Address, West Java, Indonesia"),
-            vehicle = Vehicle(1, "Xenia", "Blue", "MT"),
+            profile = Customer("John Doe", "john@doe.com", "081311111111", "Jl. Address, West Java, Indonesia"),
+            vehicle = CustomerVehicle(
+                policeNo = "AG 2446 NB",
+                ownerEmail = "john@doe.com",
+                carBrand = "Brand 1",
+                carName = "Car Name 1",
+                color = "Color 1",
+                carType = "Car Type 1",
+                transmission = "Transmission"
+            ),
             recommendedAction = "This is the recommended action of the problem",
             estimatedPrice = 244000.0,
             onProceed = {}

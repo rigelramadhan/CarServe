@@ -1,14 +1,14 @@
 package one.reevdev.carserve.core.domain.utils
 
 import one.reevdev.carserve.core.data.feature.auth.datasource.model.LoginParamData
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.Customer
+import one.reevdev.carserve.core.data.feature.profile.datasource.model.CustomerEntity
 import one.reevdev.carserve.core.data.feature.service.datasource.model.Finding
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceParamData
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.CustomerVehicleEntity
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
 import one.reevdev.carserve.core.domain.feature.auth.model.LoginParam
-import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
+import one.reevdev.carserve.core.domain.feature.profile.model.Customer
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
@@ -21,15 +21,17 @@ fun ServiceAnalysisResult.toDomain() = ServiceAnalysis(
     recommendedAction = recommendedAction,
     serviceFindings = findings.map { it.toDomain() },
     totalEstimatedPrice = findings.sumOf { it.estimatedPrice },
-    analysisHtml = analysisHtml
+    analysisHtml = analysisHtml,
+    createDate = createDate
 )
 
 fun ServiceAnalysis.toRequest() = ServiceAnalysisResult(
-    vehicle = vehicle?.toRequest() ?: Vehicle().toRequest(),
-    profile = profile?.toRequest() ?: SavedProfile().toRequest(),
+    vehicle = vehicle?.toEntity() ?: CustomerVehicle().toEntity(),
+    profile = profile?.toRequest() ?: Customer().toRequest(),
     recommendedAction = recommendedAction,
     findings = serviceFindings.map { it.toRequest() },
-    analysisHtml = analysisHtml
+    analysisHtml = analysisHtml,
+    createDate = createDate
 )
 
 fun Finding.toDomain() = ServiceFinding(
@@ -95,14 +97,14 @@ fun LoginParam.toRequest() = LoginParamData(
     password = password
 )
 
-fun SavedProfile.toRequest() = Customer(
+fun Customer.toRequest() = CustomerEntity(
     name = name,
     email = email,
     phoneNumber = phoneNumber,
     address = address
 )
 
-fun Customer.toDomain() = SavedProfile(
+fun CustomerEntity.toDomain() = Customer(
     name = name,
     email = email,
     phoneNumber = phoneNumber,

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.TextWithLabel
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
@@ -23,7 +23,7 @@ import one.reevdev.carserve.feature.service.R
 fun ServiceHistoryItem(
     modifier: Modifier = Modifier,
     customer: String?,
-    vehicle: Vehicle?,
+    vehicle: CustomerVehicle?,
     findingCount: Int,
     onItemClick: () -> Unit,
 ) {
@@ -86,11 +86,14 @@ private fun ServiceHistoryItemPreview() {
     CarServeTheme {
         ServiceHistoryItem(
             customer = "John Doe",
-            vehicle = Vehicle(
-                id = 0,
-                carName = "Daihatsu Terios R AT 2021",
-                color = "Black",
-                transmission = "Automatic"
+            vehicle = CustomerVehicle(
+                policeNo = "AG 2446 NB",
+                ownerEmail = "john@doe.com",
+                carBrand = "Brand 1",
+                carName = "Car Name 1",
+                color = "Color 1",
+                carType = "Car Type 1",
+                transmission = "Transmission"
             ),
             findingCount = 4,
         ) {}

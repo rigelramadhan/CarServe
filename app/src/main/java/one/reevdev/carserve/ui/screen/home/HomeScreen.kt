@@ -15,10 +15,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.R
-import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
+import one.reevdev.carserve.core.domain.feature.profile.model.Customer
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceFinding
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerWithVehicle
 import one.reevdev.carserve.feature.common.ui.component.LabelText
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.component.ServiceHistoryItem
@@ -28,6 +29,7 @@ import one.reevdev.carserve.ui.component.HomeCard
 fun HomeScreen(
     modifier: Modifier = Modifier,
     analysisHistory: List<ServiceAnalysis> = emptyList(),
+    recentCustomer: List<CustomerWithVehicle> = emptyList(),
     onServeVisionClick: () -> Unit,
     onMyVehicleClick: () -> Unit,
     onAllAnalysisHistoryClick: () -> Unit,
@@ -46,13 +48,8 @@ fun HomeScreen(
                 HomeCard(
                     title = stringResource(R.string.title_serve_vision),
                     description = stringResource(R.string.description_serve_vision),
-                    icon = R.drawable.ic_verified_24,
+                    drawable = R.drawable.car_analysis_illustration,
                     onClick = onServeVisionClick
-                )
-                HomeCard(
-                    title = stringResource(R.string.title_my_vehicles),
-                    description = stringResource(R.string.description_my_vehicle),
-                    onClick = onMyVehicleClick
                 )
             }
         }
@@ -97,8 +94,16 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     CarServeTheme {
         val dummyAnalysis = ServiceAnalysis(
-            vehicle = Vehicle(1, "Daihatsu", "Black", "Automatic"),
-            profile = SavedProfile(
+            vehicle = CustomerVehicle(
+                policeNo = "AG 2446 NB",
+                ownerEmail = "john@doe.com",
+                carBrand = "Brand 1",
+                carName = "Car Name 1",
+                color = "Color 1",
+                carType = "Car Type 1",
+                transmission = "Transmission"
+            ),
+            profile = Customer(
                 "John Doe",
                 "johndoe@email.com",
                 "081311048587",

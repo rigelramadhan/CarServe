@@ -1,15 +1,23 @@
 package one.reevdev.carserve.core.data.remote.api.prompt
 
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.Customer
+import one.reevdev.carserve.core.data.feature.profile.datasource.model.CustomerEntity
 import one.reevdev.carserve.core.data.feature.service.datasource.model.Finding
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceAnalysisResult
-import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
+import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.CustomerVehicleEntity
 
 object SampleData {
 
     val serviceResult = ServiceAnalysisResult(
-        vehicle = VehicleEntity(1, carBrand = "Brand 1", carName = "Car Name 1", color = "Color 1", carType = "Car Type 1", transmission = "Transmission"),
-        profile = Customer(
+        vehicle = CustomerVehicleEntity(
+            policeNo = "AG 2446 NB",
+            ownerEmail = "john@doe.com",
+            carBrand = "Brand 1",
+            carName = "Car Name 1",
+            color = "Color 1",
+            carType = "Car Type 1",
+            transmission = "Transmission"
+        ),
+        profile = CustomerEntity(
             "John Doe",
             "john@doe.com",
             "081122114114",
@@ -37,7 +45,8 @@ object SampleData {
             <html>
             test
             </html>
-        """.trimIndent()
+        """.trimIndent(),
+        createDate = "24/08/2023 - 14:00"
     )
 
     val servicesList = """

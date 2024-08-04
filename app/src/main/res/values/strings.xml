@@ -8,8 +8,8 @@
     <string name="image2_description">Cookies</string>
     <string name="image3_description">Cake</string>
     <string name="results_placeholder">(Results will appear here)</string>
-    <string name="title_serve_vision">AI Analysis</string>
-    <string name="description_serve_vision">Check the condition of a vehicle with a capture of an image with AI-driven analysis.</string>
+    <string name="title_serve_vision">Car Service Analysis</string>
+    <string name="description_serve_vision">Analyze car based on symptoms and customer complaints using AI.</string>
     <string name="title_my_vehicles">Recent Vehicles</string>
     <string name="description_my_vehicle">See, manage, and analyze vehicles.</string>
     <string name="home">Home</string>
@@ -22,4 +22,5 @@
     <string name="message_last_analysis">Last %1$s Analysis</string>
     <string name="label_see_all">See All</string>
     <string name="label_history">History</string>
+    <string name="content_description_analysis_card">Analysis card</string>
 </resources>

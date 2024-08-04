@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
-import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
+import one.reevdev.carserve.core.domain.feature.profile.model.Customer
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceParam
 import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceUseCase
@@ -94,7 +94,7 @@ class ServiceAnalysisViewModel @Inject constructor(
         }
     }
 
-    fun setProfile(profile: SavedProfile) {
+    fun setProfile(profile: Customer) {
         _uiState.update {
             val vehicle = it.param.vehicle.copy(
                 ownerEmail = profile.email

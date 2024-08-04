@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -61,7 +62,8 @@ fun LoginScreen(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                modifier = Modifier,
+                modifier = Modifier
+                    .width(264.dp),
                 painter = painterResource(id = R.drawable.login_illustration),
                 contentDescription = stringResource(R.string.content_description_login_illustrator)
             )
