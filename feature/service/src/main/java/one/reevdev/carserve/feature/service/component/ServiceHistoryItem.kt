@@ -1,81 +1,162 @@
 package one.reevdev.carserve.feature.service.component
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Call
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
-import one.reevdev.carserve.feature.common.ui.component.TextWithLabel
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
+import one.reevdev.carserve.feature.common.ui.component.LabelText
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.service.R
 
 @Composable
 fun ServiceHistoryItem(
     modifier: Modifier = Modifier,
-    customer: String?,
-    vehicle: Vehicle?,
+    customerName: String,
+    customerPhoneNo: String,
+    vehicle: CustomerVehicle,
     findingCount: Int,
+    estimatedPrice: String,
     onItemClick: () -> Unit,
+    onPhoneClick: () -> Unit,
 ) {
-    Card(
+    OutlinedCard(
         modifier = modifier
-            .fillMaxWidth()
-            .clickable { onItemClick() },
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        ),
-        shape = RoundedCornerShape(18.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(18.dp),
+        onClick = onItemClick
     ) {
-        vehicle?.run {
-//            Text(text = customer, style = MaterialTheme.typography.titleLarge)
-//            HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
-            CardColumn(
-                modifier = Modifier.padding(8.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        ServiceHistoryItemContent(
+            customerName = customerName,
+            customerPhoneNo = customerPhoneNo,
+            vehicle = vehicle,
+            findingCount = findingCount,
+            estimatedPrice = estimatedPrice,
+            onPhoneClick = onPhoneClick
+        )
+    }
+}
+
+@Composable
+fun ServiceHistoryItemContent(
+    modifier: Modifier = Modifier,
+    customerName: String,
+    customerPhoneNo: String,
+    vehicle: CustomerVehicle,
+    findingCount: Int,
+    estimatedPrice: String,
+    onPhoneClick: () -> Unit,
+) {
+    Column(
+        modifier = modifier
+            .padding(16.dp)
+    ) {
+        vehicle.run {
+            Text(
+                modifier = Modifier,
+                text = "$carBrand $carName",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                modifier = Modifier,
+                text = stringResource(
+                    R.string.format_policeno_color_transmission,
+                    policeNo,
+                    color,
+                    transmission
                 ),
-                padding = 12.dp
+                style = MaterialTheme.typography.bodySmall
+            )
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape),
+                painter = painterResource(id = one.reevdev.carserve.feature.common.R.drawable.placeholder_customer_avatar),
+                contentDescription = null,
+            )
+            Column(
+                Modifier
+                    .padding(start = 16.dp)
+                    .weight(1f)
             ) {
                 Text(
-                    text = stringResource(
-                        R.string.template_vehicle_title,
-                        carName,
-                        color,
-                        transmission
-                    ),
-                    style = MaterialTheme.typography.titleMedium
+                    modifier = Modifier,
+                    text = customerName,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Text(
+                    modifier = Modifier,
+                    text = customerPhoneNo,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        color = MaterialTheme.colorScheme.onSurface.copy(
+                            alpha = 0.5f
+                        )
+                    )
+                )
+            }
+            IconButton(
+                onClick = onPhoneClick,
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Call,
+                    contentDescription = stringResource(R.string.content_description_call_customer)
                 )
             }
         }
-        Column(
+        Row(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(top = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(32.dp)
         ) {
-            customer?.let {
-                TextWithLabel(
-                    modifier = Modifier
-                        .padding(bottom = 12.dp),
-                    label = "Customer Email",
-                    text = customer
+            Column {
+                LabelText(
+                    style = MaterialTheme.typography.bodySmall,
+                    label = stringResource(id = R.string.label_estimated_price)
+                )
+                LabelText(
+                    label = estimatedPrice,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
-            TextWithLabel(
-                modifier = Modifier,
-                label = stringResource(R.string.label_findings),
-                text = stringResource(R.string.message_result_finding_count, findingCount)
-            )
+            Column {
+                LabelText(
+                    style = MaterialTheme.typography.bodySmall,
+                    label = stringResource(id = R.string.label_findings)
+                )
+                LabelText(
+                    label = findingCount.toString(),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
         }
     }
 }
@@ -85,14 +166,20 @@ fun ServiceHistoryItem(
 private fun ServiceHistoryItemPreview() {
     CarServeTheme {
         ServiceHistoryItem(
-            customer = "John Doe",
-            vehicle = Vehicle(
-                id = 0,
-                carName = "Daihatsu Terios R AT 2021",
-                color = "Black",
-                transmission = "Automatic"
+            customerName = "John Doe",
+            customerPhoneNo = "081311119922",
+            vehicle = CustomerVehicle(
+                policeNo = "AG 2446 NB",
+                ownerEmail = "john@doe.com",
+                carBrand = "Brand 1",
+                carName = "Car Name 1",
+                color = "Color 1",
+                carType = "Car Type 1",
+                transmission = "Transmission"
             ),
+            estimatedPrice = "Rp3,500,000.00",
             findingCount = 4,
+            onItemClick = {}
         ) {}
     }
 }

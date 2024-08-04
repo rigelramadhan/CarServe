@@ -64,7 +64,9 @@ fun LoginRouter(
     Scaffold(
         modifier = modifier,
         topBar = {
-            AppHeader(title = stringResource(id = R.string.login))
+            AppHeader(
+                title = stringResource(id = R.string.login)
+            )
         },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)

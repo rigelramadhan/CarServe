@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import one.reevdev.carserve.core.data.feature.profile.datasource.local.database.CustomerDatabase
 import one.reevdev.carserve.core.data.feature.service.datasource.local.database.ServiceAnalysisDatabase
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.database.VehicleDatabase
 import javax.inject.Singleton
@@ -34,4 +35,14 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideServiceAnalysisDao(database: ServiceAnalysisDatabase) = database.dao()
+
+    @Provides
+    @Singleton
+    fun provideCustomerDatabase(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, CustomerDatabase::class.java, "customer.db")
+            .build()
+
+    @Provides
+    @Singleton
+    fun provideCustomerDao(database: CustomerDatabase) = database.dao()
 }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.core.domain.feature.vehicle.usecase.VehicleUseCase
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
@@ -22,9 +23,9 @@ class AddVehicleViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(AddVehicleUiState())
     val uiState: StateFlow<AddVehicleUiState> by lazy { _uiState }
 
-    fun saveVehicle(vehicle: Vehicle) {
+    fun saveVehicle(vehicle: CustomerVehicle) {
         viewModelScope.launch {
-            vehicleUseCase.saveVehicle(vehicle)
+            vehicleUseCase.saveCustomerVehicle(vehicle)
                 .catch {  }
                 .collect {
                     _uiState.update { state ->
@@ -84,9 +85,9 @@ class AddVehicleViewModel @Inject constructor(
         }
     }
 
-    fun getAllSavedVehicle() {
+    fun getAllCustomerVehicle() {
         viewModelScope.launch {
-            vehicleUseCase.getAllSavedVehicles()
+            vehicleUseCase.getAllCustomerVehicles()
                 .catch {  }
                 .collect { result ->
                     _uiState.update { state ->
@@ -100,7 +101,7 @@ class AddVehicleViewModel @Inject constructor(
                                 state.copy(
                                     loadingState = LoadingState.NotLoading,
                                     errorMessage = null,
-                                    savedVehicles = it
+//                                    savedVehicles = it
                                 )
                             },
                             onFailure = { _, message ->
@@ -121,5 +122,5 @@ data class AddVehicleUiState(
     val errorMessage: String? = null,
     val vehicleChoices: List<Vehicle> = emptyList(),
     val vehicleSaved: Boolean = false,
-    val savedVehicles: List<Vehicle> = emptyList(),
+    val lastCustomerVehicle: List<CustomerVehicle> = emptyList()
 )

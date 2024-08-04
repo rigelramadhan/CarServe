@@ -1,14 +1,17 @@
 package one.reevdev.carserve.ui
 
+import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.feature.auth.navigation.authRouter
 import one.reevdev.carserve.feature.auth.navigation.navigateToLogin
+import one.reevdev.carserve.feature.common.utils.dialNumber
 import one.reevdev.carserve.feature.profile.navigation.navigateToServiceAdvisor
 import one.reevdev.carserve.feature.profile.navigation.serviceAdvisorScreen
 import one.reevdev.carserve.feature.service.navigation.analysisDetailScreen
@@ -25,6 +28,7 @@ import one.reevdev.carserve.ui.navigation.splashScreen
 @Composable
 fun CarServeApp(
     modifier: Modifier = Modifier,
+    context: Context = LocalContext.current,
     startDestination: Any = MainRoutes.Splash,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -59,13 +63,16 @@ fun CarServeApp(
                 },
                 onLoggedOut = {
                     navController.navigateToLogin()
-                }
+                },
+                onPhoneClick = { it.dialNumber(context) }
             )
             serviceRouter(
+                onPhoneClick = { it.dialNumber(context) },
                 navigateToHome = { navController.navigateToMain(clearBackStack = true) }
             )
             analysisHistoryScreen(
-                onItemClick = { navController.navigateToAnalysisDetail(it) }
+                onItemClick = { navController.navigateToAnalysisDetail(it) },
+                onPhoneClick = { it.dialNumber(context) }
             )
             analysisDetailScreen()
             serviceAdvisorScreen()

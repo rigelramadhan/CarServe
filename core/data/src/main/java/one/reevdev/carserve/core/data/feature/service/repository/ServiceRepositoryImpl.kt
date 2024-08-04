@@ -35,7 +35,7 @@ class ServiceRepositoryImpl @Inject constructor(
     override fun getServiceHistory(): Flow<Result<List<ServiceAnalysisResult>>> = flow {
         emit(Result.Loading())
         try {
-            emit(Result.Success(localDataSource.getAllServiceAnalysis()))
+            emit(Result.Success(localDataSource.getAllRecentServiceAnalysis()))
         } catch (e: Exception) {
             emit(Result.Error(e))
         }

@@ -8,25 +8,26 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
+import one.reevdev.carserve.feature.common.ui.navigation.Route
 
 sealed class AnalysisRoutes {
     @Serializable
-    data object Camera
+    data object Camera : Route
 
     @Serializable
-    data object Form
+    data object Form : Route
 
     @Serializable
-    data object Analysis
+    data object Analysis : Route
 
     @Serializable
-    data class PdfViewer(val pdfPath: String)
+    data class PdfViewer(val pdfPath: String) : Route
 
     @Serializable
-    data object AnalysisHistory
+    data object AnalysisHistory : Route
 
     @Serializable
-    data class AnalysisDetail(val analysis: ServiceAnalysis)
+    data class AnalysisDetail(val analysis: ServiceAnalysis) : Route
 }
 
 val AnalysisParameterType = object : NavType<ServiceAnalysis>(isNullableAllowed = true) {

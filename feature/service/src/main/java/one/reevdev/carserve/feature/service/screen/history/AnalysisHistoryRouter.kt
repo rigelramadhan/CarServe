@@ -18,6 +18,7 @@ fun AnalysisHistoryRouter(
     modifier: Modifier = Modifier,
     viewModel: AnalysisHistoryViewModel = hiltViewModel(),
     onItemClick: (ServiceAnalysis) -> Unit,
+    onPhoneClick: (String) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -35,7 +36,8 @@ fun AnalysisHistoryRouter(
             modifier = Modifier
                 .padding(innerPadding),
             analysisHistory = uiState.analysisHistory,
-            onItemClick = onItemClick
+            onItemClick = onItemClick,
+            onPhoneClick = onPhoneClick
         )
     }
 }

@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
 import one.reevdev.carserve.vehicle.R
 
@@ -18,7 +18,7 @@ fun VehicleListRouter(
     modifier: Modifier = Modifier,
     viewModel: VehicleListViewModel = hiltViewModel(),
     onAddVehicle: () -> Unit,
-    onAnalyzeVehicle: (Vehicle) -> Unit,
+    onAnalyzeVehicle: (CustomerVehicle) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 

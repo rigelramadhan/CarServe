@@ -2,19 +2,20 @@ package one.reevdev.carserve.core.data.feature.vehicle.repository
 
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
+import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.CustomerVehicleEntity
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
 
 interface VehicleRepository {
 
-    fun saveVehicle(vehicle: VehicleEntity): Flow<Result<Boolean>>
+    fun saveCustomerVehicle(vehicle: CustomerVehicleEntity): Flow<Result<Boolean>>
 
-    fun updateVehicle(vehicle: VehicleEntity): Flow<Result<Boolean>>
+    fun updateCustomerVehicle(vehicle: CustomerVehicleEntity): Flow<Result<Boolean>>
 
-    fun deleteVehicle(id: Int): Flow<Result<Boolean>>
+    fun deleteCustomerVehicle(policeNo: String): Flow<Result<Boolean>>
 
-    fun getVehicleById(id: Int): Flow<Result<VehicleEntity>>
+    fun getCustomerVehicleById(policeNo: String): Flow<Result<CustomerVehicleEntity>>
 
-    fun getAllSavedVehicles(): Flow<Result<List<VehicleEntity>>>
+    fun getAllCustomerVehicles(): Flow<Result<List<CustomerVehicleEntity>>>
 
     fun getAllVehicles(): Flow<Result<List<VehicleEntity>>>
 }

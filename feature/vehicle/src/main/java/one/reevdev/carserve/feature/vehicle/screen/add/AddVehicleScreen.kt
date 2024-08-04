@@ -14,9 +14,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.core.common.data.emptyString
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Transmission
 import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
 import one.reevdev.carserve.feature.common.ui.component.CarseButton
+import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.component.SelectableTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.vehicle.component.SelectableList
@@ -26,11 +28,16 @@ import one.reevdev.carserve.vehicle.R
 fun AddVehicleScreen(
     modifier: Modifier = Modifier,
     vehicleChoice: List<Vehicle> = emptyList(),
-    vehicle: Vehicle = Vehicle(),
-    onProceedForm: (vehicle: Vehicle) -> Unit,
+    vehicle: CustomerVehicle = CustomerVehicle(),
+    onProceedForm: (vehicle: CustomerVehicle) -> Unit,
 ) {
     val transmissionOptions = Transmission.entries.map { it.value }
-    val (selectedTransmission, onTransmissionSelected) = remember { mutableStateOf(transmissionOptions[0]) }
+    val (selectedTransmission, onTransmissionSelected) = remember {
+        mutableStateOf(
+            transmissionOptions[0]
+        )
+    }
+    var policeNo by remember { mutableStateOf(emptyString()) }
     var carName by remember { mutableStateOf(emptyString()) }
     var carType by remember { mutableStateOf(emptyString()) }
     var carBrand by remember { mutableStateOf(emptyString()) }
@@ -42,7 +49,8 @@ fun AddVehicleScreen(
     }
 
     val modelChoices by remember(vehicleChoice, carBrand) {
-        mutableStateOf(vehicleChoice.filter { it.carBrand == carBrand }.map { it.carName }.distinct())
+        mutableStateOf(vehicleChoice.filter { it.carBrand == carBrand }.map { it.carName }
+            .distinct())
     }
 
     val typeChoices by remember(vehicleChoice, carName) {
@@ -55,6 +63,7 @@ fun AddVehicleScreen(
 
     LaunchedEffect(vehicle) {
         vehicle.let { car ->
+            policeNo = car.policeNo
             carBrand = car.carBrand
             carName = car.carName
             carType = car.carType
@@ -68,7 +77,14 @@ fun AddVehicleScreen(
         modifier = modifier
             .padding(16.dp),
     ) {
+        CarseTextField(
+            label = stringResource(R.string.label_police_number),
+            value = policeNo,
+            onValueChange = { policeNo = it.uppercase() }
+        )
         SelectableTextField(
+            modifier = Modifier
+                .padding(top = 16.dp),
             selectedValue = carBrand,
             options = brandChoices,
             label = stringResource(R.string.label_car_brand),
@@ -106,6 +122,7 @@ fun AddVehicleScreen(
                         onTransmissionSelected(Transmission.MANUAL.value)
                         isFieldsDisabled = true
                     }
+
                     carType.contains("AT") -> {
                         onTransmissionSelected(Transmission.AUTOMATIC.value)
                         isFieldsDisabled = true
@@ -140,11 +157,11 @@ fun AddVehicleScreen(
                 .padding(top = 48.dp),
             text = stringResource(R.string.label_proceed),
             enableIf = {
-                carName.isNotBlank() && color.isNotBlank() && selectedTransmission.isNotBlank()
+                carName.isNotBlank() && color.isNotBlank() && selectedTransmission.isNotBlank() && policeNo.isNotBlank()
             },
             onClick = {
-                val submitVehicle = Vehicle(
-                    id = vehicle.id,
+                val submitVehicle = vehicle.copy(
+                    policeNo = policeNo,
                     carBrand = carBrand,
                     carName = carName,
                     carType = carType,
@@ -153,7 +170,7 @@ fun AddVehicleScreen(
                 )
                 onProceedForm(
                     if (submitVehicle == vehicle) submitVehicle
-                    else submitVehicle.copy(id = 0)
+                    else submitVehicle.copy(policeNo = policeNo)
                 )
             }
         )

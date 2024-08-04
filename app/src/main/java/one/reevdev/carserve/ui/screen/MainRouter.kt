@@ -20,14 +20,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import one.reevdev.carserve.R
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.ConfirmationDialog
 import one.reevdev.carserve.feature.common.ui.navigation.Route
+import one.reevdev.carserve.feature.profile.navigation.ProfileRoutes
+import one.reevdev.carserve.feature.profile.navigation.customerListScreen
+import one.reevdev.carserve.feature.service.navigation.analysisHistoryScreen
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
-import one.reevdev.carserve.feature.service.navigation.serviceRouter
-import one.reevdev.carserve.feature.vehicle.navigation.VehicleRoutes
 import one.reevdev.carserve.feature.vehicle.navigation.navigateToVehicle
-import one.reevdev.carserve.feature.vehicle.navigation.vehicleRouter
 import one.reevdev.carserve.ui.component.BottomNavBar
 import one.reevdev.carserve.ui.navigation.MainRoutes
 import one.reevdev.carserve.ui.navigation.homeScreen
@@ -39,11 +39,12 @@ fun MainRouter(
     viewModel: MainViewModel = hiltViewModel(),
     startDestination: Any = MainRoutes.Home,
     navController: NavHostController = rememberNavController(),
-    navigateToService: (Vehicle) -> Unit,
+    navigateToService: (CustomerVehicle) -> Unit,
     navigateToAnalysisDetail: (ServiceAnalysis) -> Unit,
     navigateToAnalysisHistory: () -> Unit,
     navigateToServiceAdvisor: () -> Unit,
     onLoggedOut: () -> Unit,
+    onPhoneClick: (String) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -59,15 +60,15 @@ fun MainRouter(
             ),
 
             BottomNavBarData(
-                route = { navigateToAnalysisHistory() },
+                route = AnalysisRoutes.AnalysisHistory,
                 label = R.string.label_history,
                 icon = R.drawable.ic_history_24
             ),
 
             BottomNavBarData(
-                route = VehicleRoutes.Vehicle,
-                label = R.string.label_my_vehicle,
-                icon = R.drawable.ic_airport_shuttle_24
+                route = ProfileRoutes.CustomerList,
+                label = R.string.label_customers,
+                icon = R.drawable.ic_person_book_24
             ),
 
             BottomNavBarData(
@@ -117,19 +118,18 @@ fun MainRouter(
             startDestination = startDestination
         ) {
             homeScreen(
-                onServeVisionClick = { navigateToService(Vehicle()) },
+                onServeVisionClick = { navigateToService(CustomerVehicle()) },
                 onMyVehicleClick = { navController.navigateToVehicle() },
                 onAllAnalysisHistoryClick = { navigateToAnalysisHistory() },
                 onAnalysisHistoryItemClick = { navigateToAnalysisDetail(it) },
-                onServiceAdvisorClick = {navigateToServiceAdvisor() }
+                onServiceAdvisorClick = { navigateToServiceAdvisor() },
+                onPhoneClick = onPhoneClick
             )
-            vehicleRouter(
-                onAnalyzeVehicle = {
-                    selectedItem = 1
-                    navigateToService(it)
-                }
+            analysisHistoryScreen(
+                onItemClick = { navigateToAnalysisDetail(it) },
+                onPhoneClick = onPhoneClick
             )
-            serviceRouter(AnalysisRoutes.AnalysisHistory) {}
+            customerListScreen(onCustomerClick = onPhoneClick)
         }
     }
 

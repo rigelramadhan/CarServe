@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
 import one.reevdev.carserve.feature.vehicle.component.ChooseVehicleBottomSheet
 import one.reevdev.carserve.vehicle.R
@@ -27,17 +27,17 @@ fun AddVehicleRouter(
     modifier: Modifier = Modifier,
     shouldShowCarOptions: Boolean = false,
     viewModel: AddVehicleViewModel = hiltViewModel(),
-    onSubmitVehicle: (vehicle: Vehicle) -> Unit,
+    onSubmitVehicle: (vehicle: CustomerVehicle) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var vehicle by remember { mutableStateOf(Vehicle()) }
+    var vehicle by remember { mutableStateOf(CustomerVehicle()) }
 
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
     var showBottomSheet by remember { mutableStateOf(shouldShowCarOptions) }
 
     LaunchedEffect(key1 = Unit) {
-        if (shouldShowCarOptions) viewModel.getAllSavedVehicle()
+        if (shouldShowCarOptions) viewModel.getAllCustomerVehicle()
         viewModel.getAllVehicle()
     }
 
@@ -63,7 +63,7 @@ fun AddVehicleRouter(
         if (showBottomSheet) {
             ChooseVehicleBottomSheet(
                 sheetState = sheetState,
-                vehicleList = uiState.savedVehicles,
+                vehicleList = uiState.lastCustomerVehicle,
                 onDismiss = { showBottomSheet = false }
             ) { chosenVehicle ->
                 scope.launch { sheetState.hide() }.invokeOnCompletion {
@@ -71,7 +71,7 @@ fun AddVehicleRouter(
                         showBottomSheet = false
                     }
                 }
-                vehicle = chosenVehicle ?: Vehicle()
+                vehicle = chosenVehicle ?: CustomerVehicle()
             }
         }
     }

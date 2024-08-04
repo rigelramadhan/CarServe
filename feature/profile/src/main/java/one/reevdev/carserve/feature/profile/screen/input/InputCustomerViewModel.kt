@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.screen.customer
+package one.reevdev.carserve.feature.profile.screen.input
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
-import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
+import one.reevdev.carserve.core.domain.feature.profile.model.Customer
 import one.reevdev.carserve.core.domain.feature.profile.usecase.ProfileUseCase
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import javax.inject.Inject
@@ -21,9 +21,9 @@ class InputProfileViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(InputProfileUiState())
     val uiState: StateFlow<InputProfileUiState> by lazy { _uiState }
 
-    fun saveLastProfileData(param: SavedProfile) {
+    fun saveLastProfileData(param: Customer) {
         viewModelScope.launch {
-            profileUseCase.saveLastProfileData(param)
+            profileUseCase.saveCustomer(param)
                 .collect {
                     _uiState.update { state ->
                         it.handleResource(
@@ -50,9 +50,9 @@ class InputProfileViewModel @Inject constructor(
         }
     }
 
-    fun getLastProfileData() {
+    fun getAllCustomers() {
         viewModelScope.launch {
-            profileUseCase.getLastProfileData()
+            profileUseCase.getAllCustomers()
                 .collect {
                     _uiState.update { state ->
                         it.handleResource(
@@ -65,13 +65,7 @@ class InputProfileViewModel @Inject constructor(
                                 state.copy(
                                     loadingState = LoadingState.NotLoading,
                                     errorMessage = null,
-                                    param = SavedProfile(
-                                        name = data.name,
-                                        email = data.email,
-                                        phoneNumber = data.phoneNumber,
-                                        address = data.address
-                                    ),
-                                    isPrefilled = data != SavedProfile()
+                                    customersChoice = data
                                 )
                             },
                             onFailure = { _, errorMessage ->
@@ -110,9 +104,15 @@ class InputProfileViewModel @Inject constructor(
         }
     }
 
+    fun setPrefilledData(customer: Customer) {
+        _uiState.update {
+            it.copy(param = customer, isPrefilled = true)
+        }
+    }
+
     fun removePrefilledData() {
         _uiState.update {
-            it.copy(param = SavedProfile(), isPrefilled = false)
+            it.copy(param = Customer(), isPrefilled = false)
         }
     }
 }
@@ -120,6 +120,7 @@ class InputProfileViewModel @Inject constructor(
 data class InputProfileUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
-    val param: SavedProfile = SavedProfile(),
+    val param: Customer = Customer(),
+    val customersChoice: List<Customer> = emptyList(),
     val isPrefilled: Boolean = false,
 )

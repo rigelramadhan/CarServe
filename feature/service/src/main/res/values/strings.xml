@@ -28,4 +28,8 @@
     <string name="label_findings">Findings</string>
     <string name="message_result_finding_count">This analysis results in <b>%1$s findings</b>.</string>
     <string name="title_analysis_history">Analysis History</string>
+    <string name="format_policeno_color_transmission">%1$s - %2$s - %3$s</string>
+    <string name="content_description_call_customer">Call customer</string>
+    <string name="label_estimated_price">Estimated Price</string>
+    <string name="message_symptoms_complaints">What are the symptoms? Are there any complaints?</string>
 </resources>

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.core.domain.feature.vehicle.usecase.VehicleUseCase
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class VehicleListViewModel @Inject constructor(
 
     fun getAllVehicle() {
         viewModelScope.launch {
-            useCase.getAllSavedVehicles()
+            useCase.getAllCustomerVehicles()
                 .catch {  }
                 .collect { result ->
                     _uiState.update { state ->
@@ -53,9 +53,9 @@ class VehicleListViewModel @Inject constructor(
         }
     }
 
-    fun deleteVehicle(id: Int) {
+    fun deleteVehicle(policeNo: String) {
         viewModelScope.launch {
-            useCase.deleteVehicle(id)
+            useCase.deleteCustomerVehicle(policeNo)
                 .catch { }
                 .collect {
                     _uiState.update { state ->
@@ -88,5 +88,5 @@ class VehicleListViewModel @Inject constructor(
 data class VehicleListUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
-    val vehicles: List<Vehicle> = emptyList(),
+    val vehicles: List<CustomerVehicle> = emptyList(),
 )

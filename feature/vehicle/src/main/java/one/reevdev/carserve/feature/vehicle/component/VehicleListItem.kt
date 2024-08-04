@@ -17,17 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 
 @Composable
 fun VehicleListItem(
     modifier: Modifier = Modifier,
     title: String? = null,
-    vehicleList: List<Vehicle>,
+    vehicleList: List<CustomerVehicle>,
     contentAbove: (LazyListScope) -> Unit = {},
     contentBelow: (LazyListScope) -> Unit = {},
-    onChooseOption: (Vehicle?) -> Unit,
+    onChooseOption: (CustomerVehicle?) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier
@@ -62,8 +62,8 @@ fun VehicleListItem(
 @Composable
 fun VehicleItem(
     modifier: Modifier = Modifier,
-    vehicle: Vehicle,
-    onChooseVehicle: (Vehicle) -> Unit,
+    vehicle: CustomerVehicle,
+    onChooseVehicle: (CustomerVehicle) -> Unit,
 ) {
     ElevatedCard(
         modifier = modifier
@@ -105,10 +105,10 @@ private fun VehicleListItemPreview() {
     CarServeTheme {
         VehicleListItem(
             vehicleList = listOf(
-                Vehicle(1, "Daihatsu", "Terios", "Daihatsu Terios 2022", "White", "Automatic"),
-                Vehicle(1, "Daihatsu", "Terios", "Daihatsu Xenia 2022", "Black", "Manual"),
-                Vehicle(1, "Daihatsu", "Terios", "Daihatsu Sigra 2022", "Red", "Manual"),
-                Vehicle(1, "Daihatsu", "Terios", "Daihatsu Agya 2022", "White", "Automatic"),
+                CustomerVehicle("1", "Daihatsu", "Terios", "Daihatsu Terios 2022", "White", "Automatic"),
+                CustomerVehicle("1", "Daihatsu", "Terios", "Daihatsu Xenia 2022", "Black", "Manual"),
+                CustomerVehicle("1", "Daihatsu", "Terios", "Daihatsu Sigra 2022", "Red", "Manual"),
+                CustomerVehicle("1", "Daihatsu", "Terios", "Daihatsu Agya 2022", "White", "Automatic"),
             ),
             onChooseOption = {
 
