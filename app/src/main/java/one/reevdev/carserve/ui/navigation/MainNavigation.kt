@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.ui.screen.MainRouter
 import one.reevdev.carserve.ui.screen.home.HomeRouter
 import one.reevdev.carserve.ui.screen.splash.SplashRouter
@@ -24,7 +24,8 @@ fun NavGraphBuilder.homeScreen(
     onMyVehicleClick: () -> Unit,
     onAllAnalysisHistoryClick: () -> Unit,
     onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit,
-    onServiceAdvisorClick: () -> Unit
+    onServiceAdvisorClick: () -> Unit,
+    onPhoneClick: (String) -> Unit,
 ) {
     composable<MainRoutes.Home> {
         HomeRouter(
@@ -32,7 +33,8 @@ fun NavGraphBuilder.homeScreen(
             onMyVehicleClick = onMyVehicleClick,
             onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,
             onAnalysisHistoryItemClick = onAnalysisHistoryItemClick,
-            onServiceAdvisorClick = onServiceAdvisorClick
+            onServiceAdvisorClick = onServiceAdvisorClick,
+            onPhoneClick = onPhoneClick
         )
     }
 }
@@ -57,11 +59,12 @@ fun NavController.navigateToMain(clearBackStack: Boolean = false) {
 }
 
 fun NavGraphBuilder.mainRouter(
-    navigateToService: (Vehicle) -> Unit,
+    navigateToService: (CustomerVehicle) -> Unit,
     navigateToServiceHistory: () -> Unit,
     navigateToServiceDetail: (ServiceAnalysis) -> Unit,
     navigateToServiceAdvisor: () -> Unit,
-    onLoggedOut: () -> Unit
+    onLoggedOut: () -> Unit,
+    onPhoneClick: (String) -> Unit,
 ) {
     composable<MainRoutes.Main> {
         MainRouter(
@@ -70,6 +73,7 @@ fun NavGraphBuilder.mainRouter(
             navigateToAnalysisDetail = navigateToServiceDetail,
             navigateToServiceAdvisor = navigateToServiceAdvisor,
             onLoggedOut = onLoggedOut,
+            onPhoneClick = onPhoneClick
         )
     }
 }

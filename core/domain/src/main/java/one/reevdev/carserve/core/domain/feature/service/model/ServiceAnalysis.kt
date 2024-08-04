@@ -4,18 +4,19 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import one.reevdev.carserve.core.common.data.emptyString
-import one.reevdev.carserve.core.domain.feature.profile.model.SavedProfile
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.profile.model.Customer
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 
 @Serializable
 @Parcelize
 data class ServiceAnalysis(
-    val vehicle: Vehicle? = null,
-    val profile: SavedProfile? = null,
+    val vehicle: CustomerVehicle = CustomerVehicle(),
+    val profile: Customer = Customer(),
     val recommendedAction: String = emptyString(),
     val serviceFindings: List<ServiceFinding> = emptyList(),
     val totalEstimatedPrice: Double = 0.0,
     val analysisHtml: String = emptyString(),
+    val createDate: String = emptyString(),
 ) : Parcelable
 
 @Serializable

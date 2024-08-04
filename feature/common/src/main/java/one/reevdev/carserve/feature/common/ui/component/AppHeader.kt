@@ -29,6 +29,7 @@ fun AppHeader(
     title: String? = null,
     hasBackButton: Boolean = false,
     isTransparent: Boolean = false,
+    background: Color = MaterialTheme.colorScheme.surface,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     val backPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
@@ -41,6 +42,7 @@ fun AppHeader(
         )
     } else {
         TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = background,
             titleContentColor = MaterialTheme.colorScheme.primary,
             navigationIconContentColor = MaterialTheme.colorScheme.primary,
             actionIconContentColor = MaterialTheme.colorScheme.primary,

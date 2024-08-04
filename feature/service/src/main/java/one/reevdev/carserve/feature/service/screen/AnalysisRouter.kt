@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.LoadingDialog
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import one.reevdev.carserve.feature.profile.navigation.inputCustomerScreen
@@ -37,8 +37,9 @@ fun AnalysisRouter(
     modifier: Modifier = Modifier,
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
     startDestination: Any = AnalysisRoutes.Camera,
-    initVehicle: Vehicle? = null,
+    initVehicle: CustomerVehicle? = null,
     navController: NavHostController = rememberNavController(),
+    onPhoneClick: (String) -> Unit,
     navigateToHome: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -100,6 +101,7 @@ fun AnalysisRouter(
             )
             analysisScreen(
                 viewModel = viewModel,
+                onPhoneClick = onPhoneClick,
                 onProceed = { navigateToHome() },
                 navigateToPdfViewer = { path -> navController.navigateToPdfViewer(path) }
             )

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import one.reevdev.carserve.core.common.data.toRupiahCurrency
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.feature.service.component.ServiceHistoryItem
 
@@ -15,6 +16,7 @@ fun AnalysisHistoryScreen(
     modifier: Modifier = Modifier,
     analysisHistory: List<ServiceAnalysis>,
     onItemClick: (ServiceAnalysis) -> Unit,
+    onPhoneClick: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -24,11 +26,16 @@ fun AnalysisHistoryScreen(
         items(analysisHistory) { analysis ->
             with(analysis) {
                 ServiceHistoryItem(
-                    customer = profile?.email,
+                    customerName = profile.email,
+                    customerPhoneNo = profile.phoneNumber,
                     vehicle = vehicle,
                     findingCount = analysisHistory.size,
+                    estimatedPrice = analysis.totalEstimatedPrice.toRupiahCurrency(),
                     onItemClick = {
                         onItemClick(analysis)
+                    },
+                    onPhoneClick = {
+                        onPhoneClick(analysis.profile.phoneNumber)
                     }
                 )
             }

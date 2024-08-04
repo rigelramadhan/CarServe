@@ -1,15 +1,20 @@
-package one.reevdev.carserve.feature.profile.screen.customer
+package one.reevdev.carserve.feature.profile.screen.input
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,6 +53,22 @@ fun InputProfileScreen(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
+                    Row(
+                        modifier = Modifier
+                            .padding(vertical = 16.dp)
+                    ) {
+                        Image(
+                            modifier = Modifier
+                                .padding(start = 4.dp)
+                                .width(120.dp),
+                            painter = painterResource(id = R.drawable.shake_hands_illustration),
+                            contentDescription = null
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 16.dp),
+                            text = stringResource(R.string.message_know_customer)
+                        )
+                    }
                     CarseTextField(
                         modifier = Modifier.fillMaxWidth(),
                         label = stringResource(R.string.label_name),
@@ -78,7 +99,7 @@ fun InputProfileScreen(
                     )
                 }
             }
-            
+
             item {
                 CarseButton(
                     modifier = Modifier

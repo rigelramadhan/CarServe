@@ -33,8 +33,8 @@ private val lightScheme = lightColorScheme(
     onError = onErrorLight,
     errorContainer = errorContainerLight,
     onErrorContainer = onErrorContainerLight,
-    background = backgroundLight,
-    onBackground = onBackgroundLight,
+    background = surfaceLight,
+    onBackground = onSurfaceLight,
     surface = surfaceLight,
     onSurface = onSurfaceLight,
     surfaceVariant = surfaceVariantLight,
@@ -260,7 +260,7 @@ val unspecified_scheme = ColorFamily(
 fun CarServeTheme(
     darkTheme: Boolean = false,
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -269,8 +269,8 @@ fun CarServeTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> mediumContrastDarkColorScheme
-        else -> mediumContrastLightColorScheme
+        darkTheme -> darkScheme
+        else -> lightScheme
     }
 
     val view = LocalView.current

@@ -6,11 +6,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisParameterType
 import one.reevdev.carserve.feature.service.navigation.routes.AnalysisRoutes
+import one.reevdev.carserve.feature.service.navigation.routes.CustomerVehicleParameterType
 import one.reevdev.carserve.feature.service.navigation.routes.ServiceRoutes
-import one.reevdev.carserve.feature.service.navigation.routes.VehicleParameterType
 import one.reevdev.carserve.feature.service.screen.AnalysisRouter
 import one.reevdev.carserve.feature.service.screen.ServiceAnalysisViewModel
 import one.reevdev.carserve.feature.service.screen.analysis.ServiceAnalysisRouter
@@ -63,33 +63,37 @@ fun NavController.navigateToAnalysis() {
 
 fun NavGraphBuilder.analysisScreen(
     viewModel: ServiceAnalysisViewModel,
+    onPhoneClick: (String) -> Unit,
     onProceed: () -> Unit,
     navigateToPdfViewer: (String) -> Unit,
 ) {
     composable<AnalysisRoutes.Analysis> {
         ServiceAnalysisRouter(
             viewModel = viewModel,
+            onPhoneClick = onPhoneClick,
             onProceed = onProceed,
             navigateToPdfViewer = navigateToPdfViewer
         )
     }
 }
 
-fun NavController.navigateToService(initialVehicle: Vehicle = Vehicle()) {
+fun NavController.navigateToService(initialVehicle: CustomerVehicle = CustomerVehicle()) {
     navigate(ServiceRoutes.Service(initialVehicle))
 }
 
 fun NavGraphBuilder.serviceRouter(
     startDestination: Any = AnalysisRoutes.Camera,
+    onPhoneClick: (String) -> Unit,
     navigateToHome: () -> Unit,
 ) {
     composable<ServiceRoutes.Service>(
-        typeMap = mapOf(typeOf<Vehicle>() to VehicleParameterType)
+        typeMap = mapOf(typeOf<CustomerVehicle>() to CustomerVehicleParameterType)
     ) {
         val initVehicle = it.toRoute<ServiceRoutes.Service>().initVehicle
         AnalysisRouter(
             startDestination = startDestination,
             navigateToHome = navigateToHome,
+            onPhoneClick = onPhoneClick,
             initVehicle = initVehicle
         )
     }
@@ -110,9 +114,12 @@ fun NavController.navigateToAnalysisHistory() {
     navigate(AnalysisRoutes.AnalysisHistory)
 }
 
-fun NavGraphBuilder.analysisHistoryScreen(onItemClick: (ServiceAnalysis) -> Unit) {
+fun NavGraphBuilder.analysisHistoryScreen(
+    onItemClick: (ServiceAnalysis) -> Unit,
+    onPhoneClick: (String) -> Unit,
+) {
     composable<AnalysisRoutes.AnalysisHistory> {
-        AnalysisHistoryRouter(onItemClick = onItemClick)
+        AnalysisHistoryRouter(onItemClick = onItemClick, onPhoneClick = onPhoneClick)
     }
 }
 

@@ -1,21 +1,28 @@
 package one.reevdev.carserve.core.data.feature.vehicle.datasource.local
 
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.database.VehicleDao
-import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
+import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.CustomerVehicleEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class VehicleLocalDataSource @Inject constructor(
-    private val vehicleDao: VehicleDao
+    private val vehicleDao: VehicleDao,
 ) {
-    suspend fun insertVehicle(vehicleEntity: VehicleEntity) = vehicleDao.insertVehicle(vehicleEntity)
 
-    suspend fun getAllVehicle(): List<VehicleEntity> = vehicleDao.getAllVehicle()
+    suspend fun insertCustomerVehicle(customerVehicleEntity: CustomerVehicleEntity) =
+        vehicleDao.insertCustomerVehicle(customerVehicleEntity)
 
-    suspend fun getVehicleById(id: Int) = vehicleDao.getVehicleById(id)
+    suspend fun getAllCustomerVehicle(): List<CustomerVehicleEntity> =
+        vehicleDao.getAllCustomerVehicle()
 
-    suspend fun deleteVehicleById(id: Int) = vehicleDao.deleteVehicleById(id)
+    suspend fun getCustomerVehicleByPoliceNo(policeNo: String) =
+        vehicleDao.getCustomerVehicleByPoliceNo(policeNo)
 
-    suspend fun updateVehicle(vehicleEntity: VehicleEntity) = vehicleDao.updateVehicle(vehicleEntity)
+    suspend fun deleteCustomerVehicleByPoliceNo(policeNo: String) =
+        vehicleDao.deleteCustomerVehicleByPoliceNo(policeNo)
+
+    suspend fun updateCustomerVehicle(customerVehicleEntity: CustomerVehicleEntity) =
+        vehicleDao.updateCustomerVehicle(customerVehicleEntity)
+
 }

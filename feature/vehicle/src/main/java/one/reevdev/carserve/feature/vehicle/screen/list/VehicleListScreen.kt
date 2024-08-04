@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.feature.common.ui.component.ConfirmationDialog
 import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
 import one.reevdev.carserve.feature.vehicle.component.VehicleListItem
@@ -26,12 +26,12 @@ import one.reevdev.carserve.vehicle.R
 @Composable
 fun VehicleListScreen(
     modifier: Modifier = Modifier,
-    vehicles: List<Vehicle> = emptyList(),
+    vehicles: List<CustomerVehicle> = emptyList(),
     onAddVehicle: () -> Unit,
-    onVehicleDelete: (id: Int) -> Unit,
-    onAnalyzeVehicle: (Vehicle) -> Unit,
+    onVehicleDelete: (policeNo: String) -> Unit,
+    onAnalyzeVehicle: (CustomerVehicle) -> Unit,
 ) {
-    var confirmationDialogData by remember { mutableStateOf<Vehicle?>(null) }
+    var confirmationDialogData by remember { mutableStateOf<CustomerVehicle?>(null) }
 
     Box(modifier = modifier.fillMaxSize()) {
         if (vehicles.isNotEmpty()) {
@@ -74,7 +74,7 @@ fun VehicleListScreen(
             ),
             negativeButtonText = stringResource(R.string.action_delete),
             onNegativeAction = {
-                onVehicleDelete(id)
+                onVehicleDelete(policeNo)
                 confirmationDialogData = null
             },
             positiveButtonText = stringResource(R.string.action_analyze),

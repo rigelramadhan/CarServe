@@ -1,8 +1,8 @@
 package one.reevdev.carserve.core.data.remote.api.prompt
 
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.local.LastSavedProfile
+import one.reevdev.carserve.core.data.feature.profile.datasource.local.entity.CustomerEntity
 import one.reevdev.carserve.core.data.feature.service.datasource.model.AvailableService
-import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
+import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.CustomerVehicleEntity
 
 object InstructionPrompt {
 
@@ -15,13 +15,14 @@ object InstructionPrompt {
     fun analyzeCar(
         symptoms: String,
         problem: String,
-        profile: LastSavedProfile,
-        vehicle: VehicleEntity,
+        profile: CustomerEntity,
+        vehicle: CustomerVehicleEntity,
         availableService: List<AvailableService>
     ) = """
         I have this image and symptoms taken and I want you to analyze it with these points:
         1. The findings (can be more than 1, each consists of the problem, solution, and estimated price)
         2. The recommended action generally
+        3. createDate format is "dd/MM/yyyy - HH:mm" with the time this analysis result is created
         
         Always pick the solution from this list if any:
         ${availableService.ifEmpty { SampleData.servicesList }}
@@ -30,6 +31,7 @@ object InstructionPrompt {
         based on the given symptoms and general problem.
         
         Here's the car information.
+        Car Police No: ${vehicle.policeNo}
         Car brand: ${vehicle.carBrand}
         Car name: ${vehicle.carName}
         Car type: ${vehicle.carType}
