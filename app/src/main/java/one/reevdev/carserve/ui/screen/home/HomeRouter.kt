@@ -69,7 +69,7 @@ fun HomeRouter(
         HomeScreen(
             modifier = Modifier
                 .padding(innerPadding),
-            greeting = "Good morning!",
+            greeting = uiState.greeting,
             recentCustomer = uiState.recentCustomers,
             onServeVisionClick = onServeVisionClick,
             onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,

@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +29,7 @@ import one.reevdev.carserve.feature.common.ui.component.CarseButton
 import one.reevdev.carserve.feature.common.ui.component.CarseTextField
 import one.reevdev.carserve.feature.common.ui.theme.CarServeTheme
 import one.reevdev.carserve.feature.common.utils.isValidEmail
+import one.reevdev.carserve.feature.common.R as CommonRes
 
 @Composable
 fun LoginScreen(
@@ -61,12 +63,28 @@ fun LoginScreen(
                 ),
             contentAlignment = Alignment.Center
         ) {
-            Image(
-                modifier = Modifier
-                    .width(264.dp),
-                painter = painterResource(id = R.drawable.login_illustration),
-                contentDescription = stringResource(R.string.content_description_login_illustrator)
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .width(120.dp),
+                    painter = painterResource(id = CommonRes.drawable.ic_carse_logo),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Image(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .width(264.dp),
+                    painter = painterResource(id = R.drawable.login_illustration),
+                    contentDescription = stringResource(R.string.content_description_login_illustrator)
+                )
+                Text(
+                    modifier = Modifier,
+                    text = "Car service companion app for mechanics."
+                )
+            }
         }
         Column(
             modifier = Modifier
