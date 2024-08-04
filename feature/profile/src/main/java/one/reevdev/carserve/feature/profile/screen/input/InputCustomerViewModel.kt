@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.screen.customer
+package one.reevdev.carserve.feature.profile.screen.input
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +23,7 @@ class InputProfileViewModel @Inject constructor(
 
     fun saveLastProfileData(param: Customer) {
         viewModelScope.launch {
-            profileUseCase.saveLastProfileData(param)
+            profileUseCase.saveCustomer(param)
                 .collect {
                     _uiState.update { state ->
                         it.handleResource(
@@ -50,9 +50,9 @@ class InputProfileViewModel @Inject constructor(
         }
     }
 
-    fun getLastProfileData() {
+    fun getAllCustomers() {
         viewModelScope.launch {
-            profileUseCase.getLastProfileData()
+            profileUseCase.getAllCustomers()
                 .collect {
                     _uiState.update { state ->
                         it.handleResource(
@@ -65,13 +65,7 @@ class InputProfileViewModel @Inject constructor(
                                 state.copy(
                                     loadingState = LoadingState.NotLoading,
                                     errorMessage = null,
-                                    param = Customer(
-                                        name = data.name,
-                                        email = data.email,
-                                        phoneNumber = data.phoneNumber,
-                                        address = data.address
-                                    ),
-                                    isPrefilled = data != Customer()
+                                    customersChoice = data
                                 )
                             },
                             onFailure = { _, errorMessage ->
@@ -110,6 +104,12 @@ class InputProfileViewModel @Inject constructor(
         }
     }
 
+    fun setPrefilledData(customer: Customer) {
+        _uiState.update {
+            it.copy(param = customer, isPrefilled = true)
+        }
+    }
+
     fun removePrefilledData() {
         _uiState.update {
             it.copy(param = Customer(), isPrefilled = false)
@@ -121,5 +121,6 @@ data class InputProfileUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
     val param: Customer = Customer(),
+    val customersChoice: List<Customer> = emptyList(),
     val isPrefilled: Boolean = false,
 )

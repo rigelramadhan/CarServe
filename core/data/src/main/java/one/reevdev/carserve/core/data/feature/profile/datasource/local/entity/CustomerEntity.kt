@@ -1,4 +1,4 @@
-package one.reevdev.carserve.core.data.feature.profile.datasource.model
+package one.reevdev.carserve.core.data.feature.profile.datasource.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

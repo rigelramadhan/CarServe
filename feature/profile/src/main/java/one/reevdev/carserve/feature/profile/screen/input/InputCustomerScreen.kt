@@ -1,4 +1,4 @@
-package one.reevdev.carserve.feature.profile.screen.customer
+package one.reevdev.carserve.feature.profile.screen.input
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

@@ -1,51 +1,42 @@
-package one.reevdev.carserve.ui.screen.home
+package one.reevdev.carserve.feature.profile.screen.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.common.data.handleResource
-import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
-import one.reevdev.carserve.core.domain.feature.service.usecase.ServiceUseCase
-import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerWithVehicle
+import one.reevdev.carserve.core.domain.feature.profile.model.Customer
+import one.reevdev.carserve.core.domain.feature.profile.usecase.ProfileUseCase
 import one.reevdev.carserve.feature.common.ui.state.LoadingState
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val useCase: ServiceUseCase
+class CustomerListViewModel @Inject constructor(
+    private val profileUseCase: ProfileUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState: StateFlow<HomeUiState> by lazy { _uiState }
+    private val _uiState = MutableStateFlow(CustomerListUiState())
+    val uiState: StateFlow<CustomerListUiState> by lazy { _uiState }
 
-    fun getRecentCustomers() {
+    fun getAllCustomers() {
         viewModelScope.launch {
-            useCase.getRecentCustomerWithVehicle()
-                .catch { throwable ->
-                    _uiState.update {
-                        it.copy(
-                            errorMessage = throwable.localizedMessage
-                        )
-                    }
-                }
-                .collect { result ->
+            profileUseCase.getAllCustomers()
+                .collect {
                     _uiState.update { state ->
-                        result.handleResource(
+                        it.handleResource(
                             onLoading = {
                                 state.copy(
                                     loadingState = LoadingState.DefaultLoading
                                 )
                             },
-                            onSuccess = {
+                            onSuccess = { data ->
                                 state.copy(
                                     loadingState = LoadingState.NotLoading,
                                     errorMessage = null,
-                                    recentCustomers = it.distinct().take(5)
+                                    customers = data
                                 )
                             },
                             onFailure = { _, errorMessage ->
@@ -61,9 +52,8 @@ class HomeViewModel @Inject constructor(
     }
 }
 
-data class HomeUiState(
+data class CustomerListUiState(
     val loadingState: LoadingState = LoadingState.NotLoading,
     val errorMessage: String? = null,
-    val analysisHistory: List<ServiceAnalysis> = emptyList(),
-    val recentCustomers: List<CustomerWithVehicle> = emptyList(),
+    val customers: List<Customer> = emptyList(),
 )

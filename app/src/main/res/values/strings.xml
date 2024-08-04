@@ -25,4 +25,5 @@
     <string name="content_description_analysis_card">Analysis card</string>
     <string name="format_car_name_color">%1$s - %2$s</string>
     <string name="label_mechanic">Mechanic</string>
+    <string name="label_customers">Customers</string>
 </resources>

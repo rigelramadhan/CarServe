@@ -5,7 +5,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
 import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
-import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerWithVehicle
 import one.reevdev.carserve.ui.screen.MainRouter
 import one.reevdev.carserve.ui.screen.home.HomeRouter
 import one.reevdev.carserve.ui.screen.splash.SplashRouter
@@ -26,7 +25,7 @@ fun NavGraphBuilder.homeScreen(
     onAllAnalysisHistoryClick: () -> Unit,
     onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit,
     onServiceAdvisorClick: () -> Unit,
-    onRecentCustomerClick: (CustomerWithVehicle) -> Unit
+    onPhoneClick: (String) -> Unit,
 ) {
     composable<MainRoutes.Home> {
         HomeRouter(
@@ -35,7 +34,7 @@ fun NavGraphBuilder.homeScreen(
             onAllAnalysisHistoryClick = onAllAnalysisHistoryClick,
             onAnalysisHistoryItemClick = onAnalysisHistoryItemClick,
             onServiceAdvisorClick = onServiceAdvisorClick,
-            onRecentCustomerClick = onRecentCustomerClick
+            onPhoneClick = onPhoneClick
         )
     }
 }
@@ -64,7 +63,8 @@ fun NavGraphBuilder.mainRouter(
     navigateToServiceHistory: () -> Unit,
     navigateToServiceDetail: (ServiceAnalysis) -> Unit,
     navigateToServiceAdvisor: () -> Unit,
-    onLoggedOut: () -> Unit
+    onLoggedOut: () -> Unit,
+    onPhoneClick: (String) -> Unit,
 ) {
     composable<MainRoutes.Main> {
         MainRouter(
@@ -73,6 +73,7 @@ fun NavGraphBuilder.mainRouter(
             navigateToAnalysisDetail = navigateToServiceDetail,
             navigateToServiceAdvisor = navigateToServiceAdvisor,
             onLoggedOut = onLoggedOut,
+            onPhoneClick = onPhoneClick
         )
     }
 }

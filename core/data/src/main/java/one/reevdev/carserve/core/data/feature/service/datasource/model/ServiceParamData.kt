@@ -1,7 +1,7 @@
 package one.reevdev.carserve.core.data.feature.service.datasource.model
 
 import android.graphics.Bitmap
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.CustomerEntity
+import one.reevdev.carserve.core.data.feature.profile.datasource.local.entity.CustomerEntity
 import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.CustomerVehicleEntity
 
 data class ServiceParamData(

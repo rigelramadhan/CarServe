@@ -48,94 +48,114 @@ fun ServiceHistoryItem(
         shape = RoundedCornerShape(18.dp),
         onClick = onItemClick
     ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-        ) {
-            vehicle.run {
+        ServiceHistoryItemContent(
+            customerName = customerName,
+            customerPhoneNo = customerPhoneNo,
+            vehicle = vehicle,
+            findingCount = findingCount,
+            estimatedPrice = estimatedPrice,
+            onPhoneClick = onPhoneClick
+        )
+    }
+}
+
+@Composable
+fun ServiceHistoryItemContent(
+    modifier: Modifier = Modifier,
+    customerName: String,
+    customerPhoneNo: String,
+    vehicle: CustomerVehicle,
+    findingCount: Int,
+    estimatedPrice: String,
+    onPhoneClick: () -> Unit,
+) {
+    Column(
+        modifier = modifier
+            .padding(16.dp)
+    ) {
+        vehicle.run {
+            Text(
+                modifier = Modifier,
+                text = "$carBrand $carName",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                modifier = Modifier,
+                text = stringResource(
+                    R.string.format_policeno_color_transmission,
+                    policeNo,
+                    color,
+                    transmission
+                ),
+                style = MaterialTheme.typography.bodySmall
+            )
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape),
+                painter = painterResource(id = one.reevdev.carserve.feature.common.R.drawable.placeholder_customer_avatar),
+                contentDescription = null,
+            )
+            Column(
+                Modifier
+                    .padding(start = 16.dp)
+                    .weight(1f)
+            ) {
                 Text(
                     modifier = Modifier,
-                    text = carName,
-                    style = MaterialTheme.typography.titleMedium
+                    text = customerName,
+                    style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
                     modifier = Modifier,
-                    text = stringResource(
-                        R.string.format_policeno_color_transmission,
-                        policeNo,
-                        color,
-                        transmission
-                    ),
-                    style = MaterialTheme.typography.bodySmall
-                )
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape),
-                    painter = painterResource(id = one.reevdev.carserve.feature.common.R.drawable.placeholder_customer_avatar),
-                    contentDescription = null,
-                )
-                Column(
-                    Modifier
-                        .padding(start = 16.dp)
-                        .weight(1f)
-                ) {
-                    Text(
-                        modifier = Modifier,
-                        text = customerName,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        modifier = Modifier,
-                        text = customerPhoneNo,
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            color = MaterialTheme.colorScheme.onSurface.copy(
-                                alpha = 0.5f
-                            )
+                    text = customerPhoneNo,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        color = MaterialTheme.colorScheme.onSurface.copy(
+                            alpha = 0.5f
                         )
                     )
-                }
-                IconButton(
-                    onClick = onPhoneClick,
-                    colors = IconButtonDefaults.filledIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Call,
-                        contentDescription = stringResource(R.string.content_description_call_customer)
-                    )
-                }
+                )
             }
-            Row(
-                modifier = Modifier
-                    .padding(top = 12.dp),
-                horizontalArrangement = Arrangement.spacedBy(32.dp)
+            IconButton(
+                onClick = onPhoneClick,
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             ) {
-                Column {
-                    LabelText(
-                        style = MaterialTheme.typography.bodySmall,
-                        label = stringResource(id = R.string.label_estimated_price)
-                    )
-                    LabelText(
-                        label = estimatedPrice,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-                Column {
-                    LabelText(
-                        style = MaterialTheme.typography.bodySmall,
-                        label = stringResource(id = R.string.label_findings)
-                    )
-                    LabelText(
-                        label = findingCount.toString(),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
+                Icon(
+                    imageVector = Icons.Outlined.Call,
+                    contentDescription = stringResource(R.string.content_description_call_customer)
+                )
+            }
+        }
+        Row(
+            modifier = Modifier
+                .padding(top = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(32.dp)
+        ) {
+            Column {
+                LabelText(
+                    style = MaterialTheme.typography.bodySmall,
+                    label = stringResource(id = R.string.label_estimated_price)
+                )
+                LabelText(
+                    label = estimatedPrice,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+            Column {
+                LabelText(
+                    style = MaterialTheme.typography.bodySmall,
+                    label = stringResource(id = R.string.label_findings)
+                )
+                LabelText(
+                    label = findingCount.toString(),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
             }
         }
     }

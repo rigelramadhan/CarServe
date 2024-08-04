@@ -10,15 +10,20 @@ import one.reevdev.carserve.core.domain.utils.toRequest
 import javax.inject.Inject
 
 class ProfileInteractor @Inject constructor(
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
 ) : ProfileUseCase {
 
-    override fun saveLastProfileData(param: Customer): Flow<Result<Boolean>> {
+    override fun saveCustomer(param: Customer): Flow<Result<Boolean>> {
         return profileRepository.saveCustomer(param.toRequest())
     }
 
-    override fun getLastProfileData(): Flow<Result<Customer>> {
-        return profileRepository.getLastCustomer().mapFlowData {
+    override fun getAllCustomers(): Flow<Result<List<Customer>>> {
+        return profileRepository.getAllCustomers()
+            .mapFlowData { result -> result.map { it.toDomain() } }
+    }
+
+    override fun getCustomerByEmail(email: String): Flow<Result<Customer>> {
+        return profileRepository.getCustomerByEmail(email).mapFlowData {
             it.toDomain()
         }
     }

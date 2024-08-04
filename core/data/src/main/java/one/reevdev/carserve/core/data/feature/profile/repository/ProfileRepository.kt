@@ -2,13 +2,13 @@ package one.reevdev.carserve.core.data.feature.profile.repository
 
 import kotlinx.coroutines.flow.Flow
 import one.reevdev.carserve.core.common.data.Result
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.CustomerEntity
+import one.reevdev.carserve.core.data.feature.profile.datasource.local.entity.CustomerEntity
 
 interface ProfileRepository {
 
     fun saveCustomer(param: CustomerEntity) : Flow<Result<Boolean>>
 
-    fun getLastCustomer() : Flow<Result<CustomerEntity>>
+    fun getAllCustomers() : Flow<Result<List<CustomerEntity>>>
 
     fun getCustomerByEmail(email: String) : Flow<Result<CustomerEntity>>
 

@@ -1,7 +1,7 @@
 package one.reevdev.carserve.core.domain.utils
 
 import one.reevdev.carserve.core.data.feature.auth.datasource.model.LoginParamData
-import one.reevdev.carserve.core.data.feature.profile.datasource.model.CustomerEntity
+import one.reevdev.carserve.core.data.feature.profile.datasource.local.entity.CustomerEntity
 import one.reevdev.carserve.core.data.feature.service.datasource.model.Finding
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceAnalysisResult
 import one.reevdev.carserve.core.data.feature.service.datasource.model.ServiceParamData

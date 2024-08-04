@@ -1,6 +1,7 @@
 package one.reevdev.carserve.ui.screen.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,12 +39,10 @@ import one.reevdev.carserve.feature.common.R as CommonRes
 fun HomeScreen(
     modifier: Modifier = Modifier,
     greeting: String,
-    analysisHistory: List<ServiceAnalysis> = emptyList(),
     recentCustomer: List<CustomerWithVehicle> = emptyList(),
     onServeVisionClick: () -> Unit,
-    onMyVehicleClick: () -> Unit,
     onAllAnalysisHistoryClick: () -> Unit,
-    onAnalysisHistoryItemClick: (ServiceAnalysis) -> Unit,
+    onServiceAdvisorClick: () -> Unit,
     onRecentCustomerClick: (CustomerWithVehicle) -> Unit,
 ) {
     Column(
@@ -52,6 +52,8 @@ fun HomeScreen(
         Row(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .clickable { onServiceAdvisorClick() }
         ) {
             Image(
                 modifier = Modifier
@@ -80,7 +82,7 @@ fun HomeScreen(
         HomeCard(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .padding(bottom = 16.dp, top = 42.dp),
+                .padding(bottom = 16.dp, top = 36.dp),
             title = stringResource(R.string.title_serve_vision),
             description = stringResource(R.string.description_serve_vision),
             drawable = R.drawable.car_analysis_illustration,
@@ -181,11 +183,6 @@ private fun HomeScreenPreview() {
         HomeScreen(
             greeting = "Good morning, John!",
             onServeVisionClick = {},
-            analysisHistory = listOf(
-                dummyAnalysis,
-                dummyAnalysis,
-                dummyAnalysis,
-            ),
             recentCustomer = listOf(
                 recentCustomer,
                 recentCustomer,
@@ -193,8 +190,7 @@ private fun HomeScreenPreview() {
                 recentCustomer,
             ),
             onAllAnalysisHistoryClick = {},
-            onAnalysisHistoryItemClick = {},
-            onMyVehicleClick = {},
+            onServiceAdvisorClick = {},
             onRecentCustomerClick = {}
         )
     }

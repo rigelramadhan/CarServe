@@ -64,6 +64,13 @@ fun CarServeApp(
                 },
                 onLoggedOut = {
                     navController.navigateToLogin()
+                },
+                onPhoneClick = {
+                    context.startActivity(
+                        Intent(Intent.ACTION_DIAL).apply {
+                            data = Uri.parse("tel:$it")
+                        }
+                    )
                 }
             )
             serviceRouter(
