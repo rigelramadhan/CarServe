@@ -110,9 +110,12 @@ fun NavController.navigateToAnalysisHistory() {
     navigate(AnalysisRoutes.AnalysisHistory)
 }
 
-fun NavGraphBuilder.analysisHistoryScreen(onItemClick: (ServiceAnalysis) -> Unit) {
+fun NavGraphBuilder.analysisHistoryScreen(
+    onItemClick: (ServiceAnalysis) -> Unit,
+    onPhoneClick: (String) -> Unit,
+) {
     composable<AnalysisRoutes.AnalysisHistory> {
-        AnalysisHistoryRouter(onItemClick = onItemClick)
+        AnalysisHistoryRouter(onItemClick = onItemClick, onPhoneClick = onPhoneClick)
     }
 }
 

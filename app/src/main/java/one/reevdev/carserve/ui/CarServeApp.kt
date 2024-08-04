@@ -1,9 +1,13 @@
 package one.reevdev.carserve.ui
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -25,6 +29,7 @@ import one.reevdev.carserve.ui.navigation.splashScreen
 @Composable
 fun CarServeApp(
     modifier: Modifier = Modifier,
+    context: Context = LocalContext.current,
     startDestination: Any = MainRoutes.Splash,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -65,7 +70,14 @@ fun CarServeApp(
                 navigateToHome = { navController.navigateToMain(clearBackStack = true) }
             )
             analysisHistoryScreen(
-                onItemClick = { navController.navigateToAnalysisDetail(it) }
+                onItemClick = { navController.navigateToAnalysisDetail(it) },
+                onPhoneClick = {
+                    context.startActivity(
+                        Intent(Intent.ACTION_DIAL).apply {
+                            data = Uri.parse("tel:$it")
+                        }
+                    )
+                }
             )
             analysisDetailScreen()
             serviceAdvisorScreen()

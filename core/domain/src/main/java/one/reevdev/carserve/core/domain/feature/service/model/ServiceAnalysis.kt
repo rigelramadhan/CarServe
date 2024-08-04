@@ -10,8 +10,8 @@ import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 @Serializable
 @Parcelize
 data class ServiceAnalysis(
-    val vehicle: CustomerVehicle? = null,
-    val profile: Customer? = null,
+    val vehicle: CustomerVehicle = CustomerVehicle(),
+    val profile: Customer = Customer(),
     val recommendedAction: String = emptyString(),
     val serviceFindings: List<ServiceFinding> = emptyList(),
     val totalEstimatedPrice: Double = 0.0,
