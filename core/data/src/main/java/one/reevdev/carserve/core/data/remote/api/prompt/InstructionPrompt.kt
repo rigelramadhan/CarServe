@@ -2,7 +2,7 @@ package one.reevdev.carserve.core.data.remote.api.prompt
 
 import one.reevdev.carserve.core.data.feature.profile.datasource.model.Customer
 import one.reevdev.carserve.core.data.feature.service.datasource.model.AvailableService
-import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.VehicleEntity
+import one.reevdev.carserve.core.data.feature.vehicle.datasource.local.model.CustomerVehicleEntity
 
 object InstructionPrompt {
 
@@ -16,7 +16,7 @@ object InstructionPrompt {
         symptoms: String,
         problem: String,
         profile: Customer,
-        vehicle: VehicleEntity,
+        vehicle: CustomerVehicleEntity,
         availableService: List<AvailableService>
     ) = """
         I have this image and symptoms taken and I want you to analyze it with these points:
@@ -30,6 +30,7 @@ object InstructionPrompt {
         based on the given symptoms and general problem.
         
         Here's the car information.
+        Car Police No: ${vehicle.policeNo}
         Car brand: ${vehicle.carBrand}
         Car name: ${vehicle.carName}
         Car type: ${vehicle.carType}

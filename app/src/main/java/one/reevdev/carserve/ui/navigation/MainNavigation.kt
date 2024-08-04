@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
-import one.reevdev.carserve.core.domain.feature.vehicle.model.Vehicle
+import one.reevdev.carserve.core.domain.feature.vehicle.model.CustomerVehicle
 import one.reevdev.carserve.ui.screen.MainRouter
 import one.reevdev.carserve.ui.screen.home.HomeRouter
 import one.reevdev.carserve.ui.screen.splash.SplashRouter
@@ -57,7 +57,7 @@ fun NavController.navigateToMain(clearBackStack: Boolean = false) {
 }
 
 fun NavGraphBuilder.mainRouter(
-    navigateToService: (Vehicle) -> Unit,
+    navigateToService: (CustomerVehicle) -> Unit,
     navigateToServiceHistory: () -> Unit,
     navigateToServiceDetail: (ServiceAnalysis) -> Unit,
     navigateToServiceAdvisor: () -> Unit,

@@ -47,7 +47,7 @@ fun ServiceFinding.toRequest() = Finding(
 fun ServiceParam.toRequest() = ServiceParamData(
     symptoms = symptoms,
     generalProblem = generalProblem,
-    vehicle = vehicle.toRequest(),
+    vehicle = vehicle.toEntity(),
     profile = profile.toRequest(),
     photo = photo
 )
