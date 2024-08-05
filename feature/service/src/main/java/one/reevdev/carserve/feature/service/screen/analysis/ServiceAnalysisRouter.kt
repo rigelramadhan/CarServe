@@ -22,6 +22,7 @@ fun ServiceAnalysisRouter(
     viewModel: ServiceAnalysisViewModel = hiltViewModel(),
     context: Context = LocalContext.current,
     onPhoneClick: (String) -> Unit,
+    onBookService: () -> Unit,
     onProceed: () -> Unit,
     navigateToPdfViewer: (String) -> Unit,
 ) {
@@ -50,6 +51,7 @@ fun ServiceAnalysisRouter(
             estimatedPrice = uiState.serviceAnalysis.totalEstimatedPrice,
             image = uiState.param.photo,
             onPhoneClick = onPhoneClick,
+            onBookService = onBookService,
             onProceed = onProceed,
             onExportPdf = {
                 if (uiState.serviceAnalysis.analysisHtml.isNotBlank()) {

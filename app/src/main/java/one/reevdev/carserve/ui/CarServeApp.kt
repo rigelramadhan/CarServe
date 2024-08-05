@@ -9,8 +9,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import one.reevdev.carserve.R
 import one.reevdev.carserve.feature.auth.navigation.authRouter
 import one.reevdev.carserve.feature.auth.navigation.navigateToLogin
+import one.reevdev.carserve.feature.common.ui.navigation.navigateToSuccessScreen
+import one.reevdev.carserve.feature.common.ui.navigation.successScreen
 import one.reevdev.carserve.feature.common.utils.dialNumber
 import one.reevdev.carserve.feature.profile.navigation.navigateToServiceAdvisor
 import one.reevdev.carserve.feature.profile.navigation.serviceAdvisorScreen
@@ -67,6 +70,11 @@ fun CarServeApp(
                 onPhoneClick = { it.dialNumber(context) }
             )
             serviceRouter(
+                onBookService = {
+                    navController.navigateToSuccessScreen(
+                        context.getString(R.string.message_service_booked_successfully)
+                    )
+                },
                 onPhoneClick = { it.dialNumber(context) },
                 navigateToHome = { navController.navigateToMain(clearBackStack = true) }
             )
@@ -76,6 +84,7 @@ fun CarServeApp(
             )
             analysisDetailScreen()
             serviceAdvisorScreen()
+            successScreen { navController.navigateToMain(clearBackStack = true) }
         }
     }
 }

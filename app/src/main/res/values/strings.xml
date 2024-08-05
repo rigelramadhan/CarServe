@@ -27,4 +27,5 @@
     <string name="label_mechanic">Mechanic</string>
     <string name="label_customers">Customers</string>
     <string name="message_no_customer_or_analysis">You have no recent customer or analysis.</string>
+    <string name="message_service_booked_successfully">Service booked successfully!</string>
 </resources>

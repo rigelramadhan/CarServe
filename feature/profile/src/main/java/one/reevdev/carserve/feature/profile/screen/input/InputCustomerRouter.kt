@@ -1,7 +1,10 @@
 package one.reevdev.carserve.feature.profile.screen.input
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -13,11 +16,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.launch
 import one.reevdev.carserve.core.domain.feature.profile.model.Customer
 import one.reevdev.carserve.feature.common.ui.component.AppHeader
 import one.reevdev.carserve.feature.profile.R
+import one.reevdev.carserve.feature.profile.component.CustomerItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,12 +39,6 @@ fun InputCustomerRouter(
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getAllCustomers()
-    }
-
-    LaunchedEffect(key1 = uiState.isPrefilled) {
-        if (uiState.isPrefilled) {
-            showBottomSheet = true
-        }
     }
 
     Scaffold(
@@ -60,10 +60,39 @@ fun InputCustomerRouter(
             phoneNumber = uiState.param.phoneNumber,
             onPhoneNumberValueChange = { viewModel.setPhoneNumber(it) },
             address = uiState.param.address,
+            onCustomerSelectClick = {
+                showBottomSheet = true
+            },
             onAddressValueChange = { viewModel.setAddress(it) }
         ) {
             viewModel.saveLastProfileData(uiState.param)
             onSubmit(uiState.param)
+        }
+
+        if (showBottomSheet) {
+            ModalBottomSheet(
+                onDismissRequest = {
+                    showBottomSheet = false
+                },
+                sheetState = sheetState
+            ) {
+                LazyColumn(Modifier.padding(bottom = 32.dp)) {
+                    items(uiState.customersChoice) {
+                        CustomerItem(
+                            customer = it,
+                            isPhoneActionVisible = false,
+                            onClick = {
+                                viewModel.setPrefilledData(it)
+                                scope.launch { sheetState.hide() }.invokeOnCompletion {
+                                    if (!sheetState.isVisible) {
+                                        showBottomSheet = false
+                                    }
+                                }
+                            }
+                        )
+                    }
+                }
+            }
         }
     }
 }

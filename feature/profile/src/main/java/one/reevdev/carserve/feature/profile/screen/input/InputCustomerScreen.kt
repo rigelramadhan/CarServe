@@ -8,8 +8,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.People
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,6 +45,7 @@ fun InputProfileScreen(
     onPhoneNumberValueChange: (String) -> Unit,
     address: String,
     onAddressValueChange: (String) -> Unit,
+    onCustomerSelectClick: () -> Unit,
     onSubmit: () -> Unit,
 ) {
     Box(
@@ -69,12 +77,26 @@ fun InputProfileScreen(
                             text = stringResource(R.string.message_know_customer)
                         )
                     }
-                    CarseTextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        label = stringResource(R.string.label_name),
-                        value = name,
-                        onValueChange = onNameValueChange
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        CarseTextField(
+                            modifier = Modifier.weight(1f),
+                            label = stringResource(R.string.label_name),
+                            value = name,
+                            onValueChange = onNameValueChange
+                        )
+                        IconButton(
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .size(42.dp),
+                            onClick = onCustomerSelectClick,
+                            colors = IconButtonDefaults.filledIconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        ) {
+                            Icon(imageVector = Icons.Outlined.People, contentDescription = null)
+                        }
+                    }
                     CarseTextField(
                         modifier = Modifier.fillMaxWidth(),
                         label = stringResource(R.string.label_email),
@@ -131,6 +153,7 @@ private fun InputProfileScreenPreview() {
             onPhoneNumberValueChange = {},
             address = "",
             onAddressValueChange = {},
+            onCustomerSelectClick = {}
         ) {
 
         }

@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">CarServe</string>
     <string name="content_description_app_logo">App logo</string>
+    <string name="action_proceed">Proceed</string>
 </resources>
