@@ -1,6 +1,7 @@
 package one.reevdev.carserve.feature.profile.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -25,11 +26,14 @@ import one.reevdev.carserve.core.domain.feature.profile.model.Customer
 fun CustomerItem(
     modifier: Modifier = Modifier,
     customer: Customer,
-    onClick: (String) -> Unit
+    isPhoneActionVisible: Boolean = true,
+    onPhoneClick: (String) -> Unit = {},
+    onClick: () -> Unit = {},
 ) {
     Row(
         modifier = modifier
             .padding(16.dp)
+            .clickable { onClick() }
     ) {
         Image(
             modifier = Modifier
@@ -67,23 +71,24 @@ fun CustomerItem(
                 )
             )
         }
-        IconButton(
-            onClick = { onClick(customer.phoneNumber) },
-            colors = IconButtonDefaults.filledIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Call,
-                contentDescription = null
-            )
-        }
+        if (isPhoneActionVisible)
+            IconButton(
+                onClick = { onPhoneClick(customer.phoneNumber) },
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Call,
+                    contentDescription = null
+                )
+            }
     }
 }
 
 @Preview
 @Composable
 private fun CustomerItemPreview() {
-    
+
 }

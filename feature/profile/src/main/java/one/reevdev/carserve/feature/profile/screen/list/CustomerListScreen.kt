@@ -27,7 +27,7 @@ fun CustomerListScreen(
     ) {
         if (customers.isNotEmpty())
             items(customers) { customer ->
-                CustomerItem(customer = customer, onClick = onClick)
+                CustomerItem(customer = customer, onPhoneClick = onClick)
             }
         else
             item {
