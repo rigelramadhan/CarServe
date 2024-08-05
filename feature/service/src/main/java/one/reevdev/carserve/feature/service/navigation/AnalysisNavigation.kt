@@ -64,6 +64,7 @@ fun NavController.navigateToAnalysis() {
 fun NavGraphBuilder.analysisScreen(
     viewModel: ServiceAnalysisViewModel,
     onPhoneClick: (String) -> Unit,
+    onBookService: () -> Unit,
     onProceed: () -> Unit,
     navigateToPdfViewer: (String) -> Unit,
 ) {
@@ -71,6 +72,7 @@ fun NavGraphBuilder.analysisScreen(
         ServiceAnalysisRouter(
             viewModel = viewModel,
             onPhoneClick = onPhoneClick,
+            onBookService = onBookService,
             onProceed = onProceed,
             navigateToPdfViewer = navigateToPdfViewer
         )
@@ -84,6 +86,7 @@ fun NavController.navigateToService(initialVehicle: CustomerVehicle = CustomerVe
 fun NavGraphBuilder.serviceRouter(
     startDestination: Any = AnalysisRoutes.Camera,
     onPhoneClick: (String) -> Unit,
+    onBookService: () -> Unit,
     navigateToHome: () -> Unit,
 ) {
     composable<ServiceRoutes.Service>(
@@ -94,6 +97,7 @@ fun NavGraphBuilder.serviceRouter(
             startDestination = startDestination,
             navigateToHome = navigateToHome,
             onPhoneClick = onPhoneClick,
+            onBookService = onBookService,
             initVehicle = initVehicle
         )
     }

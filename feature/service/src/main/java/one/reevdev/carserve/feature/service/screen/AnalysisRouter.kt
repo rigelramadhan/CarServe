@@ -39,6 +39,7 @@ fun AnalysisRouter(
     startDestination: Any = AnalysisRoutes.Camera,
     initVehicle: CustomerVehicle? = null,
     navController: NavHostController = rememberNavController(),
+    onBookService: () -> Unit,
     onPhoneClick: (String) -> Unit,
     navigateToHome: () -> Unit,
 ) {
@@ -102,6 +103,7 @@ fun AnalysisRouter(
             analysisScreen(
                 viewModel = viewModel,
                 onPhoneClick = onPhoneClick,
+                onBookService = onBookService,
                 onProceed = { navigateToHome() },
                 navigateToPdfViewer = { path -> navController.navigateToPdfViewer(path) }
             )

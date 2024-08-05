@@ -65,6 +65,7 @@ fun ServiceAnalysisScreen(
     estimatedPrice: Double,
     image: Bitmap? = null,
     onPhoneClick: (String) -> Unit,
+    onBookService: () -> Unit,
     onProceed: () -> Unit,
     onExportPdf: () -> Unit,
 ) {
@@ -97,30 +98,42 @@ fun ServiceAnalysisScreen(
         )
 
         item {
-            Row(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 24.dp)
-
             ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    OutlinedButton(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = 8.dp),
+                        onClick = onBookService
+                    ) {
+                        Text(text = stringResource(id = R.string.label_book_service))
+                    }
+                    OutlinedButton(
+                        modifier = Modifier,
+                        onClick = onExportPdf
+                    ) {
+                        Icon(
+                            modifier = Modifier.padding(end = 8.dp),
+                            imageVector = Icons.Outlined.PictureAsPdf,
+                            contentDescription = null
+                        )
+                        Text(text = stringResource(R.string.action_export_pdf))
+                    }
+                }
                 Button(
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(end = 8.dp),
+                        .padding(top = 8.dp)
+                        .fillMaxWidth(),
                     onClick = onProceed
                 ) {
                     Text(text = stringResource(id = R.string.label_proceed))
-                }
-                OutlinedButton(
-                    modifier = Modifier,
-                    onClick = onExportPdf
-                ) {
-                    Icon(
-                        modifier = Modifier.padding(end = 8.dp),
-                        imageVector = Icons.Outlined.PictureAsPdf,
-                        contentDescription = null
-                    )
-                    Text(text = stringResource(R.string.action_export_pdf))
                 }
             }
         }
@@ -395,6 +408,7 @@ private fun ServiceAnalysisPreview() {
             recommendedAction = "This is the recommended action of the problem",
             estimatedPrice = 244000.0,
             onPhoneClick = {},
+            onBookService = {},
             onProceed = {}
         ) {
 
@@ -427,6 +441,7 @@ private fun ServiceAnalysisPreview_Empty() {
             recommendedAction = "This is the recommended action of the problem",
             estimatedPrice = 244000.0,
             onPhoneClick = {},
+            onBookService = {},
             onProceed = {}
         ) {
 

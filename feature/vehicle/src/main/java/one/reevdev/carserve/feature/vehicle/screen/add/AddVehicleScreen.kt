@@ -78,6 +78,7 @@ fun AddVehicleScreen(
             .padding(16.dp),
     ) {
         CarseTextField(
+            modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.label_police_number),
             value = policeNo,
             onValueChange = { policeNo = it.uppercase() }

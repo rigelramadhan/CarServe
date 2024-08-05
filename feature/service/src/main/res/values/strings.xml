@@ -32,4 +32,6 @@
     <string name="content_description_call_customer">Call customer</string>
     <string name="label_estimated_price">Estimated Price</string>
     <string name="message_symptoms_complaints">What are the symptoms? Are there any complaints?</string>
+    <string name="message_no_history">No analysis history found.</string>
+    <string name="label_book_service">Book Service</string>
 </resources>

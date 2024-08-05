@@ -2,13 +2,17 @@ package one.reevdev.carserve.feature.service.screen.history
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import one.reevdev.carserve.core.common.data.toRupiahCurrency
 import one.reevdev.carserve.core.domain.feature.service.model.ServiceAnalysis
+import one.reevdev.carserve.feature.common.ui.component.EmptyComponent
+import one.reevdev.carserve.feature.service.R
 import one.reevdev.carserve.feature.service.component.ServiceHistoryItem
 
 @Composable
@@ -23,22 +27,31 @@ fun AnalysisHistoryScreen(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(analysisHistory) { analysis ->
-            with(analysis) {
-                ServiceHistoryItem(
-                    customerName = profile.email,
-                    customerPhoneNo = profile.phoneNumber,
-                    vehicle = vehicle,
-                    findingCount = analysisHistory.size,
-                    estimatedPrice = analysis.totalEstimatedPrice.toRupiahCurrency(),
-                    onItemClick = {
-                        onItemClick(analysis)
-                    },
-                    onPhoneClick = {
-                        onPhoneClick(analysis.profile.phoneNumber)
-                    }
+        if (analysisHistory.isNotEmpty())
+            items(analysisHistory) { analysis ->
+                with(analysis) {
+                    ServiceHistoryItem(
+                        customerName = profile.email,
+                        customerPhoneNo = profile.phoneNumber,
+                        vehicle = vehicle,
+                        findingCount = analysisHistory.size,
+                        estimatedPrice = analysis.totalEstimatedPrice.toRupiahCurrency(),
+                        onItemClick = {
+                            onItemClick(analysis)
+                        },
+                        onPhoneClick = {
+                            onPhoneClick(analysis.profile.phoneNumber)
+                        }
+                    )
+                }
+            }
+        else
+            item {
+                EmptyComponent(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    text = stringResource(R.string.message_no_history)
                 )
             }
-        }
     }
 }

@@ -29,7 +29,7 @@ fun CustomerListRouter(
     Scaffold(
         modifier = modifier,
         topBar = {
-            AppHeader(title = stringResource(R.string.title_customers))
+            AppHeader(title = stringResource(R.string.title_customers), hasBackButton = true)
         }
     ) { innerPadding ->
         CustomerListScreen(
