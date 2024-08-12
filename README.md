@@ -30,6 +30,6 @@ get the API key here: https://ai.google.dev/gemini-api/docs/api-key
 2. Put the required API key and default login credential in the **local.properties** file
 ``` local.properties
 apiKey=[YOUR API KEY]
-testingEmail=test@carserve.com <- default testing login email
+testingEmail=johndoe@carserve.com <- default testing login email
 password=nasigoreng <- default testing login password
 ```
