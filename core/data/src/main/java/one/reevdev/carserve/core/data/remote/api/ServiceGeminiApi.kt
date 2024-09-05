@@ -3,6 +3,7 @@ package one.reevdev.carserve.core.data.remote.api
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.Content
 import com.google.ai.client.generativeai.type.content
+import com.google.ai.client.generativeai.type.generationConfig
 import one.reevdev.carserve.core.common.data.jsonToObject
 import one.reevdev.carserve.core.data.BuildConfig
 import one.reevdev.carserve.core.data.feature.service.datasource.model.AvailableService
@@ -18,19 +19,17 @@ class ServiceGeminiApi @Inject constructor() {
     private val generativeModel: GenerativeModel by lazy {
         GenerativeModel(
             modelName = "gemini-1.5-flash",
-            apiKey = BuildConfig.apiKey
-        )
-    }
-
-    private val chatHistory: MutableList<Content> = mutableListOf()
-
-    init {
-        chatHistory.add(
-            content {
+            apiKey = BuildConfig.apiKey,
+            generationConfig = generationConfig {
+                responseMimeType = "application/json"
+            },
+            systemInstruction = content {
                 text(InstructionPrompt.initializeServiceAnalysisResponse())
             }
         )
     }
+
+    private val chatHistory: MutableList<Content> = mutableListOf()
 
     suspend fun analyzeService(
         param: ServiceParamData,

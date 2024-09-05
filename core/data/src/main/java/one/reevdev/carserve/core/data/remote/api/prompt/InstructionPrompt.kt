@@ -52,8 +52,7 @@ object InstructionPrompt {
         
         Create a thorough, comprehensive, and MAKE SURE TO BE SIGNIFICANTLY EXTENDED analysis in 
         the html format with 2cm margin to fill the analysisHtml data with beautiful but professional 
-        formatting and make the prices with rupiah currency. Make the vehicle information, customer 
-        information, findings, and recommended action in a table format with a relevant description 
+        formatting and make the prices with rupiah currency. Make the findings, and recommended action in a table format with a relevant description 
         above it. Make the html very comprehensive and extended.
     """.trimIndent()
 
